@@ -10259,7 +10259,6 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  background: #e4ebf8;
 }
 body > .section {
   flex-grow: 1;
@@ -10348,12 +10347,12 @@ body > .section {
   padding-bottom: 0 !important;
 }
 .ml-1,
-.mx-1 {
+.mx-1,
+.article-licensing .licensing-meta .icons .icon {
   margin-left: 0.25rem !important;
 }
 .mr-1,
-.mx-1,
-.article-licensing .licensing-meta .icon {
+.mx-1 {
   margin-right: 0.25rem !important;
 }
 .ml-n1,
@@ -10761,30 +10760,19 @@ body > .section {
   border-color: transparent;
 }
 .card {
-  background: #e4ebf8;
   overflow: visible;
-  border-radius: 1rem;
-  box-shadow: 0.2rem 0.2rem 0.4rem #c8d0e7, -0.2rem -0.2rem 0.4rem #fff;
+  border-radius: 0;
 }
-.card,
-.column-right-shadow {
+.card + .card,
+.card + .column-right-shadow {
   margin-top: 1.5rem;
 }
-.card-image {
+.card .card-image {
   overflow: hidden;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-.card-image::before {
-  content: '';
-  z-index: 22;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.media + .media {
+.card .media + .media {
   border: none;
   margin-top: 0;
 }
@@ -10867,6 +10855,10 @@ article.article .content .message.message-immersive {
 article.article .content .message.message-immersive .message-body {
   border: none;
 }
+article.article .article-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
 .rtl {
   direction: rtl;
 }
@@ -10922,7 +10914,7 @@ article.article .content .message.message-immersive .message-body {
 .article-licensing .licensing-title {
   line-height: 1.2;
 }
-.article-licensing .licensing-meta .icon {
+.article-licensing .licensing-meta .icons .icon {
   width: 1.2em;
   height: 1.2em;
   font-size: 1.2em;
@@ -10945,7 +10937,9 @@ a.article-nav-next span {
 }
 .navbar-main {
   box-shadow: none;
-  background: transparent;
+}
+.navbar-main .navbar-container {
+  overflow-x: auto;
 }
 .navbar-main .navbar-menu,
 .navbar-main .navbar-start,
@@ -10954,7 +10948,6 @@ a.article-nav-next span {
   display: flex;
   padding: 0;
   flex-shrink: 0;
-  background: transparent;
 }
 .navbar-main .navbar-menu {
   flex-grow: 1;
@@ -10970,19 +10963,13 @@ a.article-nav-next span {
   margin-left: auto;
 }
 .navbar-main .navbar-item {
-  color: #999;
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
   margin: 1.25rem 0.25rem;
 }
 .navbar-main .navbar-item.is-active {
-  background-color: #ffa500;
-  color: #333;
-}
-.navbar-main .navbar-item:hover {
-  background: transparent;
-  animation: slidein 1s infinite;
+  background-color: transparent;
 }
 @media screen and (max-width: 1087px) {
   .navbar-main .navbar-menu {
@@ -10996,28 +10983,14 @@ a.article-nav-next span {
     margin-left: 0;
   }
 }
-@-moz-keyframes slidein {
-  50% {
-    color: #3273dc;
-  }
-}
-@-webkit-keyframes slidein {
-  50% {
-    color: #3273dc;
-  }
-}
-@-o-keyframes slidein {
-  50% {
-    color: #3273dc;
-  }
-}
-@keyframes slidein {
-  50% {
-    color: #3273dc;
-  }
-}
 .navbar-logo img {
   max-height: 1.75rem;
+}
+@media screen and (min-width: 1088px) {
+  .navbar > .container .navbar-menu,
+  .container > .navbar .navbar-menu {
+    margin-right: 0rem;
+  }
 }
 @media screen and (max-width: 768px) {
   footer.footer .level-start {
@@ -11365,6 +11338,9 @@ figure.highlight .section {
   min-width: inherit;
   border-radius: inherit;
 }
+figure.highlight.foldable div.level-left {
+  cursor: pointer;
+}
 .gist table tr:hover {
   background: transparent;
 }
@@ -11401,6 +11377,42 @@ figure.highlight .section {
   background: $light-grey;
   color: $white-invert;
 }
+.level.is-multiline {
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 768px) {
+  .widget.card#toc {
+    display: none;
+    position: fixed;
+    margin: 1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+  .widget.card#toc .card-content {
+    padding: 0;
+  }
+  .widget.card#toc .menu {
+    padding: 1.5rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  #toc-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background: rgba(0,0,0,0.7);
+  }
+  .widget.card#toc.is-active,
+  #toc-mask.is-active {
+    display: block;
+  }
+}
 .donate {
   position: relative;
 }
@@ -11412,7 +11424,7 @@ figure.highlight .section {
   line-height: 0;
   overflow: hidden;
   box-shadow: none, 0 0 1px rgba(0,0,0,0.1);
-  border-radius: 1rem;
+  border-radius: 0;
 }
 .donate .qrcode img {
   max-width: 280px;
@@ -11516,7 +11528,7 @@ figure.highlight .section {
   outline: none;
   padding: 8px 0;
   line-height: 24px;
-  border-radius: 1rem;
+  border-radius: 0;
   transform: translateY(120px);
   transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
 }
@@ -11531,33 +11543,6 @@ figure.highlight .section {
 }
 .gallery-item .caption {
   color: #848484;
-}
-@media screen and (max-width: 768px) {
-  #toc {
-    display: none;
-    position: fixed;
-    margin: 1rem;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    max-height: calc(100vh - 2rem);
-    overflow-y: auto;
-  }
-  #toc-mask {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 99;
-    background: rgba(0,0,0,0.7);
-  }
-  #toc.is-active,
-  #toc-mask.is-active {
-    display: block;
-  }
 }
 .pace {
   user-select: none;
@@ -11583,6 +11568,9 @@ figure.highlight .section {
   line-height: inherit;
 }
 .MathJax,
+.MathJax_Display,
+.MJXc-display,
+.MathJax_SVG_Display,
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
@@ -11620,7 +11608,7 @@ figure.highlight .section {
   background-color: #000 !important;
 }
 .cc-window.cc-floating {
-  border-radius: 1rem;
+  border-radius: 0;
   box-shadow: none, 0 0 1px rgba(0,0,0,0.1);
 }
 .cc-window.cc-banner {
