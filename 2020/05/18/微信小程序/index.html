@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>微信小程序 - 一些基础 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="为了方便查找和复习，粗略列出一些可能常用到的 标签、标签的属性、标签属性的值、方法、API。具体的还要以官方文档为主  一些标签"><meta property="og:type" content="blog"><meta property="og:title" content="微信小程序 - 一些基础"><meta property="og:url" content="https://smalljerry.cn/2020/05/18/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="为了方便查找和复习，粗略列出一些可能常用到的 标签、标签的属性、标签属性的值、方法、API。具体的还要以官方文档为主  一些标签"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://smalljerry.cn/img/og_image.png"><meta property="article:published_time" content="2020-05-18T11:43:47.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.356Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="移动端"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://smalljerry.cn/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2020/05/18/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"},"headline":"微信小程序 - 一些基础","image":["https://smalljerry.cn/img/og_image.png"],"datePublished":"2020-05-18T11:43:47.000Z","dateModified":"2025-02-22T02:14:47.356Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"为了方便查找和复习，粗略列出一些可能常用到的 标签、标签的属性、标签属性的值、方法、API。具体的还要以官方文档为主  一些标签"}</script><link rel="canonical" href="https://smalljerry.cn/2020/05/18/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-05-18T11:43:47.000Z" title="2020/5/18 19:43:47">2020-05-18</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.356Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">12 分钟读完 (大约1843个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">微信小程序 - 一些基础</h1><div class="content"><blockquote>
+<p>为了方便查找和复习，粗略列出一些可能常用到的 标签、标签的属性、标签属性的值、方法、API。具体的还要以官方文档为主</p>
+</blockquote>
+<h2 id="一些标签"><a href="#一些标签" class="headerlink" title="一些标签"></a>一些标签<span id="more"></span></h2><blockquote>
+<p>下面表示默认值时在 <code>()</code> 里面，表示 Boolean 值时使用 <code>√</code>和 <code>×</code></p>
+</blockquote>
+<ul>
+<li><p><strong>view</strong> 视图容器</p>
+</li>
+<li><p><strong>text</strong> 文本域</p>
+</li>
+<li><p><strong>button</strong> 按钮</p>
+<ul>
+<li>type：按钮类型<ul>
+<li>primary（绿色）</li>
+<li>default（白色）</li>
+<li>warn（红色）</li>
+</ul>
+</li>
+<li>size：按钮大小，（ default 和 mini ）</li>
+</ul>
+</li>
+<li><p><strong>image</strong> 图片</p>
+<ul>
+<li>mode：图片裁剪、缩放的模式（scaleToFill）</li>
+<li>默认宽度：300px，高度：240px</li>
+</ul>
+</li>
+<li><p><strong>form</strong> 表单</p>
+<ul>
+<li>bindsubmit：携带 form 中的数据提交</li>
+</ul>
+</li>
+<li><p><strong>checkbox</strong> 复选框</p>
+</li>
+<li><p><strong>radio</strong> 单选框</p>
+</li>
+<li><p><strong>input</strong> 输入框…这里是单标签，并且标签内部要加入 / 作为结尾</p>
+<ul>
+<li>type 的合法值<ul>
+<li>text：文本输入键盘（默认）</li>
+<li>number：数字输入键盘</li>
+<li>idcard：身份证输入键盘</li>
+<li>digit：带小数点的数字键盘</li>
+</ul>
+</li>
+<li>password：是否是密码类型（×）</li>
+<li>placeholder-style：指定这个东西的样式（placeholder-class，指定样式类）</li>
+<li>bindblur：失去焦点时触发</li>
+</ul>
+</li>
+<li><p><strong>progress</strong> 进度条</p>
+</li>
+<li><p><strong>swiper</strong> 轮播图，子标签<strong>swiper-item</strong></p>
+<ul>
+<li>indicator-dots：是否显示面板知识点 （×）</li>
+<li>indicator-color：指示点颜色 （rgba(0,0,0,.3)）</li>
+<li>indicator-active-color：知识点选中颜色 （#000000）</li>
+<li>autoplay：自动播放 （×）</li>
+<li>current：当前滑块所处的 index（0）</li>
+<li>current-item-id：当前滑块所在的 item-id，不能同时指向 current（String 类型）<ul>
+<li>配合 <code>&lt;swiper-item&gt;</code> 使用，<code>&lt;swiper current-item-id=&quot;b&quot;&gt; &lt;swiper-item item-id=&quot;b&quot;&gt;</code></li>
+</ul>
+</li>
+<li>interval：自动切换时间间隔(ms)，（5000）</li>
+<li>duration：滑块动画时长(ms)，（500）</li>
+<li>circular：是否采用衔接滑动（×）</li>
+<li>vertical：滑动的方向是否为纵向（×）</li>
+<li>bindchange：current 改变时触发的 change 事件</li>
+</ul>
+</li>
+<li><p><strong>include</strong> 代码引用</p>
+<ul>
+<li>src：引用的 <code>wxml</code>位置</li>
+</ul>
+</li>
+<li><p><strong>slider</strong> 表单组件，滑动选取某一个值</p>
+<ul>
+<li>backgroundColor：背景条颜色（ activeColor：已选择的颜色）</li>
+<li>max、min：最大最小值</li>
+<li>step：步长，取值大于 0 且可被 max‘min 整除</li>
+</ul>
+</li>
+<li><p><strong>video</strong>视频播放</p>
+<ul>
+<li>src：你懂得 <a href="%E8%B5%84%E6%BA%90%E5%9C%B0%E5%9D%80">^ ^V^</a></li>
+<li>loop：是否自动播放（×）</li>
+<li>controls：是否默认显示播放控件（√）</li>
+<li>enab-danmu：是否展示弹幕（×）</li>
+<li>danmu-list：弹幕列表</li>
+<li>danmu-btn：是否显示弹幕</li>
+<li>autoplay：自动播放（×）</li>
+<li>poster：视频封面的网络地址，controls 为（×）的时候设置无效</li>
+<li>bindplay / bindpause：触发事件</li>
+</ul>
+</li>
+<li><p><strong>map</strong> 地图相关</p>
+<ul>
+<li>latitude：维度、longitude：经度（Number）</li>
+<li>scale：缩放级别，范围是 5~18（16）（Number）</li>
+<li>marker：标记点、poline：路线、circles：圆（Array）</li>
+<li>show-location：显示带有当先的当前定位点</li>
+<li>bindmarktap：单击标记点时触发，返回 maker 或 id （EventHandle，以下也是）</li>
+<li>bindregionchange：视野发生改变的时侯</li>
+<li>bindtap：单击地图、bindupdate：地图渲染更新完成</li>
+</ul>
+</li>
+<li><p><strong>picker</strong> 从底部弹起滚动选择器</p>
+<ul>
+<li>header-text：选择器标题（仅安卓可用）</li>
+<li>mode：选择器类型<ul>
+<li>selector、multiSelector、time、date、region（省份）</li>
+</ul>
+</li>
+<li>bindcancel：取消选择时触发（eventHandle）</li>
+<li>disable：禁用（false）</li>
+</ul>
+</li>
+<li><p><strong>picker-view</strong> 嵌入的滚动选择器</p>
+</li>
+<li><p><strong>scroll-view</strong> 实现可滚动视图区域</p>
+<ul>
+<li>scroll-x / scroll-y 允许横向/纵向滚动（×）<ul>
+<li>纵向滚动需要在样式中为 scroll-view 设置一个固定高度，否则它会被子元素撑大</li>
+</ul>
+</li>
+<li>scroll-top/scroll-left 设置竖向/横向滚动条的位置（number / string）</li>
+<li>bindscroll 滚动时触发的事件</li>
+</ul>
+</li>
+</ul>
+<h2 id="一些-API"><a href="#一些-API" class="headerlink" title="一些 API"></a>一些 API</h2><ul>
+<li><p><strong>音频 API</strong></p>
+<ul>
+<li><p>创建一个 <strong>InnerAudioContext</strong> 实例</p>
+</li>
+<li><p><code>var audioCtx = wx.createInnerAudioContext() </code> ，audioCtx 是一个实例，也就是一个对象，里面有许多属性和方法</p>
+<ul>
+<li><p>属性：</p>
+<ul>
+<li>src(嘿嘿嘿)、starttime(开始时间)、autoplay(自动播放)、volume(音量)</li>
+<li>duration(音频长度，当前合法 src 的长度)、currentTime(当前时间)、paused(当前是暂停或是停止状态)</li>
+</ul>
+</li>
+<li><p>方法：</p>
+<ul>
+<li><p>play()、pause()、stop()、seek()、destroy()：销毁当前实例</p>
+</li>
+<li><blockquote>
+<p>以下触发的时候，参数都是 callback</p>
+</blockquote>
+</li>
+<li><p>onCanplay(音频进入可播放状态时的事件)</p>
+</li>
+<li><p>onPlay()、onPause()、onStop、onSeek()、onError()、onEnd()：自然播放到结束、onTimeUpdate()：播放进度更新</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>背景音乐 API</strong></p>
+<ul>
+<li>创建一个 <strong>BackgroundAudioManager</strong> 实例对象</li>
+<li><code>var bgm = getBackgroundAudioManager()</code></li>
+<li>在 <strong>app.json</strong> 中添加配置：<code>&quot;requireBackgroundModes&quot;: [&quot;audio&quot;]</code></li>
+</ul>
+</li>
+<li><p><strong>打电话</strong></p>
+</li>
+<li><p><code>wx.makePhoneCall( &#123; phoneNumber: &#39;1311111111&#39; &#125; )</code></p>
+</li>
+<li><p><strong>获取位置</strong></p>
+<ul>
+<li><code>wx.getLocation()</code> 方法获取用户当前的位置</li>
+<li><code>wx.openLocation()</code> 方法显示该位置的地图</li>
+</ul>
+</li>
+<li><p><strong>视频 API (VideoContext)</strong></p>
+<ul>
+<li>wx.createVideoContext() 的一些常用方法<ul>
+<li>play()/pause()/stop()，播放/暂停/停止</li>
+<li>seek(number)：跳转到指定位置</li>
+<li>playbackRate(number)：播放倍速</li>
+<li>requestFullScreen() / exitFullScreen()：全屏/退出全屏</li>
+<li>sendDanmu：发送弹幕</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="一些事件监听"><a href="#一些事件监听" class="headerlink" title="一些事件监听"></a>一些事件监听</h2><ul>
+<li><p><strong>bindtap</strong></p>
+<ul>
+<li><p>表示绑定 <strong>tap</strong> 事件，点击触发</p>
+</li>
+<li><p>通过实践对象 <code>e</code> 可以获取</p>
+<ul>
+<li><em>type</em> ：事件类型</li>
+<li><em>timestamp</em> ：事件生成时的时间戳</li>
+<li><em>target</em> ：触发事件的组件的一些属性值集合</li>
+<li><em>currentTarget</em> ：当前组件的一些属性值集合</li>
+<li><em>detail</em> ：额外的信息</li>
+</ul>
+</li>
+<li><p><em>catch</em> 事件是可以阻止事件冒泡的，<strong>bind</strong> 事件不行</p>
+</li>
+</ul>
+</li>
+<li><p><strong>this.setDate( { } )</strong> ,该方法的参数是一个对象</p>
+</li>
+<li><p><strong>bindchange</strong> 当 value 值改变的时候触发</p>
+</li>
+</ul>
+<h2 id="一些配置"><a href="#一些配置" class="headerlink" title="一些配置"></a>一些配置</h2><ul>
+<li><p><strong>“plugins”</strong> 中添加第三方插件</p>
+</li>
+<li><p><strong>“window”</strong> 中配置页面的整体标题栏样式</p>
+</li>
+<li><p><strong>“tabBar”</strong> 配置底部的菜单</p>
+<ul>
+<li>最多可以配置 5 个选项</li>
+</ul>
+</li>
+<li><p><strong>“requiredBackgroundModes”: [“audio”]</strong> 请求背景音乐</p>
+</li>
+<li><p><strong>“usingComponents”</strong> 用在页面的配置文件中，表示使用组件</p>
+</li>
+</ul>
+<h2 id="一些单位"><a href="#一些单位" class="headerlink" title="一些单位"></a>一些单位</h2><ul>
+<li><p><strong>vw</strong> 和 <strong>vh</strong>，分别表示页面的百分之百宽和百分之百高</p>
+</li>
+<li><p><strong>rpx</strong>，常用的单位，750rpx 正好是页面宽度的大小</p>
+</li>
+</ul>
+<h2 id="一些插件"><a href="#一些插件" class="headerlink" title="一些插件"></a>一些插件</h2><ul>
+<li><p><strong>腾讯视频插件</strong></p>
+<ul>
+<li><p>小程序管理后台，设置 - 第三方服务 - 添加插件</p>
+</li>
+<li><p>在全局 app.json 中：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;tencentvideo&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;当前版本&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;插件里面的AppID&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在使用插件的具体文件中，如：video.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;usingComponents&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;txv-video&quot;</span><span class="punctuation">:</span> <span class="string">&quot;plugin://tencentvideo/video&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>txv-video 名字随便起，将用到 wxml 页面,和 js 中</li>
+</ul>
+</li>
+<li><p>在 xxx.wxml 中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">txv-video</span> <span class="attr">vid</span>=<span class="string">&quot;xxxmmm&quot;</span> <span class="attr">playerid</span>=<span class="string">&quot;txv1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">txv-video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><em>vid</em> ：在腾讯视频指定视频的 <em>url</em> 后面，如果不行，点分享，在分享链接中也可以找到</li>
+<li>playerid：指定当前标签，是一个特殊标记，可以随便起一个有特色的的</li>
+</ul>
+</li>
+<li><p>在相对应的 xxx.js 中：首先要使用 <strong>requirePlugin()</strong> 引入插件，然后调用 <strong>getTxvContext()</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onReady</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">TxvContext</span> = <span class="title function_">requirePlugin</span>(<span class="string">&#x27;tencentVideo&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> txvContext = <span class="title class_">TxvContext</span>.<span class="title function_">getTxvContext</span>(<span class="string">&#x27;txv1&#x27;</span>)</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">play</span>()</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">pause</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h2><ul>
+<li>通过<strong>dataset</strong>区分元素（input）<ul>
+<li>可以使用 <em>data-id</em> 取代掉 _id_，例如：data-id=“num”，在绑定的事件中通过 <code>e.target.dataset.id</code>就可以获得</li>
+<li>而且，通过<code>e.target.dataset.名称</code>就可以获得 <code>data-名称</code> 的值</li>
+</ul>
+</li>
+</ul>
+<h2 id="一些注意"><a href="#一些注意" class="headerlink" title="一些注意"></a>一些注意</h2><ul>
+<li><p><strong>first-child</strong> 和 <strong>last-child</strong> 相对的是使用元素的本身</p>
+<p><code>&lt;div&gt; &lt;view&gt;我是①&lt;/view&gt; &lt;view&gt;我是②&lt;/view&gt; &lt;/div&gt;</code></p>
+<ul>
+<li>如果要选中 div 里面的 view ，写的应该是 <code>div view:first-child</code></li>
+</ul>
+</li>
+<li><p>使用 <strong>import</strong> 调用外部样式：import “ 路径 “</p>
+</li>
+</ul>
+<h2 id="WXS"><a href="#WXS" class="headerlink" title="WXS"></a>WXS</h2><ul>
+<li><p>大名 _WeiXin Script_，和 js 差不多，是小程序的脚本语言，可以在 wxml 中插入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">wxs</span> <span class="attr">module</span>=<span class="string">&quot;haha&quot;</span>&gt;</span></span><br><span class="line">  module.exports = function(value)&#123; var x =xxx var m = mmm &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">wxs</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>属性 <em>module</em> 表示模块名称，导出后，可以在标签中使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span> &#123;&#123; haha(xm) &#125;&#125; <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+</div><div class="article-licensing box"><div class="licensing-title"><p>微信小程序 - 一些基础</p><p><a href="https://smalljerry.cn/2020/05/18/微信小程序/">https://smalljerry.cn/2020/05/18/微信小程序/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-05-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">移动端</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/05/29/express-mysql-%E6%90%AD%E5%BB%BAapi/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">express基本使用</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/18/webpack-D1/"><span class="level-item">webpack</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2020/05/18/微信小程序/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">26</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">订阅更新 🙃</p></form></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://platform.sharethis.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">sharethis</span></span><span class="level-right"><span class="level-item tag">platform.sharethis.com</span></span></a></li><li><a class="level is-mobile" href="https://fa5.dashgame.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">FontAwosome</span></span><span class="level-right"><span class="level-item tag">fa5.dashgame.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/02/pPL4aSf.png" alt="Vue响应式篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-01T10:15:16.000Z">2023-10-01</time></p><p class="title"><a href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/">Vue响应式篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/"><img src="https://z1.ax1x.com/2023/09/30/pPqd9LF.png" alt="Pinia快速手册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-09-24T11:44:45.000Z">2023-09-24</time></p><p class="title"><a href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/">Pinia快速手册</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">52</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">24</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#一些标签"><span class="level-left"><span class="level-item">1</span><span class="level-item">一些标签</span></span></a></li><li><a class="level is-mobile" href="#一些-API"><span class="level-left"><span class="level-item">2</span><span class="level-item">一些 API</span></span></a></li><li><a class="level is-mobile" href="#一些事件监听"><span class="level-left"><span class="level-item">3</span><span class="level-item">一些事件监听</span></span></a></li><li><a class="level is-mobile" href="#一些配置"><span class="level-left"><span class="level-item">4</span><span class="level-item">一些配置</span></span></a></li><li><a class="level is-mobile" href="#一些单位"><span class="level-left"><span class="level-item">5</span><span class="level-item">一些单位</span></span></a></li><li><a class="level is-mobile" href="#一些插件"><span class="level-left"><span class="level-item">6</span><span class="level-item">一些插件</span></span></a></li><li><a class="level is-mobile" href="#一些细节"><span class="level-left"><span class="level-item">7</span><span class="level-item">一些细节</span></span></a></li><li><a class="level is-mobile" href="#一些注意"><span class="level-left"><span class="level-item">8</span><span class="level-item">一些注意</span></span></a></li><li><a class="level is-mobile" href="#WXS"><span class="level-left"><span class="level-item">9</span><span class="level-item">WXS</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

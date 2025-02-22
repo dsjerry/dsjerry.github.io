@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>移动web开发 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="简单介绍移动端 web 开发所需要的基础知识 好好学习。"><meta property="og:type" content="blog"><meta property="og:title" content="移动web开发"><meta property="og:url" content="https://smalljerry.cn/2021/07/21/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="简单介绍移动端 web 开发所需要的基础知识 好好学习。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://z3.ax1x.com/2021/08/06/fnRc0e.png"><meta property="article:published_time" content="2021-07-21T08:47:40.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.356Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="移动端"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://z3.ax1x.com/2021/08/06/fnRc0e.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2021/07/21/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/"},"headline":"移动web开发","image":["https://z3.ax1x.com/2021/08/06/fnRc0e.png"],"datePublished":"2021-07-21T08:47:40.000Z","dateModified":"2025-02-22T02:14:47.356Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"简单介绍移动端 web 开发所需要的基础知识 好好学习。"}</script><link rel="canonical" href="https://smalljerry.cn/2021/07/21/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://z3.ax1x.com/2021/08/06/fnRc0e.png" alt="移动web开发"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-07-21T08:47:40.000Z" title="2021/7/21 16:47:40">2021-07-21</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.356Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">10 分钟读完 (大约1464个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">移动web开发</h1><div class="content"><p>简单介绍移动端 web 开发所需要的基础知识</p>
+<p>好好学习。<span id="more"></span></p>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="lt-meta-gt-视口标签"><a href="#lt-meta-gt-视口标签" class="headerlink" title="&lt;meta&gt;视口标签"></a><code>&lt;meta&gt;</code>视口标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加视口标签之前，页面会有拖动条，这是默认的页面大小。添加视口标签之后，页面就会自动适应设备的大小，拖动条也不会出现了。</p>
+<h2 id="二倍图"><a href="#二倍图" class="headerlink" title="二倍图"></a>二倍图</h2><p>单位<code>px</code>和真实的物理像素（分辨率）在移动端是有一定程度的偏差的，往往是<code>1px</code>对应多个像素点</p>
+<p>例：需要在屏幕显示<code>50px</code>的图片，放到手机屏幕可能会被放大到<code>100px</code>，这样图片就会模糊。准备一张<code>100px</code>的图片，然后手动调节这张图片的 CSS 样式为<code>50px</code>，以此解决模糊。</p>
+<p>不仅是二倍图，叶可能是三倍图、四倍图。</p>
+<p>对于背景图片的设置，使用<code>background-size</code>属性，其值除了数值单位，还有<em>cover</em>和<em>contain</em>。后两者的区别是<em>cover</em>铺满整个容器，<em>contain</em>的宽或者高铺满容器后就停止缩放。</p>
+<h2 id="开发选择"><a href="#开发选择" class="headerlink" title="开发选择"></a>开发选择</h2><ol>
+<li>单独的移动端页面：为移动端另外写代码（推荐），通过打开网站的设备来跳转到不同的页面。</li>
+<li>响应式页面兼容移动端：一套代码包含桌面和移动端（不太推荐），通过判断屏幕的宽度来改变样式。</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li>CSS 初始化——<a target="_blank" rel="noopener" href="https://github.com/necolas/normalize.css/">normalize.css</a>。<code>npm install --save normalize.css</code></li>
+<li>可以使用<code>box-sizing</code>属性解决一些问题，省去减去<code>margin、padding</code>的麻烦</li>
+<li>对于 Safari 中的标准，清除类似于<code>&lt;a&gt;</code>点击的高亮效果：<code>-webkit-tap-heighlight-color: transparent</code>（非标准）</li>
+<li>对于 Safari 上按钮和输入框自定义样式添加前提：<code>-webkit-apperance: none</code>（实验中的功能）</li>
+<li>对于 Safari 上，如<code>&lt;a&gt;</code>，按住后会弹出这个跳转的预览窗口，<code>-webkit-touch-callout: none</code>可以关闭它（非标准）(仅支持 Safari)</li>
+</ol>
+<p><strong>单独页面常见布局</strong>：流式布局、flex 布局、less+rem+媒体查询布局、混合布局<br><strong>响应式页面兼容</strong>：媒体查询、Bootsrap 之类的框架</p>
+<h1 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h1><ul>
+<li>也称<em>百分比布局</em>、<em>非固定像素布局</em></li>
+<li>一般会使用到<code>float</code>、<code>position</code></li>
+</ul>
+<h2 id="基础样式"><a href="#基础样式" class="headerlink" title="基础样式"></a>基础样式</h2><p>基本宽度</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">320px</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">640px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后接下来的内容的宽度都是使用<code>%</code>作为单位。</p>
+<p><strong>例 1</strong>，两边绿色的是固定位置固定大小的按钮，中间的是搜索框，长度可以随着屏幕尺寸的改变而改变</p>
+<p><img src="https://z3.ax1x.com/2021/07/22/WBaSR1.png" alt="搜索框案例"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 中间的是标准流就行，会铺满。然后设置margin或者padding调节左右间隙的距离 */</span></span><br><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注：固定定位的盒子要有个宽度才行。</li>
+</ul>
+<p><strong>例 2</strong>，一个导航栏里面有 10 个图标，每行 5 个。可以直接使用<code>&lt;nav&gt;</code>和<code>&lt;a&gt;</code>，<code>&lt;a&gt;</code>里面放具体内容</p>
+<p><img src="https://z3.ax1x.com/2021/07/25/W2itdP.png" alt="例2"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">20%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="精灵图"><a href="#精灵图" class="headerlink" title="精灵图"></a>精灵图</h2><ul>
+<li>以<code>background</code>的形式存在</li>
+</ul>
+<p>对于二倍精灵图，在图片编辑工具中将精灵图<strong>等比</strong>缩放到原来的<strong>一半</strong>，然后根据大小，测量出所需图标在整个精灵图中所处的坐标，如：<code>background: url(./img/jl.png) no-repeat 100px 0</code>，后面的就是坐标。</p>
+<blockquote>
+<p>在图片编辑器中缩放只是作为坐标参考，不要保存缩放后的图片。</p>
+</blockquote>
+<p>最后，还要使用<code>background-size</code>来在 CSS 层面缩小精灵图为原来的<strong>一半</strong></p>
+<h1 id="flex-布局"><a href="#flex-布局" class="headerlink" title="flex 布局"></a>flex 布局</h1><ul>
+<li>任何一个容器都可以使用<code>flex</code>布局</li>
+<li>父盒子设置为<code>flex</code>的时候，<code>float、clear、vertical-align</code>失效</li>
+</ul>
+<p><strong>常见父项属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flex-direction</td>
+<td>设置<strong>主轴</strong>的方向</td>
+</tr>
+<tr>
+<td>justify-content</td>
+<td>设置<span style="color: orange;">主轴</span>上子元素排列方式</td>
+</tr>
+<tr>
+<td>flex-wrap</td>
+<td>设置子元素是否换行</td>
+</tr>
+<tr>
+<td>align-content</td>
+<td>设置<span style="color: orange;">侧轴</span>上子元素排列方式（多行）</td>
+</tr>
+<tr>
+<td>align-items</td>
+<td>设置侧轴上子元素排列方式（单行）</td>
+</tr>
+<tr>
+<td>flex-flow</td>
+<td>相当于同时设置了 flex-direction 和 flex-wrap</td>
+</tr>
+</tbody></table>
+<ul>
+<li>元素是跟着主轴来排列的，所以先知道是哪一条</li>
+</ul>
+<p><code>flex-wrap</code>，是否换行。各个子元素在主轴方向上的总长度<strong>大于</strong>父元素的长度，使用<code>wrap</code>之后会换行（并且一行或一列显示多少个，取决于子元素的长度）。如果不使用，子元素的宽度就会等比缩小，挤在一行或是一列。</p>
+<p><code>align-item</code>，其中<code>stretch</code>值是拉伸效果，前提是子元素<strong>没有设置高度</strong></p>
+<p><code>align-content</code>，多了<code>space-around、space-between</code>，可以设置上一行置顶，下一行在最底（前提是要有换行）。<code>align-item</code>是不行的，因为只能操作一行。</p>
+<p><strong>常见子项属性</strong></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>flex</td>
+<td>子项占的份数（不仅能左右还能上下，所以比百分比好用些）</td>
+</tr>
+<tr>
+<td>align-self</td>
+<td>控制子项自己在侧轴的排列方式（某单个）</td>
+</tr>
+<tr>
+<td>order</td>
+<td>属性定义子项的排列顺序（前后排序，默认是 0，可以为负数）</td>
+</tr>
+</tbody></table>
+<p><code>flex</code>的值可以为百分数。</p>
+<h2 id="基础样式-1"><a href="#基础样式-1" class="headerlink" title="基础样式"></a>基础样式</h2><p>对于顶固的搜索框，应该是固定定位的，并且固定定位位置与父元素无关，是以屏幕为准的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.search</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateX</span>(-<span class="number">50%</span>);</span><br><span class="line">  <span class="comment">/* 固定的盒子要有宽度 */</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">min-width</span>: <span class="number">320px</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">540px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>📋 参考：黑马程序员</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>移动web开发</p><p><a href="https://smalljerry.cn/2021/07/21/移动web开发/">https://smalljerry.cn/2021/07/21/移动web开发/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-07-21</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">移动端</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/09/09/%E5%89%8D%E7%AB%AF%E9%87%8C%E7%9A%84%E5%90%84%E7%A7%8D%E4%BD%8D%E7%BD%AE/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">前端里的各种位置</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/07/10/web%E5%AE%89%E5%85%A8/"><span class="level-item">web安全</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2021/07/21/移动web开发/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">26</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">订阅更新 🙃</p></form></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://platform.sharethis.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">sharethis</span></span><span class="level-right"><span class="level-item tag">platform.sharethis.com</span></span></a></li><li><a class="level is-mobile" href="https://fa5.dashgame.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">FontAwosome</span></span><span class="level-right"><span class="level-item tag">fa5.dashgame.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/02/pPL4aSf.png" alt="Vue响应式篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-01T10:15:16.000Z">2023-10-01</time></p><p class="title"><a href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/">Vue响应式篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/"><img src="https://z1.ax1x.com/2023/09/30/pPqd9LF.png" alt="Pinia快速手册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-09-24T11:44:45.000Z">2023-09-24</time></p><p class="title"><a href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/">Pinia快速手册</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">52</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">24</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#基础"><span class="level-left"><span class="level-item">1</span><span class="level-item">基础</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#lt-meta-gt-视口标签"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">&lt;meta&gt;视口标签</span></span></a></li><li><a class="level is-mobile" href="#二倍图"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">二倍图</span></span></a></li><li><a class="level is-mobile" href="#开发选择"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">开发选择</span></span></a></li><li><a class="level is-mobile" href="#其他"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">其他</span></span></a></li></ul></li><li><a class="level is-mobile" href="#流式布局"><span class="level-left"><span class="level-item">2</span><span class="level-item">流式布局</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基础样式"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">基础样式</span></span></a></li><li><a class="level is-mobile" href="#精灵图"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">精灵图</span></span></a></li></ul></li><li><a class="level is-mobile" href="#flex-布局"><span class="level-left"><span class="level-item">3</span><span class="level-item">flex 布局</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#基础样式-1"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">基础样式</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

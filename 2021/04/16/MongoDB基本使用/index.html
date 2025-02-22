@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>MongoDB基本使用 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="简单记录命令行、Node.js操作MongoDB 使用版本 ：社区版4.2.6"><meta property="og:type" content="blog"><meta property="og:title" content="MongoDB基本使用"><meta property="og:url" content="https://smalljerry.cn/2021/04/16/MongoDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="简单记录命令行、Node.js操作MongoDB 使用版本 ：社区版4.2.6"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://z3.ax1x.com/2021/04/20/cHtWHs.png"><meta property="article:published_time" content="2021-04-16T07:13:44.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.324Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="数据库"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://z3.ax1x.com/2021/04/20/cHtWHs.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2021/04/16/MongoDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"},"headline":"MongoDB基本使用","image":["https://z3.ax1x.com/2021/04/20/cHtWHs.png"],"datePublished":"2021-04-16T07:13:44.000Z","dateModified":"2025-02-22T02:14:47.324Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"简单记录命令行、Node.js操作MongoDB 使用版本 ：社区版4.2.6"}</script><link rel="canonical" href="https://smalljerry.cn/2021/04/16/MongoDB%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://z3.ax1x.com/2021/04/20/cHtWHs.png" alt="MongoDB基本使用"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-04-16T07:13:44.000Z" title="2021/4/16 15:13:44">2021-04-16</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.324Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></span><span class="level-item">16 分钟读完 (大约2333个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">MongoDB基本使用</h1><div class="content"><p>简单记录<span style="color: purple;">命令行</span>、<span style="color: green">Node.js</span>操作<span style="color: lightgreen">MongoDB</span></p>
+<p>使用版本 ：社区版<code>4.2.6</code></p>
+<span id="more"></span>
+
+<p>MongoDB属于非关系型数据库，数据的存储类似于 <em>JSON对象</em></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    name<span class="punctuation">:</span> &#x27;lisi&#x27;<span class="punctuation">,</span></span><br><span class="line">    age<span class="punctuation">:</span> <span class="number">18</span><span class="punctuation">,</span></span><br><span class="line">    hobbies<span class="punctuation">:</span> <span class="punctuation">[</span>&#x27;吃饭&#x27;<span class="punctuation">,</span> &#x27;睡觉&#x27;<span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><p>👉 <a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/community">MongoDB下载地址</a></p>
+<p>下载的是msi版本，点击安装，选择<strong>custom</strong>自定义安装</p>
+<p><img src="https://z3.ax1x.com/2021/04/16/cfSZOe.png" alt="自定义安装"></p>
+<p>下一步、下一步，在 <em>Install MongoDB Compass</em> 处取消打钩，先不安装这个</p>
+<p><img src="https://z3.ax1x.com/2021/04/16/cfSrlT.png" alt="取消打钩"></p>
+<p>MongoDB Compass 是 MongoDB 的一款图形化管理工具，除此外还有别的工具。这里不下载是因为下载很慢，可能会导致 MongoDB 安装不成功；可以自己在浏览器下载，这样快很多。</p>
+<p>👉 <a target="_blank" rel="noopener" href="https://www.mongodb.com/try/download/compass">MongoDB Compass下载地址</a></p>
+<h2 id="mongoose安装"><a href="#mongoose安装" class="headerlink" title="mongoose安装"></a>mongoose安装</h2><p><span style="color: green">Node.js</span>操作MongoDB，需要下载插件 <em>mongoose</em></p>
+<p>下载：**<code>npm install mongoose</code>**</p>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h2 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h2><p><strong>命令行启动</strong></p>
+<p>首先进入MongoDB目录里的 <em>bin</em> 目录，执行命令，并且选择要执行的位置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --dbpath 盘符:\目录\</span><br></pre></td></tr></table></figure>
+
+<p><strong>连接</strong></p>
+<p>在 <em>bin</em> 目录下执行命令即可启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo.exe</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动、关闭服务</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start MongoDB</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net stop MongoDB</span><br></pre></td></tr></table></figure>
+
+<p><strong>移除服务</strong></p>
+<p>在MongoDB目录下的 bin 里面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod.exe --remove</span><br></pre></td></tr></table></figure>
+
+<p><strong>任务管理启动</strong></p>
+<p>对于 <em>Windows</em>，打开任务管理，点击 <em>服务</em>，<em>打开服务</em>，在服务窗口就可以找到MongoDB并且启动</p>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><p>直接在系统变量的<code>path</code>中加上一条MongoDB目录的 bin 目录即可。</p>
+<p><img src="https://z3.ax1x.com/2021/04/16/chKMmd.png" alt="环境变量"></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>分为命令行、可视化工具、Node.js</p>
+<h2 id="图形界面使用"><a href="#图形界面使用" class="headerlink" title="图形界面使用"></a>图形界面使用</h2><p><img src="https://z3.ax1x.com/2021/04/16/chndgg.png" alt="图形界面连接"></p>
+<p>这串东西在命令行运行 <code>mongo</code> 的时候会出现。</p>
+<h2 id="命令行使用"><a href="#命令行使用" class="headerlink" title="命令行使用"></a>命令行使用</h2><p>在命令行直接使用就可连上，用户名和密码是可选的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure>
+
+<p>如果想用用户名密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb://admin:123456@localhost/</span><br></pre></td></tr></table></figure>
+
+<p>如果还想指定数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongodb://admin:123456@localhost/test</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p><strong>使用</strong>数据库，如果不存在就创建这个数据库 (刚创建的数据库是看不见的，要插入内容才能看见)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名</span><br></pre></td></tr></table></figure>
+
+<p>查看当前数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db</span><br></pre></td></tr></table></figure>
+
+<p>查看所有数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show dbs</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除</strong>数据库，使用 <code>use</code> 选中要删除的数据库，然后执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.dropDatabase()</span><br></pre></td></tr></table></figure>
+
+<p><strong>导入数据库</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoimport -d 数据库名称 -c 集合名称 --file 要导入的数据文件</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>先要将其添加到环境变量</li>
+</ul>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p><strong>创建集合</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(name, options)</span><br></pre></td></tr></table></figure>
+
+<p>options选项，当使用时，以对象的形式使用</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>capped</td>
+<td>布尔值</td>
+<td>当为 true 的时候，指创建固定大小的集合，必须指定 size 的值，超过时会覆盖最早的值</td>
+</tr>
+<tr>
+<td>sise</td>
+<td>数值</td>
+<td>指定集合的最大值</td>
+</tr>
+<tr>
+<td>max</td>
+<td>数值</td>
+<td>指定集合中文档的最大数量</td>
+</tr>
+</tbody></table>
+<p><strong>删除集合</strong></p>
+<p>在要删除集合所处的数据库中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.drop()</span><br></pre></td></tr></table></figure>
+
+<h3 id="文档-增删改查"><a href="#文档-增删改查" class="headerlink" title="文档 - 增删改查"></a>文档 - 增删改查</h3><h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名字.insert(document)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果插入的数据主键已经存在，报错</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名字.save(document)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果主键存在，则更新数据；如果不存在则插入数据（逐渐不使用这个方法）</li>
+</ul>
+<p>插入一条</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.document.insertOne(</span><br><span class="line">	&lt;document&gt;,</span><br><span class="line">	&#123;</span><br><span class="line">		writeConcern: &lt;document&gt;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>插入多条</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.document.insertMany(</span><br><span class="line">	[ &lt;document 1&gt;, &lt;document 2&gt; ],</span><br><span class="line">	&#123;</span><br><span class="line">		writeConcern: &lt;document&gt;,</span><br><span class="line">		ordered: &lt;boolean&gt;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>以上用到的参数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document</td>
+<td>要插入的文档</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>写入策略，默认1，要求确认写操作，不要就0</td>
+</tr>
+<tr>
+<td>ordered</td>
+<td>指定是否顺序写入，默认true</td>
+</tr>
+</tbody></table>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.collection.remove(</span><br><span class="line">   &lt;query&gt;,</span><br><span class="line">   &#123;</span><br><span class="line">     justOne: &lt;boolean&gt;,</span><br><span class="line">     writeConcern: &lt;document&gt;</span><br><span class="line">   &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>可选，删除的条件</td>
+</tr>
+<tr>
+<td>justOne</td>
+<td>如果为 1 或 true，只删除一条，如果不设置，删除匹配的</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>抛出异常的级别</td>
+</tr>
+</tbody></table>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.collection.update(</span><br><span class="line">	&lt;query&gt;,</span><br><span class="line">	&lt;update&gt;,</span><br><span class="line">	&#123;</span><br><span class="line">		upsert: &lt;boolean&gt;,</span><br><span class="line">		multi:&lt;boolean&gt;,</span><br><span class="line">		writeConcern: &lt;document&gt;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>更新的查询条件</td>
+</tr>
+<tr>
+<td>update</td>
+<td>要更新的对象，类似于sql中的 set xxx</td>
+</tr>
+<tr>
+<td>upsert</td>
+<td>可选，如果不存在update的记录，是否插入objNew，默认是false，不插入。</td>
+</tr>
+<tr>
+<td>multi</td>
+<td>可选，只更新找到的第一条数据。默认 false</td>
+</tr>
+<tr>
+<td>writeConcern</td>
+<td>可选，抛出异常的级别</td>
+</tr>
+</tbody></table>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.collection.find(query, projection)</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>query</td>
+<td>查询条件</td>
+</tr>
+<tr>
+<td>projection</td>
+<td>指定要返回的文本的键，如果返回所有，不用写这个参数</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.col.find().pretty()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>格式化输出的内容</li>
+</ul>
+<p>👉 <strong><a target="_blank" rel="noopener" href="https://www.runoob.com/mongodb/mongodb-operators.html" style="color: green;">去菜鸟教程看深入内容</a></strong></p>
+<h2 id="Node-js-操作"><a href="#Node-js-操作" class="headerlink" title="Node.js 操作"></a>Node.js 操作</h2><h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mongoose</span><br><span class="line">  .connect(&#x27;mongodb://localhost/mongotest&#x27;, &#123; useNewUrlParser: true &#125;)</span><br><span class="line">  .then(() =&gt; &#123;</span><br><span class="line">    console.log(&#x27;连接成功&#x27;)</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch((err) =&gt; &#123;</span><br><span class="line">    console.log(&#x27;连接失败&#x27;, err)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果指定的数据库不存在，则会自动创建数据库（创建了不插入数据，在列表中是找不到的）</li>
+<li><code>&#123; useNewUrlParser: true &#125;</code>：新版的MongoDB会有这样的提示，不用特别去记，如果不加上系统会有提示的</li>
+</ul>
+<h3 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h3><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><p><strong>创建集合</strong>（数据表）：分为两步</p>
+<ol>
+<li>设置集合的规则</li>
+<li>创建集合</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设定集合规则</span></span><br><span class="line"><span class="keyword">const</span> courseSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">author</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">isPublished</span>: <span class="title class_">Boolean</span>,</span><br><span class="line">    <span class="attr">tags</span>: [<span class="title class_">String</span>]</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 创建集合并应用规则</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Course</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;Course&#x27;</span>, courseSchema);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>model</code>：里面的集合名称首字母要大写，生成的名称会是小写，然后是复数形式，如上的<em>courses</em>，这个方法返回一个<strong>构造函数</strong>，用于操作数据</li>
+</ul>
+<p><strong>创建文档</strong>（每一条数据）：分为两步</p>
+<ol>
+<li>创建集合实例</li>
+<li>调用实例对象下的save方法将数据保存到数据库中</li>
+</ol>
+<p>创建的时候会自动为每一条数据生成一个id，<code>_id</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> course = <span class="keyword">new</span> <span class="title class_">Course</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;node.js&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;河马程序员&#x27;</span>,</span><br><span class="line">  <span class="attr">isPublised</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">price</span>: <span class="string">&#x27;20&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">course.<span class="title function_">save</span>()</span><br></pre></td></tr></table></figure>
+
+<p>还有一种方法，使用 <code>create()</code> 方法，这不用调用 save()</p>
+<ul>
+<li>也分为两种形式，回调形式和Promise形式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">create</span>(</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;JavaScript&#x27;</span>, <span class="attr">author</span>: <span class="string">&#x27;河马有用&#x27;</span>, <span class="attr">isPublised</span>: <span class="literal">false</span>, <span class="attr">price</span>: <span class="number">44</span> &#125;,</span><br><span class="line">  <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>Promise形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Python额&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;黑兔程序员&#x27;</span>,</span><br><span class="line">  <span class="attr">isPublised</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">price</span>: <span class="number">49</span>,</span><br><span class="line">  <span class="attr">tag</span>: [<span class="string">&#x27;程序员&#x27;</span>, <span class="string">&#x27;python&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(err))</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h4><p>基础查询</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br><span class="line"><span class="comment">// 加入筛选条件，是一个对象;返回值是一个数组</span></span><br><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>(&#123; <span class="attr">author</span>: <span class="string">&#x27;白马程序员&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;find返回数组&#x27;</span>, result)</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 只返回一条,默认返回第一条</span></span><br><span class="line"><span class="title class_">Course</span>.<span class="title function_">findOne</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;findOne只返回一条&#x27;</span>, result))</span><br></pre></td></tr></table></figure>
+
+<p>范围查询</p>
+<ul>
+<li>$gt：大于， $lt：小于</li>
+<li>$in：包含</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>(&#123; <span class="attr">price</span>: &#123; <span class="attr">$gt</span>: <span class="number">20</span>, <span class="attr">$lt</span>: <span class="number">30</span> &#125; &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;范围查询&#x27;</span>, result)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>(&#123; <span class="attr">tag</span>: &#123; <span class="attr">$in</span>: [<span class="string">&#x27;js&#x27;</span>] &#125; &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;包含&#x27;</span>, result)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>字段查询</p>
+<ul>
+<li>字段：选择要查询输出的字段，在find()后面链式调用select(),多个字段用空格隔开</li>
+<li>不想查询谁，在前面加上 “-”，如：-id</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>()</span><br><span class="line">  .<span class="title function_">select</span>(<span class="string">&#x27;name author -id&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;字段查询&#x27;</span>, result))</span><br></pre></td></tr></table></figure>
+
+<p>排序</p>
+<ul>
+<li>在find()后面链式调用sort()</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>()</span><br><span class="line">  .<span class="title function_">sort</span>(<span class="string">&#x27;price&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;排序&#x27;</span>, result))</span><br></pre></td></tr></table></figure>
+
+<p>跳过、限制</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">find</span>()</span><br><span class="line">  .<span class="title function_">skip</span>(<span class="number">2</span>)</span><br><span class="line">  .<span class="title function_">limit</span>(<span class="number">3</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h4><p>删除一条</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">findOneAndDelete</span>(&#123; <span class="attr">_id</span>: <span class="string">&#x27;606c49904798cf25005e0cd6&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="comment">// 返回的就是删除的那条，如果匹配了多条，会删除第一条</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>删除多条</p>
+<ul>
+<li>！！如果传了空对象{}，会删除所有。返回值是一个对象，OK和n，ok为1代表成功，n代表删除的条目</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">deleteMany</span>(&#123;&#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新-1"><a href="#更新-1" class="headerlink" title="更新"></a>更新</h4><p>更新一条</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">updateOne</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;Python额&#x27;</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">&#x27;Python学习&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>更新多条</p>
+<ul>
+<li>如果传递一个空对象，即是更新所有</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Course</span>.<span class="title function_">updateOne</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;Python额&#x27;</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">&#x27;Python学习&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="mongoose验证"><a href="#mongoose验证" class="headerlink" title="mongoose验证"></a>mongoose验证</h3><p>在创建验证规则的时候，可以设置当前字段的验证规则，验证失败就输入插入失败</p>
+<ul>
+<li>require: true 必传字段。如下，如果title没传就会报错</li>
+<li>require: [true, ‘请传入标题’]，也可以是一个数组</li>
+<li>minlength类型对于字符串，min类型对于数值</li>
+</ul>
+<p>这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> postSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">minlength</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">maxlength</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">trim</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>或者这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> postSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: [<span class="literal">true</span>, <span class="string">&#x27;请传入文章标题&#x27;</span>],</span><br><span class="line">    <span class="attr">minlength</span>: [<span class="number">2</span>, <span class="string">&#x27;标题最小不能小于2位&#x27;</span>],</span><br><span class="line">    <span class="attr">maxlength</span>: [<span class="number">5</span>, <span class="string">&#x27;标题最小不能小于5位&#x27;</span>],</span><br><span class="line">    <span class="attr">trim</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">age</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">min</span>: <span class="number">10</span>,</span><br><span class="line">    <span class="attr">max</span>: <span class="number">60</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">publishDate</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Date</span>,</span><br><span class="line">    <span class="comment">// default的可以不传</span></span><br><span class="line">    <span class="attr">default</span>: <span class="title class_">Date</span>.<span class="property">now</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">category</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="comment">// enum指定要传的值，不是指定的值不能传</span></span><br><span class="line">    <span class="attr">enum</span>: [<span class="string">&#x27;html&#x27;</span>, <span class="string">&#x27;css&#x27;</span>, <span class="string">&#x27;js&#x27;</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 自定义验证</span></span><br><span class="line">  <span class="attr">author</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">validate</span>: &#123;</span><br><span class="line">      <span class="attr">validator</span>: <span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 返回布尔值，val是要验证的值</span></span><br><span class="line">        <span class="keyword">return</span> val &amp;&amp; val.<span class="property">length</span> &gt; <span class="number">4</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 自定义消息</span></span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;传入的值不符合验证规则&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Post</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;Post&#x27;</span>, postSchema)</span><br><span class="line"><span class="title class_">Post</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;开心&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">21</span>,</span><br><span class="line">  <span class="attr">category</span>: <span class="string">&#x27;html&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;asd&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(error))</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合关联"><a href="#集合关联" class="headerlink" title="集合关联"></a>集合关联</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用户规则</span></span><br><span class="line"><span class="keyword">const</span> userSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 书本规则</span></span><br><span class="line"><span class="keyword">const</span> bookSchema = <span class="keyword">new</span> mongoose.<span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">author</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: mongoose.<span class="property">Schema</span>.<span class="property">Types</span>.<span class="property">ObjectId</span>,</span><br><span class="line">    <span class="attr">ref</span>: <span class="string">&#x27;User&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 用户集合</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">User</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;User&#x27;</span>, userSchema)</span><br><span class="line"><span class="comment">// 书本集合</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Book</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;Book&#x27;</span>, bookSchema)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建用户</span></span><br><span class="line"><span class="title class_">User</span>.<span class="title function_">create</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;铜锣湾扎fit人&#x27;</span> &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br><span class="line"><span class="comment">// 创建书本</span></span><br><span class="line"><span class="title class_">Book</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&#x27;如何做洪兴大佬&#x27;</span>,</span><br><span class="line">  <span class="attr">author</span>: <span class="string">&#x27;606daa780bd6c1573c703c48&#x27;</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这条查出的是书本信息，但是作者是当前作者的id</span></span><br><span class="line"><span class="comment">// Book.find().then()</span></span><br><span class="line"><span class="title class_">Book</span>.<span class="title function_">find</span>()</span><br><span class="line">  .<span class="title function_">populate</span>(<span class="string">&#x27;author&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">result</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(result))</span><br></pre></td></tr></table></figure>
+
+<p>可能增补、修改……</p>
+<!-- <span style="color: green; font-size: 100px; text-shadow: 2px 2px 1px gold ">mongoDB</span> -->
+
+
+
+<!-- <b style="color: gold; font-size: 30px">  📄&nbsp;基本使用</b>     <span style="color: orange; font-size: 25px">AND</span>     <span style="color: green; font-size: 45px;text-shadow: 2px 2px 1px lightgreen">Node.js</span> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div><div class="article-licensing box"><div class="licensing-title"><p>MongoDB基本使用</p><p><a href="https://smalljerry.cn/2021/04/16/MongoDB基本使用/">https://smalljerry.cn/2021/04/16/MongoDB基本使用/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-04-16</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/04/21/git%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">git基础使用流程</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/04/15/CSS%E5%B1%85%E4%B8%AD%E6%96%B9%E6%B3%95/"><span class="level-item">CSS居中方法</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2021/04/16/MongoDB基本使用/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">26</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">订阅更新 🙃</p></form></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://platform.sharethis.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">sharethis</span></span><span class="level-right"><span class="level-item tag">platform.sharethis.com</span></span></a></li><li><a class="level is-mobile" href="https://fa5.dashgame.com" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">FontAwosome</span></span><span class="level-right"><span class="level-item tag">fa5.dashgame.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/02/pPL4aSf.png" alt="Vue响应式篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-01T10:15:16.000Z">2023-10-01</time></p><p class="title"><a href="/2023/10/01/Vue%E7%8A%B6%E6%80%81%E7%AF%87/">Vue响应式篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/"><img src="https://z1.ax1x.com/2023/09/30/pPqd9LF.png" alt="Pinia快速手册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-09-24T11:44:45.000Z">2023-09-24</time></p><p class="title"><a href="/2023/09/24/Pinia%E5%BF%AB%E9%80%9F%E6%89%8B%E5%86%8C/">Pinia快速手册</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">52</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">24</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#安装"><span class="level-left"><span class="level-item">1</span><span class="level-item">安装</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#MongoDB安装"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">MongoDB安装</span></span></a></li><li><a class="level is-mobile" href="#mongoose安装"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">mongoose安装</span></span></a></li></ul></li><li><a class="level is-mobile" href="#启动"><span class="level-left"><span class="level-item">2</span><span class="level-item">启动</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#启动-1"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">启动</span></span></a></li><li><a class="level is-mobile" href="#添加环境变量"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">添加环境变量</span></span></a></li></ul></li><li><a class="level is-mobile" href="#使用"><span class="level-left"><span class="level-item">3</span><span class="level-item">使用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#图形界面使用"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">图形界面使用</span></span></a></li><li><a class="level is-mobile" href="#命令行使用"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">命令行使用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#数据库"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">数据库</span></span></a></li><li><a class="level is-mobile" href="#集合"><span class="level-left"><span class="level-item">3.2.2</span><span class="level-item">集合</span></span></a></li><li><a class="level is-mobile" href="#文档-增删改查"><span class="level-left"><span class="level-item">3.2.3</span><span class="level-item">文档 - 增删改查</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#插入"><span class="level-left"><span class="level-item">3.2.3.1</span><span class="level-item">插入</span></span></a></li><li><a class="level is-mobile" href="#删除"><span class="level-left"><span class="level-item">3.2.3.2</span><span class="level-item">删除</span></span></a></li><li><a class="level is-mobile" href="#更新"><span class="level-left"><span class="level-item">3.2.3.3</span><span class="level-item">更新</span></span></a></li><li><a class="level is-mobile" href="#查询"><span class="level-left"><span class="level-item">3.2.3.4</span><span class="level-item">查询</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#Node-js-操作"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">Node.js 操作</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#连接"><span class="level-left"><span class="level-item">3.3.1</span><span class="level-item">连接</span></span></a></li><li><a class="level is-mobile" href="#增删改查"><span class="level-left"><span class="level-item">3.3.2</span><span class="level-item">增删改查</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#创建"><span class="level-left"><span class="level-item">3.3.2.1</span><span class="level-item">创建</span></span></a></li><li><a class="level is-mobile" href="#查询-1"><span class="level-left"><span class="level-item">3.3.2.2</span><span class="level-item">查询</span></span></a></li><li><a class="level is-mobile" href="#删除-1"><span class="level-left"><span class="level-item">3.3.2.3</span><span class="level-item">删除</span></span></a></li><li><a class="level is-mobile" href="#更新-1"><span class="level-left"><span class="level-item">3.3.2.4</span><span class="level-item">更新</span></span></a></li></ul></li><li><a class="level is-mobile" href="#mongoose验证"><span class="level-left"><span class="level-item">3.3.3</span><span class="level-item">mongoose验证</span></span></a></li><li><a class="level is-mobile" href="#集合关联"><span class="level-left"><span class="level-item">3.3.4</span><span class="level-item">集合关联</span></span></a></li></ul></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
