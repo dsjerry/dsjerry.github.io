@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>webpack - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="webpack，前端工程化的解决方案。 代码压缩、处理浏览器端对 JavaScript 的兼容"><meta property="og:type" content="blog"><meta property="og:title" content="webpack"><meta property="og:url" content="https://smalljerry.cn/2020/04/18/webpack-D1/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="webpack，前端工程化的解决方案。 代码压缩、处理浏览器端对 JavaScript 的兼容"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://smalljerry.cn/2020/04/18/images/webpack.png"><meta property="article:published_time" content="2020-04-18T14:10:03.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.356Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="打包"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://smalljerry.cn/2020/04/18/images/webpack.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2020/04/18/webpack-D1/"},"headline":"webpack","image":["https://smalljerry.cn/2020/04/18/images/webpack.png"],"datePublished":"2020-04-18T14:10:03.000Z","dateModified":"2025-02-22T02:14:47.356Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"webpack，前端工程化的解决方案。 代码压缩、处理浏览器端对 JavaScript 的兼容"}</script><link rel="canonical" href="https://smalljerry.cn/2020/04/18/webpack-D1/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.105/darkreader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<link rel="stylesheet" href="/css/aplayer.css">
+
+<link rel="stylesheet" href="/css/logo.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-04-18T14:10:03.000Z" title="2020/4/18 22:10:03">2020-04-18</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.356Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">12 分钟读完 (大约1841个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">webpack</h1><div class="content"><p>webpack，前端工程化的解决方案。</p>
+<p>代码压缩、处理浏览器端对 JavaScript 的兼容</p>
+<span id="more"></span>
+
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>在使用 webpack 之前，先 <code>npm init</code> 生成 <em>package.json</em> 文件<br>然后安装 webpack 和 webpack-cli，<code>npm install webpack webpack-cli -D</code></p>
+<ul>
+<li>这里<code>-D</code>或者<code>--save--dev</code>表示将包记录在<code>package.json</code>中的<code>devDependencies</code>（仅在开发阶段用到）节点下</li>
+<li><code>-S</code>或者<code>--save</code>表示记录在<code>dependencies</code> (开发阶段和部署阶段都要用到) 节点下</li>
+</ul>
+<blockquote>
+<p>用<code>-S</code>或<code>-D</code>在 npm 官网可以看到。这两个参数可以在包名前，也可在包名后</p>
+</blockquote>
+<p>在根目录创建配置文件 <em>webpack.config.js</em> ，初始话配置文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其中 <em>mode</em> 用来指定导报模式 <em>development</em> 模式不会压缩代码，<em>production</em> 模式则会压缩代码。所以前者适用于开发模式，后者适用于发布上线</li>
+</ul>
+<p>在 package.json 配置文件中的 <em>script</em> 节点下增加 <em>dev</em> 脚本</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>dev</code>：随便取。<code>webpack</code>：要执行的动作，字符串的形式</li>
+</ul>
+<p><em>scripts</em> 节点下的脚本，可以使用 <strong>npm run</strong> 来执行。比如这里是</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<p>这样一个简单的 webpack 打包就完成了，打包默认生成的文件是 <code>main.js</code></p>
+<blockquote>
+<p>在运行<code>npm run dev</code>之前，会先读取<code>webpack.config.js</code>里面的配置内容</p>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="入口出口配置"><a href="#入口出口配置" class="headerlink" title="入口出口配置"></a>入口出口配置</h3><p>默认入口文件位置是**./src/<strong>，出口</strong>./dis/**</p>
+<p>配置打包的入口和出口。在 <em>webpack.config.js</em> 中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">  <span class="attr">entry</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;要打包的文件路径及文件&quot;</span>),</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;./dist&quot;</span>), <span class="comment">// 文件输出路径</span></span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&quot;bundle.js&quot;</span>, <span class="comment">// 输出的文件名（不是固定名称）</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动打包"><a href="#自动打包" class="headerlink" title="自动打包"></a>自动打包</h3><p>webpack 自动打包，修改后保存，自动刷新文件，比如 css。安装自动打包工具</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-dev-server -D</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个插件生成的<code>bundle.js</code>不在磁盘上，而是在内存上，所以看不到，可以在浏览器输入 url 查看。要引用，在 HTML 文件中<code>&lt;script src=&quot;./bundle.js&quot;&gt;&lt;/script&gt;</code></p>
+</blockquote>
+<p>在 <em>webpack.config.js</em> 中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">devServer</span>: &#123;</span><br><span class="line">   <span class="attr">open</span>: <span class="literal">true</span>,</span><br><span class="line">   <span class="attr">host</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">   <span class="attr">port</span>: <span class="number">8080</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <em>package.json</em> 中</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack server&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<ul>
+<li><p><code>--open</code> 表示打包创建服务器后自动打开浏览器。</p>
+</li>
+<li><p><code>--host</code> 配置 IP 地址</p>
+</li>
+<li><p><code>--port</code> 配置端口</p>
+</li>
+</ul>
+<blockquote>
+<p>“webpack-dev-server –open –host 127.0.0.1 –port 8080”</p>
+</blockquote>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>上面配置后，浏览器打开对应 url 和端口后，得到的是一个文件路径，一下配置打开浏览器后默认显示的页面（复制页面到根目录）</p>
+<p>此外，这个插件会<strong>自动</strong>在入口的<em>index.html</em>中的<code>&lt;head&gt;</code>里面插入<code>&lt;script defer src=&quot;bundle.js&quot;&gt;&lt;/script&gt;</code></p>
+<ul>
+<li><p><code>npm install html-webpack-plugin -D</code> 安装生成预览页面的插件。</p>
+</li>
+<li><p>在 <em>webpack.config.js</em> 文件中</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;html-webpack-plugin&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> htmlPlugin = <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&quot;./src/index.html&quot;</span>,</span><br><span class="line">  <span class="attr">filename</span>: <span class="string">&quot;./index.html&quot;</span>, <span class="comment">// 该文件生成在内存中，在目录不会显示出来</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <em>webpack.config.js</em> 的暴露中添加配置节点</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">  <span class="attr">plugins</span>: [htmlPlugin],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><em>plugins</em> 数组是 <em>webpack</em> 打包期间会用到的一些插件列表</p>
+</blockquote>
+<p>浏览器中展示的页面不是<em>src</em>下的文件，而是内存中的文件</p>
+<h2 id="webpack-中的加载器"><a href="#webpack-中的加载器" class="headerlink" title="webpack 中的加载器"></a>webpack 中的加载器</h2><ul>
+<li>webpack 默认只能处理 <code>.js</code> 结尾的模块，要打包其他类型的文件，需要调用 <code>loader</code> 加载器</li>
+</ul>
+<p>webpack 打包处理过程：</p>
+<p><img src="../images/webpack.png" alt="alt webpack process"></p>
+<p><strong>打包 <em>css</em> 文件</strong></p>
+<p>安装 <em>css</em> 文件 loader</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install style-loader css-loader -D</span><br></pre></td></tr></table></figure>
+
+<p>在 <em>webpack.config.js</em> 中的 <em>module</em> 中 配置 _rules_，添加匹配规则</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [&#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="attr">use</span>: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>] &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>test 标识文件类型，use 标识要使用的 loader</li>
+<li>loader 是<strong>有顺序的</strong>，从右往左，是依赖关系</li>
+</ul>
+<p><strong>打包 <em>less</em> 文件</strong></p>
+<ul>
+<li><code>npm install less-loader -D</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.less$/</span>, <span class="attr">use</span>: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>, <span class="string">&quot;less-loader&quot;</span>] &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意，使用 <em>less</em> 之前要先安装 less。<code>npm install less</code> &gt; <em>less-loader</em> 要依赖于 <em>css-loader</em></p>
+</blockquote>
+<p><em>less</em> 的格式：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: darkcyan;</span><br><span class="line">  <span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">23px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>打包处理 <em>scss</em> 文件</strong></p>
+<ul>
+<li><code>npm install sass-loader node-sass -D</code> ，安装的时候是 <em>sass_，但后缀名是 _scss</em></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">use</span>: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>, <span class="string">&quot;scss-loader&quot;</span>] &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置 <em>postCSS</em> 自动添加 css 的浏览器兼容前缀</strong></p>
+<ul>
+<li><code>npm i postcss-loader autoprefixer -D</code></li>
+<li>根目录创建 <code>postcss.config.js</code> 文件，配置：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> autoprefixer = <span class="built_in">require</span>(<span class="string">&quot;autoprefixer&quot;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [autoprefixer], <span class="comment">// 挂载插件</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>在 <em>webpack.config.js</em> 中添加匹配规则，依赖于 css：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>, <span class="attr">use</span>: [<span class="string">&quot;style-loader&quot;</span>, <span class="string">&quot;css-loader&quot;</span>, <span class="string">&quot;postcss-loader&quot;</span>] &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>打包图片和字体</strong></p>
+<ul>
+<li><code>npm i url-loader file-loader -D</code></li>
+<li>在 <em>webpack.config.js</em> 中添加匹配规则:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.jpg|png|gif|bmp|ttf|svg$/</span>, <span class="attr">use</span>: <span class="string">&quot;url-loader?limit=10000&quot;</span> &#125;,</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里不需要其他的 loader 支持，所以不用引入。一个值时可以吧数组去掉，<code>?</code> 之后是 loader 的参数， <em>limit</em> 指定图片的大小，单位是字节，当张片小于 limit 的时候，图片会被转化 wei <code>base64</code>，（图片 url 改变了）</li>
+</ul>
+<p><strong>打包处理 js 中的高级语法</strong></p>
+<ul>
+<li>安装 <code>babel</code> 转换器相关的包：<code>npm i babel-loader @babel/core @babel/plugin-proposal-decorators -D</code></li>
+<li>在根目录创建 <em>babel</em> 配置文件 <code>babel.config.js</code>，配置：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [[<span class="string">&quot;@babel/plugin-proposal-decrators&quot;</span>, &#123; <span class="attr">legacy</span>: <span class="literal">true</span> &#125;]],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在 <em>webpack.config.js</em> 中，添加 loader 规则：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">use</span>: <span class="string">&quot;babel-loader&quot;</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><em>exclude</em> 表示在 <em>babel-loader</em> 处理的时候要排除的文件</li>
+</ul>
+<blockquote>
+<p>对应不同的插件配置不同，去 babel 的官方文档查看</p>
+</blockquote>
+<p><strong>webpack 中使用 Vue</strong></p>
+<ul>
+<li><code>$ npm install vue -S</code></li>
+<li>在入口文件 <code>index.js</code> 中，<strong>import Vue from “vue”</strong> 导入 Vue</li>
+<li>创建 vue 实例对象</li>
+<li>组件中要有一个根组件，<strong>App.vue</strong></li>
+<li>使用 <code>render</code> 函数渲染 APP 根组件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&quot;./components/App.vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> vm = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>,</span><br><span class="line">  <span class="attr">render</span>: <span class="function">(<span class="params">h</span>) =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>),</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>App.vue 和其路径是根据情况而定</li>
+<li>webpack 打包 vue，使用 <strong>render</strong> 函数渲染，在局部中不使用 <strong>components</strong>，这是因为 webpack 中导入的 vue 不是完整的 vue</li>
+</ul>
+<blockquote>
+<p><code>render</code> 函数：</p>
+</blockquote>
+<p><strong>webpack 配置 Vue 单文件组件 loader</strong></p>
+<ul>
+<li><code>npm i vue-loader vue-template-compiler -D</code></li>
+<li>在 <em>webpack.config.js</em> 中，添加 loader 规则：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">VueLoaderPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;vue-loader/lib/plugin&quot;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123; <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>, <span class="attr">loader</span>: <span class="string">&quot;vue-loader&quot;</span> &#125;],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>()],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="webpack-打包发布"><a href="#webpack-打包发布" class="headerlink" title="webpack 打包发布"></a>webpack 打包发布</h1><p>上线之前要通过 webpack 将应用进行整体打包（从内存到磁盘），在 <strong>package.json</strong> 中:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack --mode production&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="整理文件"><a href="#整理文件" class="headerlink" title="整理文件"></a>整理文件</h2><ul>
+<li>将文件分类保存</li>
+</ul>
+<p>在 <em>webpack.config.js</em> 中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;dist&quot;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;js/bundle.js&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>图片存放位置配置，在处理图片的<code>loader</code>中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">test</span>: <span class="regexp">/\.jpg|png|gif|bmp|ttf|svg$/</span>, <span class="attr">use</span>: <span class="string">&quot;url-loader?limit=10000&amp;outputPath=image&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>其他：</p>
+<p>自动清除<code>dist</code>文件夹，在 npm 查找插件<code>clean-webpack-plugin</code>，按照文档匹配</p>
+<h1 id="source-map"><a href="#source-map" class="headerlink" title="source map"></a>source map</h1><ul>
+<li>解决打包后代码所处行和源代码所处行的位置信息不一致</li>
+</ul>
+<p>在<strong>开发时</strong>，修改 webpack 的配置文件，加入<code>devtool: &#39;eval-source-map&#39;</code>，浏览器出现的报错行数和现实开发中的行数是对应的。</p>
+<p>在<strong>发布后</strong>，要取消这个功能，打包后的文件只有一行，不会对应到在哪行出错，处于安全性考虑</p>
+<p><strong>只标记行号</strong>，不暴露源代码，修改为<code>devtool: &#39;nosource-source-map&#39;</code></p>
+<h1 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h1><p>实际开发过程中很少会手动配置 webpack ，一般会通过其他的脚手架生成。</p>
+<p>可用<code>@</code>代替<code>src</code>，添加配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">resolve</span>: &#123;</span><br><span class="line">    <span class="attr">alias</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;@&#x27;</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;./src&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div><div class="article-licensing box"><div class="licensing-title"><p>webpack</p><p><a href="https://smalljerry.cn/2020/04/18/webpack-D1/">https://smalljerry.cn/2020/04/18/webpack-D1/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-04-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%89%93%E5%8C%85/">打包</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/05/18/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">微信小程序 - 一些基础</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/03/%E8%87%AA%E5%AD%A6Vue-%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80/"><span class="level-item">组件基础</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2020/04/18/webpack-D1/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">27</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label"><i class="fas fa-music"></i> 听听音乐</h3><div class="aplayer-widget" id="aplayer-widget"></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://chat.smalljerry.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">chat-ds</span></span><span class="level-right"><span class="level-item tag">chat.smalljerry.cn</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/85892062" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://www.douyin.com/user/MS4wLjABAAAAk81CD3MQxJmSkUKmeATakVo8e-bc3NYFBcHLT3dGv24" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">douyin</span></span><span class="level-right"><span class="level-item tag">www.douyin.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">By feedburner</p></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/"><img src="https://s21.ax1x.com/2025/06/12/pVkjlZ9.png" alt="API风格指南"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-06-12T14:51:37.000Z">2025-06-12</time></p><p class="title"><a href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/">API风格指南</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/"><img src="https://s21.ax1x.com/2025/03/03/pEGHjr8.png" alt="Vant组件示例"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-03-03T14:51:34.000Z">2025-03-03</time></p><p class="title"><a href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/">Vant组件示例</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p><p class="categories"><a href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/">部署运维</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/API/"><span class="tag">API</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"><span class="tag">开发规范</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%84%E4%BB%B6/"><span class="tag">组件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">54</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">27</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#基本使用"><span class="level-left"><span class="level-item">1</span><span class="level-item">基本使用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#配置"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">配置</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#入口出口配置"><span class="level-left"><span class="level-item">1.1.1</span><span class="level-item">入口出口配置</span></span></a></li><li><a class="level is-mobile" href="#自动打包"><span class="level-left"><span class="level-item">1.1.2</span><span class="level-item">自动打包</span></span></a></li><li><a class="level is-mobile" href="#其他"><span class="level-left"><span class="level-item">1.1.3</span><span class="level-item">其他</span></span></a></li></ul></li><li><a class="level is-mobile" href="#webpack-中的加载器"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">webpack 中的加载器</span></span></a></li></ul></li><li><a class="level is-mobile" href="#webpack-打包发布"><span class="level-left"><span class="level-item">2</span><span class="level-item">webpack 打包发布</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#整理文件"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">整理文件</span></span></a></li></ul></li><li><a class="level is-mobile" href="#source-map"><span class="level-left"><span class="level-item">3</span><span class="level-item">source map</span></span></a></li><li><a class="level is-mobile" href="#其他-1"><span class="level-left"><span class="level-item">4</span><span class="level-item">其他</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+<script src="/js/logo.js"></script>
+<!-- hexo injector body_end end --></body></html>

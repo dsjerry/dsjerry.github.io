@@ -1,0 +1,33 @@
+/* .aplayer-widget {
+    margin: 1rem 0;
+    min-height: 100px;
+}
+
+
+
+.aplayer .aplayer-info {
+    padding: 14px 7px 0 7px;
+    border-top: none !important;
+}
+
+.aplayer .aplayer-list ol {
+    padding: 0;
+} */
+
+.aplayer {
+    /* background-color: #282c35 !important; */
+    background-color: transparent !important;
+}
+
+.aplayer-info {
+   border-bottom: none !important;
+}
+
+.aplayer-list-light {
+    background-color: transparent !important;
+}
+
+.aplayer .aplayer-list ol li {
+    border-top: none  !important;
+}
+    

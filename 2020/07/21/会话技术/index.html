@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>会话技术 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="概述：HTTP 协议是无状态的协议。当一个用户请求一个页面之后再请求另外一个页面时，HTTP 无法知道这两个请求时来自同一个用户。所以就需要会话技术来记录用户的状态"><meta property="og:type" content="blog"><meta property="og:title" content="会话技术"><meta property="og:url" content="https://smalljerry.cn/2020/07/21/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="概述：HTTP 协议是无状态的协议。当一个用户请求一个页面之后再请求另外一个页面时，HTTP 无法知道这两个请求时来自同一个用户。所以就需要会话技术来记录用户的状态"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://smalljerry.cn/img/og_image.png"><meta property="article:published_time" content="2020-07-21T03:32:09.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.356Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="php"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://smalljerry.cn/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2020/07/21/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/"},"headline":"会话技术","image":["https://smalljerry.cn/img/og_image.png"],"datePublished":"2020-07-21T03:32:09.000Z","dateModified":"2025-02-22T02:14:47.356Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"概述：HTTP 协议是无状态的协议。当一个用户请求一个页面之后再请求另外一个页面时，HTTP 无法知道这两个请求时来自同一个用户。所以就需要会话技术来记录用户的状态"}</script><link rel="canonical" href="https://smalljerry.cn/2020/07/21/%E4%BC%9A%E8%AF%9D%E6%8A%80%E6%9C%AF/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.105/darkreader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<link rel="stylesheet" href="/css/aplayer.css">
+
+<link rel="stylesheet" href="/css/logo.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-07-21T03:32:09.000Z" title="2020/7/21 11:32:09">2020-07-21</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.356Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></span><span class="level-item">20 分钟读完 (大约2954个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">会话技术</h1><div class="content"><p>概述：HTTP 协议是无状态的协议。当一个用户请求一个页面之后再请求另外一个页面时，HTTP 无法知道这两个请求时来自同一个用户。所以就需要<strong>会话技术</strong>来记录用户的状态<span id="more"></span></p>
+<p>会话技术是维护同一个浏览器与服务器之间多次请求数据状态的技术。PHP 中常用的会话技术有 <code>Cookie</code> 和 <code>Session</code> 两种，</p>
+<ul>
+<li>Cookie：在浏览器端存储数据并以此来跟踪和识别用户的机制</li>
+<li>Session：将信息存放在服务器端的会话技术</li>
+</ul>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>当用户通过浏览器访问 Web 服务器 时，服务器会给用户发送一些信息，这些信息都保存在 Cookie 中。当浏览器<em>再次</em>服务器的时候，会在<strong>请求头</strong>中同时将 Cookie 发送给服务器。</p>
+<p>利用 Cookie 可以跟踪用户与服务器之间的会话状态，通常应用于保存浏览历史、保存购物车商品和保存用户登录状态等场景。</p>
+<p>当用户第一次访问服务器时，服务器会在响应消息中增加 <code>Set-Cookie</code> 头字段，将信息以 Cookie 的形式发送给浏览器，保存到浏览器缓冲区。下次访问的时候再将 Cookie 发给服务器，这样服务器就识别出了是哪个用户在发送请求。（关于 Cookie 的一些知识在文章底部）</p>
+<p>Cookie 的一些缺点：</p>
+<ul>
+<li>附加在 HTTP 消息中，增加了数据流量</li>
+<li>在 HTTP 中是以明文传输的，安全性不高，容易被窃取</li>
+<li>Cookie 存储于浏览器，可以被篡改，服务器接收后必须验证数据的合法性</li>
+<li>浏览器限制 Cookie 的数量和大小（一般是 50 个，一个不超过 4KB）</li>
+</ul>
+<h2 id="Cookie-的基本使用"><a href="#Cookie-的基本使用" class="headerlink" title="Cookie 的基本使用"></a>Cookie 的基本使用</h2><p>① 创建 Cookie</p>
+<p>在 PHP 中使用 <code>setcookie()</code> 函数可以创建和修改 Cookie。其声明方式如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="title function_ invoke__">setcookie</span>(</span><br><span class="line">	<span class="keyword">string</span> <span class="variable">$name</span>,				// Cookie 的名字（必选）</span><br><span class="line">    <span class="keyword">string</span> <span class="variable">$value</span> = <span class="string">&quot;&quot;</span>,	   	 	 // Cookie 的值</span><br><span class="line">    <span class="keyword">int</span> <span class="variable">$expire</span> = <span class="number">0</span>,			// Cookie 的有效期</span><br><span class="line">    <span class="keyword">string</span> <span class="variable">$path</span> = <span class="string">&quot;&quot;</span>,		 	// Cookie 在服务器端的路径</span><br><span class="line">    <span class="keyword">string</span> <span class="variable">$domain</span> = <span class="string">&quot;&quot;</span>,	 	// Cookie 的有效域名</span><br><span class="line">    <span class="keyword">bool</span> <span class="variable">$secure</span> = <span class="literal">false</span>,	 	// 指定是否通过安全的 HTTPS 连接来传输</span><br><span class="line">    <span class="keyword">bool</span> <span class="variable">$httponly</span> = <span class="literal">false</span>		// 指定 Cookie 只能通过 HTTP 协议访问</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>实现代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;123&#x27;</span>, <span class="title function_ invoke__">time</span>() + <span class="number">1800</span>)</span><br></pre></td></tr></table></figure>
+
+<p>​ 第三个参数是时间戳，省略的时候，Cookie 会在浏览器结束的时候关掉</p>
+<blockquote>
+<p>如果使用 JavaScript 操作 Cookie，setcookie() 的 $httponly 的值要设置为 false</p>
+</blockquote>
+<p>② 获取 Cookie</p>
+<p>在 PHP 中，任何从客户端发送的 Cookie 数据都会被自动存入到 <code>$_COOKIE</code> 超全局数组( $_COOKIE[] )变量中，以此来获取 Cookie 数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;张三&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$_COOKIE</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="comment">// 保存和获取数组形式的Cookie</span></span><br><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;history[one]&#x27;</span>, <span class="number">1</span>);</span><br><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;history[two]&#x27;</span>, <span class="number">2</span>);</span><br><span class="line"><span class="variable">$history</span> = <span class="keyword">isset</span>(<span class="variable">$_COOKIE</span>[<span class="string">&#x27;history&#x27;</span>]) ? (<span class="keyword">array</span>)<span class="variable">$_COOKIE</span>[<span class="string">&#x27;history&#x27;</span>] : [];</span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$history</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$k</span> - <span class="subst">$v</span> &lt;br&gt;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当 PHP 第一次使用 setcookie() 来创建 Cookie 时，$_COOKIE 中没有这个数据，当浏览器下次请求的时候才可以通过 $_COOKIE 获取到值</p>
+<p>③ 删除 Cookie</p>
+<p>如果没设置过期时间，当浏览器关闭的时候 Cookie 文件就会被清除。如果想自定义删除：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">setcookie</span>(<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="title function_ invoke__">time</span>() - <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>表示立即过时，相当于删除了。value 设置为空，过期时间设置为小于当前系统时间。</p>
+<h2 id="Cookie-的路径和域名"><a href="#Cookie-的路径和域名" class="headerlink" title="Cookie 的路径和域名"></a>Cookie 的路径和域名</h2><p>Chrome 浏览器中，设置 &gt; 高级设置 &gt; 隐私设置 &gt; 内容设置 &gt; 所有 Cookie 和网站数据</p>
+<p>不同版本的浏览器可能不同，不同浏览器能够存放的数量也可能不同</p>
+<h2 id="超全局变量-REQUEST"><a href="#超全局变量-REQUEST" class="headerlink" title="超全局变量 $_REQUEST"></a>超全局变量 $_REQUEST</h2><p>默认情况下，$_REQUEST 超全局变量数组变量，可以同时获取用户 GET 和 POST 请求方式提交的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=&quot;post&quot; action=&quot;test.php?a=xxx&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;text&quot; name=&quot;b&quot; value=&quot;yyy&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;提交&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 test.php 中</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$_REQUEST</span>);</span><br></pre></td></tr></table></figure>
+
+<p>$_REQUEST 的值受 <code>php.ini</code> 文件中的 <code>request_order</code> 影响</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">request_order</span> = <span class="string">&quot;GP&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>G 表示$_GET，P 表示 $_POST</p>
+</li>
+<li><p>添加 C（$_COOKIE）可以接受 Cookie 数据，PHP 解析的优先级是 <strong>C&gt;P&gt;G</strong>。接受数据同名的时候，优先级高的会覆盖优先级低的</p>
+<ul>
+<li><p>PHP 解析优先级也可以改，同样在 php.init 文件中，修改</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">variable_order</span> = <span class="string">&quot;PG&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>后解析的新值会覆盖旧值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>Session 在网络应用中称为会话，通常用于保存用户登录状态、保存生成的验证码等</p>
+<p>Session 是一种<u>服务器端</u>的技术，它的生命周期从用户访问页面开始，知道断开与网站的连接结束。Web 服务器在运行时会为每个用户的浏览器创建供其一个独享的 Session 文件</p>
+<p>每一个 Session 都具有一个唯一的会话 ID，用于标识不同的用户。会话 ID 会分别保存在客户端和服务器端，客户端通过 Cookie 保存，而服务器端以文件的形式保存在 php.ini <strong>指定的</strong> Session 目录（Windows 默认保存：C:Windows\Temp）</p>
+<h2 id="Session-的基本使用"><a href="#Session-的基本使用" class="headerlink" title="Session 的基本使用"></a>Session 的基本使用</h2><p>① 启动</p>
+<p>使用 <code>session_start()</code> 启动，该函数返回值为布尔值，成功返回 true，失败 false</p>
+<p>可在浏览器中 Network 中 点中某一条响应查看它的 Session</p>
+<p>② 使用</p>
+<p>可以通过 <code>$_SESSION</code> 添加、读取、修改 Session 中的数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>] = <span class="string">&#x27;Tome&#x27;</span>;</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;id&#x27;</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;test&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$test</span> = <span class="variable">$_SESSION</span>[<span class="string">&#x27;test&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>]);	<span class="comment">// 删除单个数据</span></span><br><span class="line"><span class="variable">$_SESSION</span> = [];		<span class="comment">// 删除所有数据</span></span><br><span class="line"><span class="title function_ invoke__">session_destroy</span>();	<span class="comment">// 结束当前会话</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$_SESSION = []，可以删除 Session 中的所有数据，但是 _Session 文件还是存在的_，它是一个空文件</li>
+<li>如果要删除这个空文件，使用<code>session_destroy()</code></li>
+</ul>
+<p>③ Session 的配置</p>
+<table>
+<thead>
+<tr>
+<th align="center">配置项</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">session.name</td>
+<td align="center">指定 Cookie 的名字，只能由字母、数字组成，默认为 PHPSESSID</td>
+</tr>
+<tr>
+<td align="center">session.save_path</td>
+<td align="center">读取或设置当前会话文件保存路径，默认为“C:Windows\Temp”</td>
+</tr>
+<tr>
+<td align="center">session.auto_start</td>
+<td align="center">指定是否在请求开始时自动启动一个会话，默认值是 0（不启动）</td>
+</tr>
+<tr>
+<td align="center">session.cookie_lifetime</td>
+<td align="center">以秒数指定发送到浏览器的 Cookie 的生命周期，默认为 0（知道浏览器关闭）</td>
+</tr>
+<tr>
+<td align="center">session.cookie_path</td>
+<td align="center">设定会话 Cookie 的路径，默认为 /</td>
+</tr>
+<tr>
+<td align="center">session.cookie.domain</td>
+<td align="center">设定会话 Cookie 的域名，默认为没有</td>
+</tr>
+<tr>
+<td align="center">session.cookie_secure</td>
+<td align="center">是否仅通过安全连接发送 Cookie，默认 off</td>
+</tr>
+<tr>
+<td align="center">session.cookie_httponly</td>
+<td align="center">是否仅通过 HTTP 访问 Cookie，默认 off</td>
+</tr>
+</tbody></table>
+<p>PHP7.0 开始，在 session_start() 中可以对 Session 进行配置，用于覆盖 php.ini 中对 Session 的配置指令</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">session_start</span>([<span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;MySESSID&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在这里配置的时候，键名不需要加上 <code>session.</code></li>
+<li>在这里配置的时候，session.cookie_lifetime（整形），session.auto_start、session.cookie_secure 和 session.cookie_httponly 为布尔型，其它的是字符串型</li>
+</ul>
+<blockquote>
+<p>session_start() 中的配置只在脚本运行周期中生效，并不影响 php.ini 中原本的配置</p>
+</blockquote>
+<h2 id="Session-机制"><a href="#Session-机制" class="headerlink" title="Session 机制"></a>Session 机制</h2><p>Session 机制是通过调用 <code>session_set_save_handler</code> 实现的</p>
+<p>默认情况下，PHP 中的 Session 是通过实现 <strong>SessionHandlerInterface 接口</strong>，将其以文件的形式存储在服务器中的，这个接口有 6 种抽象方法：</p>
+<ul>
+<li>close：关闭 Session</li>
+<li>destroy：销毁 Session</li>
+<li>gc：垃圾回收</li>
+<li>open：开启 Session</li>
+<li>read：读取 Session</li>
+<li>write：写入 Session</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">SessionHandlerInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">close</span>(<span class="params"></span>)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$session_id</span></span>)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">gc</span>(<span class="params"><span class="keyword">int</span> <span class="variable">$maxlifetime</span></span>)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">open</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$save_path</span>, <span class="keyword">string</span> <span class="variable">$session_name</span></span>)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$session_id</span></span>)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span>(<span class="params"><span class="keyword">string</span> <span class="variable">$session_id</span>, <span class="keyword">string</span> <span class="variable">$session_data</span></span>)</span>;</span><br><span class="line">&#125; <span class="keyword">default</span> charset=utf-<span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+
+<p>通过重新实现接口，完成具体的实现方法，然后再利用 Session 机制可以改变 Session 存储的默认方式</p>
+<p>例：<strong>Session 入库实现例子</strong></p>
+<p>① 先创建一个保存 Session 的数据表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database `sess_storage`;</span><br><span class="line">use `sess_storage`;</span><br><span class="line"><span class="keyword">create table</span> `session` (</span><br><span class="line">  `id` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">primary key</span> comment <span class="string">&#x27;SessionID&#x27;</span>,</span><br><span class="line">  `expires` <span class="type">int</span> unsigned <span class="keyword">not null</span> comment <span class="string">&#x27;过期时间&#x27;</span>,</span><br><span class="line">  `data` blog comment <span class="string">&#x27;数据&#x27;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>② 实现接口</p>
+<p>创建 SessionDB.php 文件，用于实现接口</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SessionDB</span> <span class="keyword">implements</span> <span class="title">SessionHandlerInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$link</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">open</span>(<span class="params"><span class="variable">$savePath</span>, <span class="variable">$sessionName</span></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">close</span>(<span class="params"></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span>(<span class="params"><span class="variable">$id</span>, <span class="variable">$data</span></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span>(<span class="params"><span class="variable">$id</span></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">gc</span>(<span class="params"><span class="keyword">int</span> <span class="variable">$maxlifetime</span></span>) </span>&#123; <span class="comment">/*处理语句*/</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$link 用于保存数据库连接</li>
+</ul>
+<p>实现 open 方法</p>
+<ul>
+<li>接口里面的 open() 方法类似于类的构造方法，在会话打开的时候内调用</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">open</span>(<span class="params"><span class="variable">$savePath</span>, <span class="variable">$sessionName</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable language_">$this</span> -&gt; link = <span class="keyword">new</span> <span class="title function_ invoke__">mysqli</span>(<span class="string">&#x27;localhost&#x27;</span>, <span class="string">&#x27;root&#x27;</span>, <span class="string">&#x27;123456&#x27;</span>, <span class="string">&#x27;sess_storage&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">bool</span>) <span class="variable language_">$this</span> -&gt; link;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现 close 方法</p>
+<ul>
+<li>这类似于类的析构方法，在 write 方法调用完成之后调用。这里实现关闭数据库连接</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">close</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">$this</span> -&gt; link -&gt; <span class="title function_ invoke__">close</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现 write 方法</p>
+<ul>
+<li>将 Session 数据写入指定的位置，默认的情况下以文件的形式写进服务器中。<strong>以此方法修改保存到数据库中</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">write</span>(<span class="params"><span class="variable">$id</span>, <span class="variable">$data</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$expires</span> = <span class="title function_ invoke__">time</span>() + <span class="number">3600</span>;  <span class="comment">// 一小时的过期时间</span></span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&#x27;REPLACE INTO `session` SET `id` = ?, `data` = ?&#x27;</span>;</span><br><span class="line">    <span class="variable">$stmt</span> = <span class="variable language_">$this</span>-&gt;link-&gt;<span class="title function_ invoke__">prepare</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="variable">$stmt</span> = <span class="title function_ invoke__">bind_param</span>(<span class="string">&#x27;sis&#x27;</span>, <span class="variable">$id</span>, <span class="variable">$expires</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">bool</span>) <span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">execute</span>();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Session 数据表中的 ID 是 Session 的会话 ID，是唯一的</li>
+<li>在有效的时间内重复修改 Session 数据，使用 REPLACE</li>
+</ul>
+<p>实现 read 方法</p>
+<ul>
+<li>用于根据 Session 的会话 ID 到指定位置获取 Session 数据并返回<strong>执行结果</strong></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">read</span>(<span class="params"><span class="variable">$id</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$now</span> = <span class="title function_ invoke__">time</span>();</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;SELECT `data` FROM `session` WHERE `id` = &#x27;<span class="subst">$id</span>&#x27; AND `expires` &gt; <span class="subst">$now</span>&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">string</span>) <span class="variable language_">$this</span>-&gt;link-&gt;<span class="title function_ invoke__">query</span>(<span class="variable">$sql</span>)-&gt;<span class="title function_ invoke__">fetch_assoc</span>()[<span class="string">&#x27;data&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>存在时直接返回结果，不存在返回空字符串</li>
+</ul>
+<p>实现 destroy 方法</p>
+<ul>
+<li>实现用于<strong>结束</strong>当前会话的同时，根据会话 ID<strong>删除</strong>数据库中对应的 Session 信息</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;DELETE FROM `session` WHERE `id` = <span class="subst">$id</span>&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">bool</span>) <span class="variable language_">$this</span>-&gt;link-&gt;<span class="title function_ invoke__">query</span>(<span class="variable">$sql</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现 gc 方法</p>
+<ul>
+<li>用于清理会话中的旧数据</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">gc</span>(<span class="params"><span class="keyword">int</span> <span class="variable">$maxlifetime</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$sql</span> = <span class="string">&quot;DELETE FROM `session` WHERE (`expires` + <span class="subst">$maxlifetime</span>) &lt; <span class="subst">$maxlifetime</span>&quot;</span>;</span><br><span class="line">    <span class="variable">$result</span> = <span class="variable language_">$this</span>-&gt;link-&gt;<span class="title function_ invoke__">query</span>(<span class="variable">$sql</span>);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">bool</span>) <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$maxlifetime 保存的是 php.ini 中 <code>session.gc_maxlifetime</code> 配置项指定的 Session 数据经过多长时间被视为垃圾而清除的<em>秒数</em></li>
+</ul>
+<p>完成 Session 入库设置</p>
+<ul>
+<li>实现所有的抽象方法之后，利用 SessionDB 类的构造方法设置 Session 机制</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">session_set_save_handler</span>(<span class="variable">$this</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第一个参数：实现 SessionHandlerInterface 接口的对象</li>
+<li>第 二个参数：true 表示将 <code>session_write_close()</code> <strong>设置为</strong> php 终止是执行的函数</li>
+</ul>
+<p>测试 Session 入库</p>
+<ul>
+<li>新建 test.php 文件，引入 SessionDB.php 文件，测试 Session 数据是否保存在数据库中</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;./SessionDB.php&#x27;</span>;</span><br><span class="line"><span class="keyword">new</span> <span class="title function_ invoke__">SessionDB</span>();   <span class="comment">// 配置Session入库</span></span><br><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;test&#x27;</span>] = <span class="string">&#x27;content&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>到数据库中查看到：<code>test|s:7:&quot;content</code><ul>
+<li>test：Session 数据对应的 key 值</li>
+<li>| 后 的 “s:7” 表示该数据是 7 为字符长度的字符串类型数据</li>
+<li>content：Session 数据</li>
+</ul>
+</li>
+</ul>
+<h1 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h1><p>[]<del>(￣ ▽ ￣)</del>*</p>
+<h2 id="Cookie-的一些关系"><a href="#Cookie-的一些关系" class="headerlink" title="Cookie 的一些关系"></a>Cookie 的一些关系</h2><ul>
+<li>Cookie ：是一个<u>请求头</u>，其中含有先前由服务器通过<code>Set-Cookie</code><u>响应头</u>投放并存储到客户端的 <code>HTTP cookies</code></li>
+<li>Set-Cookie ：<u>响应头</u>，用来由服务器端向客户端发送 <code>cookies</code></li>
+<li>HTTP Cookie ：也叫 <em>Web Cookie</em> 或者 _浏览器 Cookie_。是由服务器发送到用户浏览器并保存在本地的一小块数据（上面介绍的 Cookie 是这个）</li>
+</ul>
+<p>MDN 中是这样写的，在 MDN 中它们的目录关系是：</p>
+<ul>
+<li>Cookie ：HTTP &gt; HTTP Headers &gt; Cookie</li>
+<li>Set-Cookie ：HTTP &gt; HTTP Headers &gt; Set-Cookie</li>
+<li>HTTP Cookie ：HTTP &gt; HTTP cookies</li>
+</ul>
+<p>所以，应该是这样的：</p>
+<p>Cookie 和 Set-Cookie 在 Web 技术中是属于 Header，而 HTTP Cookie，是 Cookie 的请求内容，是 Set-Cookie 的响应内容</p>
+<p>在浏览器请求中就可以看到 Cookie 和 后面一大串字符串的 HTTP cookie</p>
+<p>相关资料：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">MDN</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>会话技术</p><p><a href="https://smalljerry.cn/2020/07/21/会话技术/">https://smalljerry.cn/2020/07/21/会话技术/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-07-21</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/php/">php</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/07/21/%E5%8A%AA%E5%8A%9B%E5%AD%A6%E4%B9%A0/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">努力学习</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/07/18/vuex%E5%AD%A6%E4%B9%A0/"><span class="level-item">Vuex学习</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2020/07/21/会话技术/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">27</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label"><i class="fas fa-music"></i> 听听音乐</h3><div class="aplayer-widget" id="aplayer-widget"></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://chat.smalljerry.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">chat-ds</span></span><span class="level-right"><span class="level-item tag">chat.smalljerry.cn</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/85892062" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://www.douyin.com/user/MS4wLjABAAAAk81CD3MQxJmSkUKmeATakVo8e-bc3NYFBcHLT3dGv24" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">douyin</span></span><span class="level-right"><span class="level-item tag">www.douyin.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">By feedburner</p></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/"><img src="https://s21.ax1x.com/2025/06/12/pVkjlZ9.png" alt="API风格指南"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-06-12T14:51:37.000Z">2025-06-12</time></p><p class="title"><a href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/">API风格指南</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/"><img src="https://s21.ax1x.com/2025/03/03/pEGHjr8.png" alt="Vant组件示例"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-03-03T14:51:34.000Z">2025-03-03</time></p><p class="title"><a href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/">Vant组件示例</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p><p class="categories"><a href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/">部署运维</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/API/"><span class="tag">API</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"><span class="tag">开发规范</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%84%E4%BB%B6/"><span class="tag">组件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">54</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">27</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Cookie"><span class="level-left"><span class="level-item">1</span><span class="level-item">Cookie</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Cookie-的基本使用"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Cookie 的基本使用</span></span></a></li><li><a class="level is-mobile" href="#Cookie-的路径和域名"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">Cookie 的路径和域名</span></span></a></li><li><a class="level is-mobile" href="#超全局变量-REQUEST"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">超全局变量 $_REQUEST</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Session"><span class="level-left"><span class="level-item">2</span><span class="level-item">Session</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Session-的基本使用"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">Session 的基本使用</span></span></a></li><li><a class="level is-mobile" href="#Session-机制"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">Session 机制</span></span></a></li></ul></li><li><a class="level is-mobile" href="#题外话"><span class="level-left"><span class="level-item">3</span><span class="level-item">题外话</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Cookie-的一些关系"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">Cookie 的一些关系</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+<script src="/js/logo.js"></script>
+<!-- hexo injector body_end end --></body></html>

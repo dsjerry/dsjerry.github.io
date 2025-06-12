@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>css盒尺寸 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="https://avatars.githubusercontent.com/u/53891546?v=4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="📃主要内容：content box、padding box、border box、margin box  ~~ 读书笔记 📖参考书本：《CSS世界》"><meta property="og:type" content="blog"><meta property="og:title" content="css盒尺寸"><meta property="og:url" content="https://smalljerry.cn/2021/02/18/css%E7%9B%92%E5%B0%BA%E5%AF%B8/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="📃主要内容：content box、padding box、border box、margin box  ~~ 读书笔记 📖参考书本：《CSS世界》"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://s3.ax1x.com/2021/02/18/yRcsnx.png"><meta property="article:published_time" content="2021-02-18T04:24:02.000Z"><meta property="article:modified_time" content="2025-02-22T02:14:47.345Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="css"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://s3.ax1x.com/2021/02/18/yRcsnx.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2021/02/18/css%E7%9B%92%E5%B0%BA%E5%AF%B8/"},"headline":"css盒尺寸","image":["https://s3.ax1x.com/2021/02/18/yRcsnx.png"],"datePublished":"2021-02-18T04:24:02.000Z","dateModified":"2025-02-22T02:14:47.345Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":{"text":"SMALLJERRY"}}},"description":"📃主要内容：content box、padding box、border box、margin box  ~~ 读书笔记 📖参考书本：《CSS世界》"}</script><link rel="canonical" href="https://smalljerry.cn/2021/02/18/css%E7%9B%92%E5%B0%BA%E5%AF%B8/"><link rel="icon" href="https://avatars.githubusercontent.com/u/53891546?v=4"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.105/darkreader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<link rel="stylesheet" href="/css/aplayer.css">
+
+<link rel="stylesheet" href="/css/logo.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">SMALLJERRY</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://s3.ax1x.com/2021/02/18/yRcsnx.png" alt="css盒尺寸"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-02-18T04:24:02.000Z" title="2021/2/18 12:24:02">2021-02-18</time>发表</span><span class="level-item"><time dateTime="2025-02-22T02:14:47.345Z" title="2025/2/22 10:14:47">2025-02-22</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">20 分钟读完 (大约2971个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">css盒尺寸</h1><div class="content"><p>📃主要内容：content box、padding box、border box、margin box  ~~ 读书笔记</p>
+<p>📖参考书本：《CSS世界》</p>
+<span id="more"></span>
+
+<blockquote>
+<p>css的很多效果并不是一个属性就能搞定，往往是几个属性一起作用的结果。</p>
+</blockquote>
+<h1 id="content"><a href="#content" class="headerlink" title="content"></a>content</h1><h2 id="content与替换元素"><a href="#content与替换元素" class="headerlink" title="content与替换元素"></a>content与替换元素</h2><p>替换元素就是其内容是可以被替换的，如：<code>&lt;imag src=&quot;xxx.jpg&quot;&gt;</code>，替换元素的一些特性：</p>
+<ul>
+<li>内容的外观不受页面上的css影响</li>
+<li>有自己的尺寸。可以不用<code>style</code>属性，直接写<code>width</code>，<code>height</code>。默认尺寸为<strong>300px x 150px</strong>（不包括边框）</li>
+<li>在很多css属性上有自己的表现规则</li>
+</ul>
+<h3 id="替换元素的默认display值"><a href="#替换元素的默认display值" class="headerlink" title="替换元素的默认display值"></a>替换元素的默认display值</h3><p>所有的替换元素都是内联水平，也就是替换元素和替换元素、替换元素和文字都是可以在一行内显示的。</p>
+<p><code>&lt;input&gt;</code> 和 <code>&lt;button&gt;</code> 的区别：两种按钮的默认 <code>white-space</code> 值不一样，input 是 <code>pre</code> ，button 是 <code>normal</code>。所以按钮文字多的时候，input 的内容不会换行，button会换行。</p>
+<h3 id="替换元素的尺寸计算规则"><a href="#替换元素的尺寸计算规则" class="headerlink" title="替换元素的尺寸计算规则"></a>替换元素的尺寸计算规则</h3><p>由内到外分为3类：固有尺寸、HTML尺寸和CSS尺寸。</p>
+<ol>
+<li>固有尺寸是替换元素本身的尺寸</li>
+<li>HTML尺寸就是<code>&lt;img&gt;</code> 标签的 <span style="color: darkcyan">width</span>，<span style="color: darkorange">height</span>和 <code>&lt;textare&gt;</code> 的<span style="color: darkcyan">rows</span>，<span style="color: darkorange">cols</span></li>
+<li>CSS尺寸是指通过css的<span style="color: darkcyan">width</span>，<span style="color: darkorange">height</span>等设置的尺寸，对应盒尺寸中的<strong>content box</strong></li>
+</ol>
+<p>这三种尺寸的计算规则：</p>
+<ul>
+<li><p>如果没有CSS尺寸和HTML尺寸，使用固有尺寸作为最终宽高</p>
+</li>
+<li><p>如果没有CSS尺寸，使用HTML尺寸</p>
+</li>
+<li><p>如果有CSS尺寸，最终由CSS属性决定，</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span>&#123; <span class="attribute">width</span>: <span class="number">200px</span>; <span class="attribute">height</span>: <span class="number">150px</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;abc.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;150px&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100px&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>最终的尺寸是 <i>200px x 200px</i></p>
+</li>
+<li><p>⭐如果固有尺寸含有固定的<em>宽高比例</em>，同时<span style="color: red">仅仅</span>设置了宽度或者高度，则依然按照固有的宽高比例来显示</p>
+</li>
+</ul>
+<p>在 <code>&lt;img&gt;</code> 中，没有 <strong>src</strong> 和 <strong>src=” “</strong> 是不一样的，前者不会发送请求，后者在一些浏览器中会发送请求，请求当前页面数据。</p>
+<ul>
+<li>在 Firefox 中，没有 src 的 img标签不是替换元素，而是内联元素。</li>
+</ul>
+<p>在 CSS 中<strong>替换元素内容的固有尺寸是无法改变的</strong>。❓平常设置的 width 和 height 会对图片的尺寸进行影响，是因为图片中的 content 替换内容默认的适配方式是<strong>填充</strong>（fill），也就是外部设定的尺寸多大，图片就填满。使用<code>object-fill</code>可以修改这个默认值。</p>
+<h3 id="替换元素与非替换元素的差别"><a href="#替换元素与非替换元素的差别" class="headerlink" title="替换元素与非替换元素的差别"></a>替换元素与非替换元素的差别</h3><h4 id="差一个src"><a href="#差一个src" class="headerlink" title="差一个src"></a>差一个src</h4><p>成为普通的内联元素，在 Firefox 中，不使用 src 属性；在 Chrome 中除了前面的条件，还要加上<strong>属性值不为空</strong>的<code>alt</code>。如：<code>&lt;img alt=&quot;any&quot;&gt;</code>。注：</p>
+<ol>
+<li>不能有 src 属性。</li>
+<li>不能使用 content 属性生成图片。（对于Chrome）</li>
+<li>需要有属性值不为空的 alt。（对于Chrome）</li>
+<li>Firefox 中 <code>::before</code>的 content 值会被无视</li>
+</ol>
+<p>💡实用例子：👉<a target="_blank" rel="noopener" href="https://demo.cssworld.cn/4/1-2.php">CSS世界</a></p>
+<h4 id="差一个CSS-content属性"><a href="#差一个CSS-content属性" class="headerlink" title="差一个CSS content属性"></a>差一个CSS content属性</h4><p>从理论层面来讲，content属性决定了是替换元素还是非替换元素。一些用法：</p>
+<ol>
+<li>如果图片本身有 src 地址，可以使用 content 属性把图片的内容置换，可以用于hover的切换效果。<ul>
+<li>这样使用只是视觉上的效果，使用右键保存图片的时候保存的还是<strong>原来</strong>src的图片</li>
+</ul>
+</li>
+<li>使用 content，可以使得普通元素变为替换元素</li>
+</ol>
+<h3 id="content与替换元素的关系"><a href="#content与替换元素的关系" class="headerlink" title="content与替换元素的关系"></a>content与替换元素的关系</h3><p>CSS世界中，把content属性生成的对象称为“匿名替换元素”。</p>
+<p>content属性生成的内容和普通元素内容的差异：</p>
+<ol>
+<li>使用content生成的文本是无法选中、复制的。</li>
+<li>不要将重要的信息放在content，因为对SEO不友好</li>
+</ol>
+<h2 id="content内容生成"><a href="#content内容生成" class="headerlink" title="content内容生成"></a>content内容生成</h2><ol>
+<li>经常用在 <code>::before</code> 和 <code>::after</code> 中，用于添加一些描述、解释、绘制图案、小图标</li>
+<li>content图片生成，使用 <code>content: url(1.jpg)</code> ，但这样不利于操作图片的尺寸，更多会使用：<code>content: &#39;&#39;,background:url(1.jpg)</code></li>
+<li>content 计数器</li>
+</ol>
+<h3 id="content计数器-⭐"><a href="#content计数器-⭐" class="headerlink" title="content计数器 ⭐"></a>content计数器 ⭐</h3><p>只是用css实现的计数器（随着元素数目增加，数值随着增加）</p>
+<p>对应2个属性（counter-reset、counter-increment）和1个方法（ counter() / counters() ）</p>
+<p><strong>counter-reset</strong>：主要作用是给计数器起名，并且设定开始的数值（默认起始数字为0）</p>
+<ul>
+<li>这个值可以是负数，在Chrome中还可以是小数。不过 2.99 会变成 2</li>
+<li>可以命名多个计数器</li>
+</ul>
+<p><strong>counter-increment</strong>：计数器递增。值为 counter-reset 中设定好的计数器名称；后面可以指定数字，表示每次计算的变化值。</p>
+<ul>
+<li>默认值每次增加1。因为要和 counter-reset 一起搭配使用，这也是为什么 counter-reset 的默认值是 0 的原因。</li>
+<li>可以作用在伪元素上。</li>
+<li>变化值也可以是负数，递减效果。</li>
+</ul>
+<p><strong>counter() / counters()</strong></p>
+<ul>
+<li>作用就是输出计数，里面参数是计数器的名字</li>
+<li>第2个参数 <em>style</em>，支持的值就是 <em>list-style-type</em> 属性的那些值。递增的不一定是数字，可能是字母之类的等等</li>
+<li>支持级联，也就是一个 content 属性可以有多个 counter() 方法</li>
+</ul>
+<p><strong>counters()</strong></p>
+<ul>
+<li>左右即是生成 1.1、1.2、1.3 这样的序号</li>
+<li>通过子元素对父元素的 counter-rest、counters()实现嵌套，一个容器里的 counter-rest 是唯一的</li>
+<li>显示 content 计数器的 DOM 元素一定要在 counter-increment 元素的<strong>后面</strong>。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;show&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="selector-id">#show</span> &#123;</span><br><span class="line">    <span class="attribute">counter-reset</span>: sixsix <span class="number">0</span> sevenseven <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">counter-increment</span>: sixsix <span class="number">2</span> sevenseven <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#show</span><span class="selector-pseudo">::before</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="built_in">counter</span>(sixsix);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#show</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="built_in">counter</span>(sixsix) <span class="string">&#x27;\A&#x27;</span> <span class="built_in">counter</span>(sevenseven);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#39;\A&#39;</code> 表示换行</li>
+</ul>
+<h1 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h1><p>css中默认的 <em>box-sizing</em> 是 <em>content-box</em>，使用 <em>padding</em> 是会增加元素的尺寸的。</p>
+<p>padding的作用不会影响布局效果，只是在视觉上加大尺寸；但是给父级元素加上<code>overflow: auto;</code>则会影响页面效果。</p>
+<h2 id="padding的百分值"><a href="#padding的百分值" class="headerlink" title="padding的百分值"></a>padding的百分值</h2><p>padding不支持负值；在百分比的计算中，水平方向和垂直方向的值都是相对于宽度计算的。</p>
+<p>在某些场景中，直接使用 <code>padding: 50%;</code> 就可以实现一个正方形；<code>padding: 25% 50%;</code> 就可以实现一个2:1的矩形。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5%</span> <span class="number">10%</span>;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: darkcyan;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当然可以用作其他元素，例如固定比例的图片</li>
+</ul>
+<p><strong>对于内联元素</strong>，padding的区域是跟着内联盒子的，如果内联盒子换行了，那padding也会跟着变化。</p>
+<p>内联元素的垂直padding会让“幽灵空白节点”显现</p>
+<h2 id="padding绘制图形"><a href="#padding绘制图形" class="headerlink" title="padding绘制图形"></a>padding绘制图形</h2><p>padding与background-clip搭配实现简单的图形绘制</p>
+<p>🔻三条杠菜单</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon-menu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.icon-menu</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">140px</span>; <span class="attribute">height</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">35px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">10px</span> solid;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">10px</span> solid;</span><br><span class="line">    <span class="attribute">background-color</span>: currentColor;</span><br><span class="line">    <span class="attribute">background-clip</span>: content-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>🔻小圆点</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;icon-dot&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.icon-dot</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>; <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">10px</span> solid;    </span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: currentColor;</span><br><span class="line">    <span class="attribute">background-clip</span>: content-box;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="border"><a href="#border" class="headerlink" title="border"></a>border</h1><blockquote>
+<p>border-width 不支持百分比，如果支持，那边框不就随着屏幕的变大而变大，这样不合理。outline、box-shadow、text-shadow也不支持</p>
+</blockquote>
+<p>border的默认值时 none，使用 <code>border: 2px;</code>、<code>border: yellow</code> 都是无效果的，使用  <code>border: solid</code> 有效果，会出现一个 3px 的边框。</p>
+<p>border-style 为 double 的时候，要到 3px 才会出现双线的效果。</p>
+<p>border的其他风格：inset、outset、groove（沟槽）、ridge（山脊）</p>
+<h2 id="border颜色"><a href="#border颜色" class="headerlink" title="border颜色"></a>border颜色</h2><p>border-color 和 color：在没有设置 border-color 的时候，会以color的颜色为准。</p>
+<h2 id="border其他使用"><a href="#border其他使用" class="headerlink" title="border其他使用"></a>border其他使用</h2><h3 id="增加点击范围"><a href="#增加点击范围" class="headerlink" title="增加点击范围"></a>增加点击范围</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">icon</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">16px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">11px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="画三角形"><a href="#画三角形" class="headerlink" title="画三角形"></a>画三角形</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">10px</span> solid;</span><br><span class="line">    <span class="attribute">border-color</span>: red transparent transparent transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 或者*/</span></span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border</span>: solid;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">10px</span> <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: red transparent transparent transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>按照顺时针的顺序</li>
+</ul>
+<h3 id="梯形"><a href="#梯形" class="headerlink" title="梯形"></a>梯形</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">10px</span> solid;</span><br><span class="line">    <span class="attribute">border-color</span>: red transparent transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h1><h2 id="margin合并"><a href="#margin合并" class="headerlink" title="margin合并"></a>margin合并</h2><p>在块级元素中，margin-button 和 margin-top 会发生合并。（块级元素，垂直方向）<strong>不包括</strong>浮动和绝对定位的元素</p>
+<p>两个元素之间有一个空的块级元素，也会合并。比如有个空的<code>&lt;div&gt;</code></p>
+<ol>
+<li><p>相邻兄弟的margin合并，这是最常见的合并。如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>qwe<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>asd<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">margin</span>: <span class="number">1em</span> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://s3.ax1x.com/2021/02/20/y54L59.png" alt="兄弟margin合并"></p>
+</li>
+<li><p>父级和第1个或者最后一个子元素</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;son&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: aqua;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line">  <span class="selector-class">.son</span> &#123;</span><br><span class="line">    <span class="attribute">margin-top</span>: <span class="number">50px</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s3.ax1x.com/2021/02/20/y559bD.png" alt="父子margin合并"></p>
+</li>
+</ol>
+<h3 id="阻止合并"><a href="#阻止合并" class="headerlink" title="阻止合并"></a>阻止合并</h3><p>   <strong>对于margin-top</strong>（有一个满足即可）</p>
+<ol>
+<li>父元素设置为<a href="#" style="color: gold">块状格式上下文元素</a></li>
+<li>父元素设置border-top值</li>
+<li>父元素设置padding-top值</li>
+<li>父元素和子元素之间添加一个内联元素进行隔离</li>
+</ol>
+<p>   <strong>对于margin-bottom</strong></p>
+<ol>
+<li><p>和上面4点一样，但是属性取反</p>
+</li>
+<li><p>父元素设置 height、min-height 或 max-height</p>
+<p>使用 <code>overflow: hidden;</code> 将父级元素设置为块状格式上下文。</p>
+<blockquote>
+<p>jQuery中使用 <code>$().slideUp</code> 和 <code>$().slideDown</code> 方法时，动画有卡顿现象，可能就是这个合并造成的。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="margin合并的计算规则"><a href="#margin合并的计算规则" class="headerlink" title="margin合并的计算规则"></a>margin合并的计算规则</h3><ul>
+<li>正值和正值取最大值</li>
+<li>正值和负值，相加</li>
+<li>两个负值取最小的</li>
+</ul>
+<h3 id="margin合并的意义"><a href="#margin合并的意义" class="headerlink" title="margin合并的意义"></a>margin合并的意义</h3><p>不用担心列表之间的间隙会太大，如果有空元素，也会合并起来，避免页面布局混乱</p>
+<h2 id="margin-auto"><a href="#margin-auto" class="headerlink" title="margin:auto"></a>margin:auto</h2><p>作用机制：</p>
+<ol>
+<li>如果一侧是定制，一侧是<code>auto</code>，那 auto 就是剩下的空间</li>
+<li>如果两侧都是 auto，那就是平分空间</li>
+</ol>
+<p>如果想让某个块状元素右对齐，除了使用 *float：right;*，还可以使用 <code>margin-left: auto;</code></p>
+<ul>
+<li>因为margin的默认大小是 0，然后 margin-left：auto 就百分百填满了</li>
+</ul>
+<p>❓ 为什么确定高度，使用 <em>margin: auto;</em> 却无法垂直居中</p>
+<p>因为 margin: auto 计算有一个前提条件，就是 width 或者 height 为 auto 的时候，元素是具有对应方向的自动填充的特性。</p>
+<p><strong>方法1</strong></p>
+<p>父元素使用 <code>writing-mode: vertical-lr</code>，垂直方向就可以居中了，但是水平方向就没了。、</p>
+<p><strong>方法2</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">150px</span>; <span class="attribute">width</span>: <span class="number">150px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: antiquewhite;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.son</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>; <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">background-color</span>: aqua;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>; <span class="attribute">right</span>: <span class="number">0</span>; <span class="attribute">bottom</span>: <span class="number">0</span>; <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>其实方法还有很多，以后做个总结❓</li>
+</ul>
+<h2 id="margin无效情况"><a href="#margin无效情况" class="headerlink" title="margin无效情况"></a>margin无效情况</h2><ol>
+<li><p>display 为 inline 的<em>非替换元素</em> 的<strong>垂直</strong>margin是无效的。对于替换元素，如img就没有这种烦恼</p>
+</li>
+<li><p>表格中 display 是 table-cell 或者 table-row 的时候</p>
+</li>
+<li><p>margin合并的时候没效果，但是值超过合并的值或者是负值就会有效果</p>
+</li>
+<li><p>绝对定位元素非定位方向的margin。比如：</p>
+<ol>
+<li><pre><code class="css">img&#123;
+    top: 50%;
+    left: 50%;
+    margin-right: 25px;
+&#125;
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">      - 实则上是有效果，但是没表现出来。因为绝对定位是独立渲染的，自己玩，影响不了兄弟元素。</span><br><span class="line"></span><br><span class="line">5. 定高元素的子元素的 margin-bottom 或者 宽度定死的 margin-right</span><br><span class="line"></span><br><span class="line">6. 使用 float 的时候，比如图片。</span><br><span class="line"></span><br><span class="line">   1. ```html</span><br><span class="line">      &lt;div class=&quot;box&quot;&gt;</span><br><span class="line">        &lt;img src=&quot;./img/chigua.jpg&quot; alt=&quot;&quot; /&gt;</span><br><span class="line">        &lt;p&gt;asd&lt;/p&gt;</span><br><span class="line">      &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &gt; <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">233px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.box</span> &gt; <span class="selector-tag">p</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">200px</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+要想达到margin-left有效，那margin-left的值要**大于** 233px 才行，这是 float 作用效果。
+
+如果文字足够多的情况下，设置大于 233px
+
+![margin-left有效果](https://s3.ax1x.com/2021/02/20/y55mKf.png)
+
+
+</code></pre>
+</li>
+</ol>
+<p>如果不要margin-left：</p>
+<p><img src="https://s3.ax1x.com/2021/02/20/y55G2q.png" alt="不要margin-left"></p>
+</li>
+</ol>
+<blockquote>
+<p>这里的文字是环绕的。</p>
+</blockquote>
+<p>⏳持续补充….</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>css盒尺寸</p><p><a href="https://smalljerry.cn/2021/02/18/css盒尺寸/">https://smalljerry.cn/2021/02/18/css盒尺寸/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-02-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-02-22</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/css/">css</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/02/18/CSS%E4%BC%AA%E5%85%83%E7%B4%A0%E4%B8%ADbefore%E5%92%8Cafter/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">CSS伪元素中before和after</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/02/14/ES6%E8%A7%A3%E6%9E%84/"><span class="level-item">ES6解构</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="2021/02/18/css盒尺寸/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cyv16UaRt',conf: 'prod_98785f0d345863265cd9f6df0d1aea6d'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">27</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label"><i class="fas fa-music"></i> 听听音乐</h3><div class="aplayer-widget" id="aplayer-widget"></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://chat.smalljerry.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">chat-ds</span></span><span class="level-right"><span class="level-item tag">chat.smalljerry.cn</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/85892062" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://www.douyin.com/user/MS4wLjABAAAAk81CD3MQxJmSkUKmeATakVo8e-bc3NYFBcHLT3dGv24" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">douyin</span></span><span class="level-right"><span class="level-item tag">www.douyin.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">By feedburner</p></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/"><img src="https://s21.ax1x.com/2025/06/12/pVkjlZ9.png" alt="API风格指南"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-06-12T14:51:37.000Z">2025-06-12</time></p><p class="title"><a href="/2025/06/12/API%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/">API风格指南</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/"><img src="https://s21.ax1x.com/2025/03/03/pEGHjr8.png" alt="Vant组件示例"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-03-03T14:51:34.000Z">2025-03-03</time></p><p class="title"><a href="/2025/03/03/Vant%E7%BB%84%E4%BB%B6%E7%A4%BA%E4%BE%8B/">Vant组件示例</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-15T08:50:12.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/%E9%83%A8%E7%BD%B2%E6%89%8B%E5%86%8C/">部署手册</a></p><p class="categories"><a href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/">部署运维</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2025/02/15/nestjs/"><img src="https://s21.ax1x.com/2025/02/17/pEM3hqS.png" alt="nestjs学习日记"></a></figure><div class="media-content"><p class="date"><time dateTime="2025-02-15T02:13:54.000Z">2025-02-15</time></p><p class="title"><a href="/2025/02/15/nestjs/">nestjs学习日记</a></p><p class="categories"><a href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/">后端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/10/17/Vue-Props%E7%AF%87/"><img src="https://z1.ax1x.com/2023/10/19/piiqnSI.png" alt="Vue Props篇"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-10-17T14:09:45.000Z">2023-10-17</time></p><p class="title"><a href="/2023/10/17/Vue-Props%E7%AF%87/">Vue Props篇</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/API/"><span class="tag">API</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"><span class="tag">开发规范</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%84%E4%BB%B6/"><span class="tag">组件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">54</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">27</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#content"><span class="level-left"><span class="level-item">1</span><span class="level-item">content</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#content与替换元素"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">content与替换元素</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#替换元素的默认display值"><span class="level-left"><span class="level-item">1.1.1</span><span class="level-item">替换元素的默认display值</span></span></a></li><li><a class="level is-mobile" href="#替换元素的尺寸计算规则"><span class="level-left"><span class="level-item">1.1.2</span><span class="level-item">替换元素的尺寸计算规则</span></span></a></li><li><a class="level is-mobile" href="#替换元素与非替换元素的差别"><span class="level-left"><span class="level-item">1.1.3</span><span class="level-item">替换元素与非替换元素的差别</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#差一个src"><span class="level-left"><span class="level-item">1.1.3.1</span><span class="level-item">差一个src</span></span></a></li><li><a class="level is-mobile" href="#差一个CSS-content属性"><span class="level-left"><span class="level-item">1.1.3.2</span><span class="level-item">差一个CSS content属性</span></span></a></li></ul></li><li><a class="level is-mobile" href="#content与替换元素的关系"><span class="level-left"><span class="level-item">1.1.4</span><span class="level-item">content与替换元素的关系</span></span></a></li></ul></li><li><a class="level is-mobile" href="#content内容生成"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">content内容生成</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#content计数器-⭐"><span class="level-left"><span class="level-item">1.2.1</span><span class="level-item">content计数器 ⭐</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#padding"><span class="level-left"><span class="level-item">2</span><span class="level-item">padding</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#padding的百分值"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">padding的百分值</span></span></a></li><li><a class="level is-mobile" href="#padding绘制图形"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">padding绘制图形</span></span></a></li></ul></li><li><a class="level is-mobile" href="#border"><span class="level-left"><span class="level-item">3</span><span class="level-item">border</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#border颜色"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">border颜色</span></span></a></li><li><a class="level is-mobile" href="#border其他使用"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">border其他使用</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#增加点击范围"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">增加点击范围</span></span></a></li><li><a class="level is-mobile" href="#画三角形"><span class="level-left"><span class="level-item">3.2.2</span><span class="level-item">画三角形</span></span></a></li><li><a class="level is-mobile" href="#梯形"><span class="level-left"><span class="level-item">3.2.3</span><span class="level-item">梯形</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#margin"><span class="level-left"><span class="level-item">4</span><span class="level-item">margin</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#margin合并"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">margin合并</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#阻止合并"><span class="level-left"><span class="level-item">4.1.1</span><span class="level-item">阻止合并</span></span></a></li><li><a class="level is-mobile" href="#margin合并的计算规则"><span class="level-left"><span class="level-item">4.1.2</span><span class="level-item">margin合并的计算规则</span></span></a></li><li><a class="level is-mobile" href="#margin合并的意义"><span class="level-left"><span class="level-item">4.1.3</span><span class="level-item">margin合并的意义</span></span></a></li></ul></li><li><a class="level is-mobile" href="#margin-auto"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">margin:auto</span></span></a></li><li><a class="level is-mobile" href="#margin无效情况"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">margin无效情况</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">SMALLJERRY</a><p class="is-size-7"><span>&copy; 2025 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+<script src="/js/logo.js"></script>
+<!-- hexo injector body_end end --></body></html>
