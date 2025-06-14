@@ -1,12 +1,102 @@
-@media (prefers-color-scheme: dark) {
-    .navbar-item.navbar-logo img{
-        content:url("/meta-img/logo-dark.svg");
-    }
-    .footer-logo img{
-        content:url("/meta-img/logo-dark.svg");
-    }
+/* 浅色模式样式 - 玻璃效果增强版 */
+html:not([data-theme='dark']) .card,
+html[data-theme='light'] .card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.2) !important;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
 
-    .card {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    }
+/* 添加光的反射效果 */
+html:not([data-theme='dark']) .card::before,
+html[data-theme='light'] .card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 25%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        rgba(255, 255, 255, 0) 75%
+    );
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 1;
+}
+
+html:not([data-theme='dark']) .card:hover,
+html[data-theme='light'] .card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+/* 浅色模式下导航栏玻璃效果 */
+html:not([data-theme='dark']) .navbar,
+html[data-theme='light'] .navbar {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 导航栏光的反射效果 */
+html:not([data-theme='dark']) .navbar::before,
+html[data-theme='light'] .navbar::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 40%, 
+        rgba(255, 255, 255, 0.08) 50%, 
+        rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 深色模式样式 - 基于data-theme属性 */
+html[data-theme='dark'] .navbar-item.navbar-logo img {
+    content: url("/meta-img/logo-dark.svg");
+}
+
+html[data-theme='dark'] .footer-logo img {
+    content: url("/meta-img/logo-dark.svg");
+}
+
+html[data-theme='dark'] .card {
+    background: #1e1e1e !important; /* 纯色背景，不使用毛玻璃效果 */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    transition: all 0.3s ease;
+}
+
+html[data-theme='dark'] .card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+/* 深色模式下导航栏样式 - 纯色背景 */
+html[data-theme='dark'] .navbar {
+    background: #1e1e1e !important; /* 纯色背景，不使用毛玻璃效果 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
 }

@@ -1,0 +1,22 @@
+/* Theme toggle button styles */
+.theme-toggle-icon {
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle-icon:hover {
+    transform: rotate(30deg);
+}
+
+/* Dark mode specific styles */
+html[data-theme='dark'] .navbar {
+    transition: background-color 0.3s ease;
+}
+
+html[data-theme='dark'] .navbar-item:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Animation for theme transition */
+.theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
