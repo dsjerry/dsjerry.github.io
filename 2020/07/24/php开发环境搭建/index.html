@@ -94,15 +94,13 @@
 </li>
 <li><p>配置 Apache 的索引页</p>
 <ul>
-<li><p>访问 localhost 的时候，实际上是在访问 localhost/index.html。在配置文件中搜索 <code>DirectoryIndex</code></p>
+<li><p>访问 localhost 的时候，实际上是在访问 localhost&#x2F;index.html。在配置文件中搜索 <code>DirectoryIndex</code></p>
 </li>
 <li><p>起初的模样</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">    DirectoryIndex index.html</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>加上另外的 index.php </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">    DirectoryIndex index.php index.html</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule dir_module&gt;</span><br><span class="line">    DirectoryIndex index.php index.html</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
@@ -139,7 +137,7 @@
 <p>这时已经是可以访问配置好的页面了，访问 localhost 或者 thinkphp.test 测试配置</p>
 <p>下面的是一些自定义的功能</p>
 </blockquote>
-<p>[]<del>(￣▽￣)</del>* ，✿✿ヽ(°▽°)ノ✿，ヾ(◍°∇°◍)ﾉﾞ，(<em>^▽^</em>)，(^o^)/<del>，Thanks♪(･ω･)ﾉ，٩(๑&gt;◡&lt;๑)۶，O(∩_∩)O哈哈</del></p>
+<p>[]<del>(￣▽￣)</del>* ，✿✿ヽ(°▽°)ノ✿，ヾ(◍°∇°◍)ﾉﾞ，(<em>^▽^</em>)，(^o^)&#x2F;<del>，Thanks♪(･ω･)ﾉ，٩(๑&gt;◡&lt;๑)۶，O(∩_∩)O哈哈</del></p>
 <h2 id="访问权限控制"><a href="#访问权限控制" class="headerlink" title="访问权限控制"></a>访问权限控制</h2><p>控制服务器中哪些文件允许被外部访问，在 httpd.conf 中，默认站点目录 <code>htdocs</code> 已经配置为允许外部访问，其他目录要手动配置。以 <code>www.admin.test</code> 为例</p>
 <p>在 <code>httpd-vhost.conf</code> 文件中：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    DocumentRoot &quot;D:/web/www.admin.test&quot;</span><br><span class="line">    ServerName admin.test`</span><br><span class="line">&lt;/VirtualHost&gt;</span><br><span class="line">&lt;Directory &quot;D:/web/www.admin.test&quot;&gt;</span><br><span class="line">    Require local</span><br><span class="line">    #Require all granted（充许局域网内其他电脑访问）</span><br><span class="line">    #Require all denied（不充许局域网内其他电脑访问）</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
@@ -156,7 +154,7 @@
 <li>添加 <code>AllowOverride All</code> 后， Apache 回到站点下各个目录中读取名称为 “ .htaccess ” 的分布式配置文件，该文件中的配置将会覆盖原有的配置</li>
 <li>这可能会影响服务器运行效率，如果想关掉，改为 <code>AllowOverride None</code></li>
 </ul>
-<h2 id="目录浏览功能"><a href="#目录浏览功能" class="headerlink" title="目录浏览功能"></a>目录浏览功能</h2><p>在目录“D:/web/w ww.admin.test”中创建文件 <code>.htaccess</code>，编写配置：</p>
+<h2 id="目录浏览功能"><a href="#目录浏览功能" class="headerlink" title="目录浏览功能"></a>目录浏览功能</h2><p>在目录“D:&#x2F;web&#x2F;w ww.admin.test”中创建文件 <code>.htaccess</code>，编写配置：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Options Indexes</span><br><span class="line"># 不想使用的话</span><br><span class="line">Options -Indexes</span><br></pre></td></tr></table></figure>
 
 <h2 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h2><p>在遇到错误的时候，Apache会使用 error 目录中的模板显示一个页面，通过 <code>ErrorDocument</code> 指令对不同的状态码进行配置</p>

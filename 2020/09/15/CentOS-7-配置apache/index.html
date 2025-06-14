@@ -71,7 +71,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>可选项什么都不选，默认安装在 <span style="color: darkcyan;">/usr/local/apache2</span></li>
+<li>可选项什么都不选，默认安装在 <span style="color: darkcyan;">&#x2F;usr&#x2F;local&#x2F;apache2</span></li>
 <li>还有很多配置选项，戳 <a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/2.4/programs/configure.html" style="color: green">configure手册页</a></li>
 <li>如果遇到<b style="color: red;">配置错误</b>：<code>configure: error: APR not found.  Please read the documentation.</code> 因为缺少<code>APR</code>和<code>APR-Util</code>，前往文章底部查看安装方法</li>
 <li>如果遇到<b style="color: red;">配置错误</b>：<code>configure: error: pcre-config for libpcre not found. PCRE is required and available from http://pcre.org/</code> 因为缺少 <code>pcre</code>，前往文章底部查看安装方法</li>
@@ -128,7 +128,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apr-1.7.0.tar.gz</span><br><span class="line">tar -zxvf apr-util-1.6.1.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p>将<code>apr</code>包移到 <code>/解压后的apache包/srclib/apr</code>，<code>apr-util</code>包移到 <code>/解压后的apache包/srclib/apr-util</code>。<b style="color: red;">注意：</b>在安装这两个东西的时候，<strong>包目录不允许有版本号</strong>，所以移动的时候顺便改名</p>
-<p>文中的包都下载在 <span style="color: gold">/root</span> 目录下（注意根据自己所处的目录执行命令）</p>
+<p>文中的包都下载在 <span style="color: gold">&#x2F;root</span> 目录下（注意根据自己所处的目录执行命令）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> apr-1.7.0 ./httpd-2.4.46/srclib/apr</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> apr-util-1.6.1 ./httpd-2.4.46/srclib/apr-util</span><br></pre></td></tr></table></figure>

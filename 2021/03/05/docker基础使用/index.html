@@ -233,7 +233,7 @@
 <li>不写 <em>tag</em>，默认就是 <em>latest</em></li>
 <li>Aready exists、Pull complete：是分层下载，docker image 的核心，联合文件系统</li>
 <li>Digest：签名、防伪码</li>
-<li>docker.io/library/tomcat:8：真实地址</li>
+<li>docker.io&#x2F;library&#x2F;tomcat:8：真实地址</li>
 </ul>
 <h2 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a>docker rmi</h2><h3 id="可选项-3"><a href="#可选项-3" class="headerlink" title="可选项"></a>可选项</h3><table>
 <thead>
@@ -284,7 +284,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">–name=”Name”</td>
+<td align="center">–name&#x3D;”Name”</td>
 <td align="center">容器的名称</td>
 </tr>
 <tr>
@@ -383,8 +383,8 @@
 </tbody></table>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it nginx-test /bin/bash</span><br></pre></td></tr></table></figure>
 
-<h2 id="docker-run-和-docker-exec-区别"><a href="#docker-run-和-docker-exec-区别" class="headerlink" title="docker run 和 docker exec 区别"></a>docker run 和 docker exec 区别</h2><p><strong>docker run ：</strong>根据镜像创建一个容器并运行一个命令，操作的对象是 <strong>镜像</strong>；</p>
-<p><strong>docker exec ：</strong>在运行的容器中执行命令，操作的对象是 <strong>容器</strong>。</p>
+<h2 id="docker-run-和-docker-exec-区别"><a href="#docker-run-和-docker-exec-区别" class="headerlink" title="docker run 和 docker exec 区别"></a>docker run 和 docker exec 区别</h2><p>**docker run ：**根据镜像创建一个容器并运行一个命令，操作的对象是 <strong>镜像</strong>；</p>
+<p>**docker exec ：**在运行的容器中执行命令，操作的对象是 <strong>容器</strong>。</p>
 <h2 id="docker-rm"><a href="#docker-rm" class="headerlink" title="docker rm"></a>docker rm</h2><p>删除指定容器，正在运行的不能删除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> 容器<span class="built_in">id</span></span><br></pre></td></tr></table></figure>
 

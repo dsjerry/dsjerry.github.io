@@ -79,7 +79,7 @@
 <p>安装<code>pinia</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add pinia</span><br></pre></td></tr></table></figure>
 
-<p>习惯在相对项目根目录创建<code>src/store/index.ts</code>文件，以此作为入口来配置整个项目的 _store_（state？？）</p>
+<p>习惯在相对项目根目录创建<code>src/store/index.ts</code>文件，以此作为入口来配置整个项目的 <em>store</em>（state？？）</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&quot;pinia&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> pinia;</span><br></pre></td></tr></table></figure>
 
 <p>在<code>vue</code>的入口文件<code>main.ts</code>中导入并使用</p>

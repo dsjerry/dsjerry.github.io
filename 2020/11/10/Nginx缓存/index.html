@@ -91,7 +91,7 @@
 <p>在此目录下再创建一个新的目录<code>test</code>，在<code>test</code>里面创建创建 test.html，并且放一张图片(nginx.jpg)在此目录</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>192.168.146.27/test/test.html<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;nginx.jpg&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h3><p>分别在浏览器访问 <em>192.168.146.24/cache.html</em> 和 <em>192.168.146.24/test/test.html</em></p>
+<h3 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h3><p>分别在浏览器访问 <em>192.168.146.24&#x2F;cache.html</em> 和 <em>192.168.146.24&#x2F;test&#x2F;test.html</em></p>
 <p><img src="https://s3.ax1x.com/2020/11/13/DpyAOK.png" alt="访问缓存服务器"></p>
 <p><img src="https://s3.ax1x.com/2020/11/13/DpyfpR.png" alt="访问缓存服务器"></p>
 <p>在刚刚创建的 <code>cache</code> 文件夹中，使用 <code>tree</code>查看目录内容</p>
@@ -104,9 +104,9 @@
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代理临时目录</span></span><br><span class="line"><span class="attribute">proxy_temp_path</span>  /usr/local/nginx/proxy_temp_dir;</span><br><span class="line"><span class="comment"># Web缓存目录和参数设置</span></span><br><span class="line"><span class="attribute">proxy_cache_path</span> /usr/local/nginx/proxy_cache_dir levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=cache_one:<span class="number">50m</span> inactive=<span class="number">1m</span> max_size=<span class="number">500m</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>/usr/local/nginx/proxy_cache_dir参数：表示用户自定义的缓存文件保存目录</li>
+<li>&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;proxy_cache_dir参数：表示用户自定义的缓存文件保存目录</li>
 <li>levels参数：表示缓存目录下的层级目录结构，它是根据哈希后的请求URL地址创建的，目录名称从哈希后的字符串结尾处开始截取<ul>
-<li>假设哈希后的请求链接地址为“af7098a15e430326197ee01516fdace0”，则levels=1:2表示，第1层子目录的名称是长度为1的字符“0”，第2层子目录的名称是长度为2的字符“ce”。</li>
+<li>假设哈希后的请求链接地址为“af7098a15e430326197ee01516fdace0”，则levels&#x3D;1:2表示，第1层子目录的名称是长度为1的字符“0”，第2层子目录的名称是长度为2的字符“ce”。</li>
 </ul>
 </li>
 <li>keys_zone参数：指定缓存区名称及大小，例如“cache_one:50m”表示缓存区名称为cache_one，在内存中的空间是50M</li>

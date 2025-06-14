@@ -71,9 +71,7 @@
 
 <ul>
 <li><p>或者是旧版本的 node，使用：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g express-generator</span><br><span class="line">express</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g express-generator</span><br><span class="line">express</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>启动服务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
@@ -87,7 +85,7 @@
 </ul>
 <h3 id="改写入口文件"><a href="#改写入口文件" class="headerlink" title="改写入口文件"></a>改写入口文件</h3><ul>
 <li>起初，入口文件是在 <em>bin</em> 目录下的 <em><a target="_blank" rel="noopener" href="http://www.js/">www.js</a></em></li>
-<li>将 <em><a target="_blank" rel="noopener" href="http://www.js/">www.js</a></em> 里面的 <em>http_、_server</em> 模块转移到 <em>app.js</em> ，<em>app.js</em> 里面的暴露去掉，添加一个监听端口</li>
+<li>将 <em><a target="_blank" rel="noopener" href="http://www.js/">www.js</a></em> 里面的 <em>http</em>、<em>server</em> 模块转移到 <em>app.js</em> ，<em>app.js</em> 里面的暴露去掉，添加一个监听端口</li>
 </ul>
 <h1 id="使用-express-路由"><a href="#使用-express-路由" class="headerlink" title="使用 express 路由"></a>使用 express 路由</h1><p>作为中间件，接收和处理来自客户端的请求。路由都放在 <em>routes</em> 目录下。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 返回内容给客户端</span></span><br><span class="line">  res.<span class="title function_">send</span>();</span><br><span class="line">&#125;);</span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&quot;/login&quot;</span>, <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// post 请求的内容在 res.body 对象中</span></span><br><span class="line">  <span class="keyword">var</span> data = req.<span class="property">body</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>

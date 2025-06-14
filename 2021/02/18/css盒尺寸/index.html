@@ -83,7 +83,7 @@
 <li><p>⭐如果固有尺寸含有固定的<em>宽高比例</em>，同时<span style="color: red">仅仅</span>设置了宽度或者高度，则依然按照固有的宽高比例来显示</p>
 </li>
 </ul>
-<p>在 <code>&lt;img&gt;</code> 中，没有 <strong>src</strong> 和 <strong>src=” “</strong> 是不一样的，前者不会发送请求，后者在一些浏览器中会发送请求，请求当前页面数据。</p>
+<p>在 <code>&lt;img&gt;</code> 中，没有 <strong>src</strong> 和 <strong>src&#x3D;” “</strong> 是不一样的，前者不会发送请求，后者在一些浏览器中会发送请求，请求当前页面数据。</p>
 <ul>
 <li>在 Firefox 中，没有 src 的 img标签不是替换元素，而是内联元素。</li>
 </ul>
@@ -116,7 +116,7 @@
 <li>content 计数器</li>
 </ol>
 <h3 id="content计数器-⭐"><a href="#content计数器-⭐" class="headerlink" title="content计数器 ⭐"></a>content计数器 ⭐</h3><p>只是用css实现的计数器（随着元素数目增加，数值随着增加）</p>
-<p>对应2个属性（counter-reset、counter-increment）和1个方法（ counter() / counters() ）</p>
+<p>对应2个属性（counter-reset、counter-increment）和1个方法（ counter() &#x2F; counters() ）</p>
 <p><strong>counter-reset</strong>：主要作用是给计数器起名，并且设定开始的数值（默认起始数字为0）</p>
 <ul>
 <li>这个值可以是负数，在Chrome中还可以是小数。不过 2.99 会变成 2</li>
@@ -128,7 +128,7 @@
 <li>可以作用在伪元素上。</li>
 <li>变化值也可以是负数，递减效果。</li>
 </ul>
-<p><strong>counter() / counters()</strong></p>
+<p><strong>counter() &#x2F; counters()</strong></p>
 <ul>
 <li>作用就是输出计数，里面参数是计数器的名字</li>
 <li>第2个参数 <em>style</em>，支持的值就是 <em>list-style-type</em> 属性的那些值。递增的不一定是数字，可能是字母之类的等等</li>
@@ -218,15 +218,13 @@
 </ol>
 <p>   <strong>对于margin-bottom</strong></p>
 <ol>
-<li><p>和上面4点一样，但是属性取反</p>
-</li>
-<li><p>父元素设置 height、min-height 或 max-height</p>
-<p>使用 <code>overflow: hidden;</code> 将父级元素设置为块状格式上下文。</p>
+<li>和上面4点一样，但是属性取反</li>
+<li>父元素设置 height、min-height 或 max-height</li>
+</ol>
+<p>   使用 <code>overflow: hidden;</code> 将父级元素设置为块状格式上下文。</p>
 <blockquote>
 <p>jQuery中使用 <code>$().slideUp</code> 和 <code>$().slideDown</code> 方法时，动画有卡顿现象，可能就是这个合并造成的。</p>
 </blockquote>
-</li>
-</ol>
 <h3 id="margin合并的计算规则"><a href="#margin合并的计算规则" class="headerlink" title="margin合并的计算规则"></a>margin合并的计算规则</h3><ul>
 <li>正值和正值取最大值</li>
 <li>正值和负值，相加</li>
@@ -238,7 +236,7 @@
 <li>如果一侧是定制，一侧是<code>auto</code>，那 auto 就是剩下的空间</li>
 <li>如果两侧都是 auto，那就是平分空间</li>
 </ol>
-<p>如果想让某个块状元素右对齐，除了使用 *float：right;*，还可以使用 <code>margin-left: auto;</code></p>
+<p>如果想让某个块状元素右对齐，除了使用 <em>float：right;</em>，还可以使用 <code>margin-left: auto;</code></p>
 <ul>
 <li>因为margin的默认大小是 0，然后 margin-left：auto 就百分百填满了</li>
 </ul>
@@ -261,7 +259,7 @@
 </li>
 <li><p>绝对定位元素非定位方向的margin。比如：</p>
 <ol>
-<li><pre><code class="css">img&#123;
+<li><pre><code class="language-css">img&#123;
     top: 50%;
     left: 50%;
     margin-right: 25px;
@@ -275,8 +273,6 @@
 如果文字足够多的情况下，设置大于 233px
 
 ![margin-left有效果](https://s3.ax1x.com/2021/02/20/y55mKf.png)
-
-
 </code></pre>
 </li>
 </ol>

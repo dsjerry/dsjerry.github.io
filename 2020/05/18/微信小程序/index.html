@@ -83,7 +83,7 @@
 </li>
 <li><p><strong>radio</strong> 单选框</p>
 </li>
-<li><p><strong>input</strong> 输入框…这里是单标签，并且标签内部要加入 / 作为结尾</p>
+<li><p><strong>input</strong> 输入框…这里是单标签，并且标签内部要加入 &#x2F; 作为结尾</p>
 <ul>
 <li>type 的合法值<ul>
 <li>text：文本输入键盘（默认）</li>
@@ -139,7 +139,7 @@
 <li>danmu-btn：是否显示弹幕</li>
 <li>autoplay：自动播放（×）</li>
 <li>poster：视频封面的网络地址，controls 为（×）的时候设置无效</li>
-<li>bindplay / bindpause：触发事件</li>
+<li>bindplay &#x2F; bindpause：触发事件</li>
 </ul>
 </li>
 <li><p><strong>map</strong> 地图相关</p>
@@ -168,11 +168,11 @@
 </li>
 <li><p><strong>scroll-view</strong> 实现可滚动视图区域</p>
 <ul>
-<li>scroll-x / scroll-y 允许横向/纵向滚动（×）<ul>
+<li>scroll-x &#x2F; scroll-y 允许横向&#x2F;纵向滚动（×）<ul>
 <li>纵向滚动需要在样式中为 scroll-view 设置一个固定高度，否则它会被子元素撑大</li>
 </ul>
 </li>
-<li>scroll-top/scroll-left 设置竖向/横向滚动条的位置（number / string）</li>
+<li>scroll-top&#x2F;scroll-left 设置竖向&#x2F;横向滚动条的位置（number &#x2F; string）</li>
 <li>bindscroll 滚动时触发的事件</li>
 </ul>
 </li>
@@ -228,10 +228,10 @@
 <li><p><strong>视频 API (VideoContext)</strong></p>
 <ul>
 <li>wx.createVideoContext() 的一些常用方法<ul>
-<li>play()/pause()/stop()，播放/暂停/停止</li>
+<li>play()&#x2F;pause()&#x2F;stop()，播放&#x2F;暂停&#x2F;停止</li>
 <li>seek(number)：跳转到指定位置</li>
 <li>playbackRate(number)：播放倍速</li>
-<li>requestFullScreen() / exitFullScreen()：全屏/退出全屏</li>
+<li>requestFullScreen() &#x2F; exitFullScreen()：全屏&#x2F;退出全屏</li>
 <li>sendDanmu：发送弹幕</li>
 </ul>
 </li>
@@ -306,15 +306,13 @@
 </ul>
 </li>
 <li><p>在相对应的 xxx.js 中：首先要使用 <strong>requirePlugin()</strong> 引入插件，然后调用 <strong>getTxvContext()</strong></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onReady</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">TxvContext</span> = <span class="title function_">requirePlugin</span>(<span class="string">&#x27;tencentVideo&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> txvContext = <span class="title class_">TxvContext</span>.<span class="title function_">getTxvContext</span>(<span class="string">&#x27;txv1&#x27;</span>)</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">play</span>()</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">pause</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onReady</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">TxvContext</span> = <span class="title function_">requirePlugin</span>(<span class="string">&#x27;tencentVideo&#x27;</span>)</span><br><span class="line">    <span class="keyword">var</span> txvContext = <span class="title class_">TxvContext</span>.<span class="title function_">getTxvContext</span>(<span class="string">&#x27;txv1&#x27;</span>)</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">play</span>()</span><br><span class="line">    txv.<span class="property">Context</span>.<span class="title function_">pause</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 <h2 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h2><ul>
 <li>通过<strong>dataset</strong>区分元素（input）<ul>
-<li>可以使用 <em>data-id</em> 取代掉 _id_，例如：data-id=“num”，在绑定的事件中通过 <code>e.target.dataset.id</code>就可以获得</li>
+<li>可以使用 <em>data-id</em> 取代掉 <em>id</em>，例如：data-id&#x3D;“num”，在绑定的事件中通过 <code>e.target.dataset.id</code>就可以获得</li>
 <li>而且，通过<code>e.target.dataset.名称</code>就可以获得 <code>data-名称</code> 的值</li>
 </ul>
 </li>
@@ -330,14 +328,12 @@
 </li>
 </ul>
 <h2 id="WXS"><a href="#WXS" class="headerlink" title="WXS"></a>WXS</h2><ul>
-<li><p>大名 _WeiXin Script_，和 js 差不多，是小程序的脚本语言，可以在 wxml 中插入</p>
+<li><p>大名 <em>WeiXin Script</em>，和 js 差不多，是小程序的脚本语言，可以在 wxml 中插入</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">wxs</span> <span class="attr">module</span>=<span class="string">&quot;haha&quot;</span>&gt;</span></span><br><span class="line">  module.exports = function(value)&#123; var x =xxx var m = mmm &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">wxs</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>属性 <em>module</em> 表示模块名称，导出后，可以在标签中使用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span> &#123;&#123; haha(xm) &#125;&#125; <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span>&gt;</span> &#123;&#123; haha(xm) &#125;&#125; <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>

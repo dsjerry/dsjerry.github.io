@@ -56,7 +56,7 @@
 <p>全称：异步 JavaScript 和 XML（Asynchronous JavaScript and XML）</p>
 <ul>
 <li>不是一种技术，而是一种将现有技术结合起来的使用方法。🌎 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/AJAX">mdn ajax 文档</a></li>
-<li>虽然其中 X 代表 <em>XML_，但是 _JSON</em> 是首选类型</li>
+<li>虽然其中 X 代表 <em>XML</em>，但是 <em>JSON</em> 是首选类型</li>
 </ul>
 <p>使用 AJAX 发送的请求和传统的表单 (<code>&lt;form&gt;</code>标签) 的请求方式不一样，所以如果使用按钮，其属性类型不用设置为<code>submit</code>，<code>name</code>属性也不用写出来</p>
 <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 创建ajax对象</span></span><br><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="comment">// 2. 请求的方式和请求地址。第三个参数 boolean 指定是否为异步</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;get&quot;</span>, <span class="string">&quot;http:localhost/test&quot;</span>);</span><br><span class="line"><span class="comment">// 3. 发送请求。参数可传递任何想传到服务器的内容</span></span><br><span class="line">xhr.<span class="title function_">send</span>();</span><br><span class="line"><span class="comment">// 4. 获取服务器端响应的内容</span></span><br><span class="line">xhr.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -84,10 +84,10 @@
 
 <p>求参数的类型有：</p>
 <ul>
-<li><code>application/x-www-form-urlencoded</code>的形式：name=zs&amp;age=20</li>
+<li><code>application/x-www-form-urlencoded</code>的形式：name&#x3D;zs&amp;age&#x3D;20</li>
 <li><code>application/json</code>的形式：{ name: ‘zs’, age: 20 }</li>
 </ul>
-<p>在请求头中指定 <em>Content-Type</em> 属性的值是 <em>application/json</em> 的时候就是告诉服务器当前请求的格式是 json</p>
+<p>在请求头中指定 <em>Content-Type</em> 属性的值是 <em>application&#x2F;json</em> 的时候就是告诉服务器当前请求的格式是 json</p>
 <p>在上面的代码中，是用 <em>json</em> 格式发送请求</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>);</span><br><span class="line"><span class="comment">// 然后需要将json对象转换成json字符串</span></span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123; <span class="attr">name</span>: <span class="string">&quot;zs&quot;</span>, <span class="attr">age</span>: <span class="number">20</span> &#125;));</span><br></pre></td></tr></table></figure>
 
@@ -107,7 +107,7 @@
 </ul>
 <p>数值可通过<code>XMLHttpRequest.名称获得</code>：有<code>DONE</code>,<code>OPENED</code>,<code>HEADERS_RECEIVED</code>,<code>LOADING</code>,<code>DONE</code></p>
 <h3 id="http-状态码"><a href="#http-状态码" class="headerlink" title="http 状态码"></a>http 状态码</h3><ol>
-<li>网络正常，服务器接收请求之后返回的数据不是预期的内容，可以使用<code>xhr.status</code>获取服务器返回的 http 状态码来判断（_服务器状态码和 ajax 状态码不一样_）</li>
+<li>网络正常，服务器接收请求之后返回的数据不是预期的内容，可以使用<code>xhr.status</code>获取服务器返回的 http 状态码来判断（<em>服务器状态码和 ajax 状态码不一样</em>）</li>
 <li>网络正常，服务端返回了 <em>404</em> 状态码，可能是请求的地址有错</li>
 <li>网络正常，服务器返回了 <em>505</em> 状态码，服务器出了问题</li>
 <li>网络断了，使用 <code>xhr.onerror()</code>来处理错误</li>
@@ -148,7 +148,7 @@
 </blockquote>
 <p>和 <em>jquery.ajax()</em> 不同有：</p>
 <ul>
-<li>返回的<code>Promise</code>不会因为 HTTP 错误状态而被拒绝（404、500），正常 resolve，只不过 <em>ok</em> 状态设置成了 _false_。网络故障或者情趣阻止时才会 reject</li>
+<li>返回的<code>Promise</code>不会因为 HTTP 错误状态而被拒绝（404、500），正常 resolve，只不过 <em>ok</em> 状态设置成了 <em>false</em>。网络故障或者情趣阻止时才会 reject</li>
 <li>默认不发送跨源 cookie</li>
 </ul>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&quot;http://example.com/movies.json&quot;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(data));</span><br></pre></td></tr></table></figure>
@@ -167,7 +167,7 @@
 <ul>
 <li>method：请求方法</li>
 <li>mode：no-cors, *cors, same-origin</li>
-<li>headers: { “Content-Type”: “application/json” },</li>
+<li>headers: { “Content-Type”: “application&#x2F;json” },</li>
 <li>body: JSON.stringify(data)</li>
 </ul>
 <p>请求体可以配合 <code>FormData</code>使用</p>

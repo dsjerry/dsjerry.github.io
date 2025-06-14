@@ -55,7 +55,7 @@
 <p>如果不使用解构：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">    <span class="attr">repeat</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">save</span>: <span class="literal">false</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> repeat = options.<span class="property">repeat</span>,</span><br><span class="line">    save = options.<span class="property">save</span>;</span><br></pre></td></tr></table></figure>
 
-<h1 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h1><p>对象解构的语法形式是在一个赋值操作符（=）左边放置一个<code>对象字面量</code></p>
+<h1 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h1><p>对象解构的语法形式是在一个赋值操作符（&#x3D;）左边放置一个<code>对象字面量</code></p>
 <blockquote>
 <p>对象字面量：和 JSON 看起来差不多，JSON 是基于对象字面量的语法构建的</p>
 <blockquote>
@@ -80,7 +80,7 @@
 <ul>
 <li>解构赋值的时候 <code>=</code> 右边的值如果是 <code>null</code> 或 <code>undefined</code>，会报错。</li>
 </ul>
-<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>如果表达值指定的局部变量的名称（= 左边）在对象中（=右边）不存在，则这个局部变量会被赋值为 <code>undefined</code></p>
+<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>如果表达值指定的局部变量的名称（&#x3D; 左边）在对象中（&#x3D;右边）不存在，则这个局部变量会被赋值为 <code>undefined</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> node = &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;festival&quot;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Spring Festival&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> &#123; type, name, value &#125; = node;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(type);		<span class="comment">// &quot;festival&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(name);		<span class="comment">// &quot;Spring Festival&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);		<span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 
 <p>同时可以给这个 <code>value</code> 随意定义一个默认值，在 value 后面使用 <code>=</code></p>
@@ -201,7 +201,7 @@
 
 
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>1️⃣ 在以上几种解构中，<code>=</code> 右边的值为 <code>null</code> 或 <code>undefined</code>，程序会报错。</p>
-<p>参考引用📖：<code>深入理解ES6</code> / <code>Understanding ECMAScript 6</code> - <strong>Nicholas C. Zakas</strong> | 第五章 - 解构：使数据访问更便捷</p>
+<p>参考引用📖：<code>深入理解ES6</code> &#x2F; <code>Understanding ECMAScript 6</code> - <strong>Nicholas C. Zakas</strong> | 第五章 - 解构：使数据访问更便捷</p>
 <!-- <h1 style="font-size: 100px"><span style="color: gold; border: 5px dotted cyan; padding: 2px">角刀牛</span><span style="color: darkcyan;border: 5px dotted pink;padding: 2px">木勾</span></h1> -->
 
 

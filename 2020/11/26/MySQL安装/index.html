@@ -62,7 +62,7 @@
 <h3 id="下载、解压"><a href="#下载、解压" class="headerlink" title="下载、解压"></a>下载、解压</h3><p>在 Windows 中下载好安装包或者在此系统中使用<code>wget</code>下载</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.32-linux-glibc2.12-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p>解压并移动、重命名文件夹（一般会解压到 <em>/usr/local</em> 目录下），在压缩包所在的目录中</p>
+<p>解压并移动、重命名文件夹（一般会解压到 <em>&#x2F;usr&#x2F;local</em> 目录下），在压缩包所在的目录中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-5.7.32-linux-glibc2.12-x86_64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> mysql-5.7.32-linux-glibc2.12-x86_64 /usr/local/mysql</span><br></pre></td></tr></table></figure>
 
 <h3 id="创建MySQL用户组和用户"><a href="#创建MySQL用户组和用户" class="headerlink" title="创建MySQL用户组和用户"></a>创建MySQL用户组和用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql</span><br><span class="line">useradd -g mysql mysql</span><br></pre></td></tr></table></figure>
@@ -72,13 +72,13 @@
 
 <h3 id="修改mysql目录所属的用户"><a href="#修改mysql目录所属的用户" class="headerlink" title="修改mysql目录所属的用户"></a>修改mysql目录所属的用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> -R mysql:mysql ./</span><br></pre></td></tr></table></figure>
 
-<h3 id="准备MySQL配置文件"><a href="#准备MySQL配置文件" class="headerlink" title="准备MySQL配置文件"></a>准备MySQL配置文件</h3><p>在 <strong>/etc</strong> 下新建 <em>my.cnf</em> 文件</p>
+<h3 id="准备MySQL配置文件"><a href="#准备MySQL配置文件" class="headerlink" title="准备MySQL配置文件"></a>准备MySQL配置文件</h3><p>在 <strong>&#x2F;etc</strong> 下新建 <em>my.cnf</em> 文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc</span><br><span class="line">vim my.cnf</span><br></pre></td></tr></table></figure>
 
 <p>加入内容</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line"># 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line">[mysqld]</span><br><span class="line">skip-name-resolve</span><br><span class="line">#设置3306端⼝</span><br><span class="line">port = 3306</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line"># 设置mysql的安装⽬录</span><br><span class="line">basedir=/usr/local/mysql</span><br><span class="line"># 设置mysql数据库的数据的存放⽬录</span><br><span class="line">datadir=/usr/local/mysql/data</span><br><span class="line"># 允许最⼤连接数</span><br><span class="line">max_connections=200</span><br><span class="line"># 服务端使⽤的字符集默认为8⽐特编码的latin1字符集</span><br><span class="line">character-set-server=utf8</span><br><span class="line"># 创建新表时将使⽤的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line">lower_case_table_names=1</span><br><span class="line">max_allowed_packet=16M</span><br></pre></td></tr></table></figure>
 
-<p>创建 <strong>/var/lib/mysql</strong> 目录，并且修改权限</p>
+<p>创建 <strong>&#x2F;var&#x2F;lib&#x2F;mysql</strong> 目录，并且修改权限</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /var/lib/mysql</span><br><span class="line"><span class="built_in">chmod</span> 777 /var/lib/mysql</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql/bin</span><br></pre></td></tr></table></figure>
@@ -91,7 +91,7 @@
 <p><img src="https://s3.ax1x.com/2020/11/26/Dwgpi8.png" alt="mysql密码"></p>
 <h3 id="复制脚本到启动目录"><a href="#复制脚本到启动目录" class="headerlink" title="复制脚本到启动目录"></a>复制脚本到启动目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql</span><br><span class="line"><span class="built_in">cp</span> ./support-files/mysql.server /etc/init.d/mysqld</span><br></pre></td></tr></table></figure>
 
-<p>修改 <strong>/etc/init.d/mysqld</strong> ，修改其 <em>basedir</em> 和 <em>datadir</em> 为实际对应⽬录</p>
+<p>修改 <strong>&#x2F;etc&#x2F;init.d&#x2F;mysqld</strong> ，修改其 <em>basedir</em> 和 <em>datadir</em> 为实际对应⽬录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/init.d/mysqld</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">basedir=/usr/local/mysql</span><br><span class="line">datadir=/usr/local/mysql/data</span><br></pre></td></tr></table></figure>
@@ -113,10 +113,10 @@
 
 <p><img src="https://s3.ax1x.com/2020/11/26/D0GpEn.png" alt="mysql成功启动"></p>
 <h3 id="将MySQL添加到环境变量"><a href="#将MySQL添加到环境变量" class="headerlink" title="将MySQL添加到环境变量"></a>将MySQL添加到环境变量</h3><p>将mysql的 <em>bin</em> 添加到 <em>path</em> 环境变量，添加到环境变量就可以在任何目录使用mysql命令</p>
-<p>编辑 <strong>~/.bash_profile</strong> 文件，在末尾添加：</p>
+<p>编辑 <strong>~&#x2F;.bash_profile</strong> 文件，在末尾添加：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/local/mysql/bin</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://s3.ax1x.com/2020/11/26/D0YR3V.png" alt="~/.bash_profile文件"></p>
+<p><img src="https://s3.ax1x.com/2020/11/26/D0YR3V.png" alt="~&#x2F;.bash_profile文件"></p>
 <p>执行命令使得环境变量生效</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
 

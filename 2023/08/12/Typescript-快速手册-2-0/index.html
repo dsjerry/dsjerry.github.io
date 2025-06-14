@@ -109,7 +109,7 @@
 <p>如果数组里面啥都有。直接用<code>any</code>或者用<code>元组</code></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">name</span>: <span class="built_in">any</span>[] = [<span class="number">1</span>, <span class="string">&quot;qaq&quot;</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="attr">name</span>: [<span class="built_in">number</span>, <span class="built_in">string</span>] = [<span class="number">1</span>, <span class="string">&quot;qaq&quot;</span>];</span><br></pre></td></tr></table></figure>
 
-<p>_剩余参数_：有属于自己的接口</p>
+<p><em>剩余参数</em>：有属于自己的接口</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">func</span>(<span class="params">...<span class="attr">args</span>: <span class="built_in">string</span>[]</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>); <span class="comment">// 类型是 IArgments</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h3><p>就是用<code>type</code>来指定某个类型</p>

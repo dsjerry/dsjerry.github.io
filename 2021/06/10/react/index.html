@@ -92,7 +92,7 @@
 
 <h2 id="React-和-JSX"><a href="#React-和-JSX" class="headerlink" title="React 和 JSX"></a>React 和 JSX</h2><p><code>jsx</code> 是 <code>JavaScript XML</code> 的简写，在 JavaScript 文件中写 HTML-like 标签</p>
 <ul>
-<li>因为<code>jsx</code>不是标准的<code>ECMAScript</code>语法，而是它的语法扩展，所以在普通环境是不可以使用的；要在脚手架中使用（因为脚手架中包含了<code>babel</code>，@babel/preset-react）</li>
+<li>因为<code>jsx</code>不是标准的<code>ECMAScript</code>语法，而是它的语法扩展，所以在普通环境是不可以使用的；要在脚手架中使用（因为脚手架中包含了<code>babel</code>，@babel&#x2F;preset-react）</li>
 </ul>
 <blockquote>
 <p>JSX 和 React 是两个东西，前者是语法拓展，后者是一个 JavaScript 库。React 是使用了这种语法拓展。通常是一起使用的，但也可以分开使用。<a target="_blank" rel="noopener" href="https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#whats-a-jsx-transform">更多介绍</a></p>
@@ -106,14 +106,14 @@
 <ul>
 <li>这个空白的标签叫做 Fragment （片段 ？？）</li>
 <li>完整样子：<code>&lt;Fragment&gt;&lt;/Fragment&gt;</code></li>
-<li>向 Fragment 传 _key_，不能使用短标签 <code>&lt;&gt;&lt;/&gt;</code>，需要从 react 导入 Fragment 然后 s 使用<code>&lt;Fragment key=&#123;yourKey&#125;&gt;...&lt;/Fragment&gt;</code></li>
+<li>向 Fragment 传 <em>key</em>，不能使用短标签 <code>&lt;&gt;&lt;/&gt;</code>，需要从 react 导入 Fragment 然后 s 使用<code>&lt;Fragment key=&#123;yourKey&#125;&gt;...&lt;/Fragment&gt;</code></li>
 <li>不会重置<code>state</code>，在从<code>&lt;&gt;&lt;Child /&gt;&lt;/&gt;</code>到<code>[&lt;Child&gt;]</code>或反转的时候；<code>&lt;&gt;&lt;&gt;&lt;Child /&gt;&lt;/&gt;&lt;/&gt;</code>就会重置。关于重置 state，需要跳转看到<code>state</code>章节</li>
 </ul>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建react元素</span></span><br><span class="line"><span class="keyword">const</span> title = (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">className</span>=<span class="string">&quot;title&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    Hello Hi <span class="tag">&lt;<span class="name">span</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 渲染元素</span></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(title, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>));</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>class =&gt; className 、for =&gt; htmlFor，等等</li>
-<li>如果元素没有子节点，可以转为单标签：<code>&lt;span&gt;&lt;/span&gt;</code> =&gt; <code>&lt;span /&gt;</code>，当然不转也行</li>
+<li>class &#x3D;&gt; className 、for &#x3D;&gt; htmlFor，等等</li>
+<li>如果元素没有子节点，可以转为单标签：<code>&lt;span&gt;&lt;/span&gt;</code> &#x3D;&gt; <code>&lt;span /&gt;</code>，当然不转也行</li>
 </ul>
 <p><strong>2. 必须要关闭标签</strong></p>
 <p>…其实一直不知道标签还可以不用关闭的 🥲</p>
@@ -231,7 +231,7 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">Profile</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://i.imgur.com/MK3eW3Am.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Katherine Johnson&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>虽然里面有<em>src</em>、_alt_，但是实则为 JavaScript，这种写法叫</li>
+<li>虽然里面有<em>src</em>、<em>alt</em>，但是实则为 JavaScript，这种写法叫</li>
 <li>React 会以大小写来区分 HTML 标签和 React 组件</li>
 </ul>
 <h3 id="类组件"><a href="#类组件" class="headerlink" title="类组件"></a>类组件</h3><ul>
@@ -320,7 +320,7 @@
 <blockquote>
 <p>对于原生的 HTML 元素，要尽量使用对应功能的元素其对应的事件。比如点击事件会用到<code>&lt;button&gt;</code>而不是<code>div</code></p>
 </blockquote>
-<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>随着时间改变的数据叫 _state_，对于对象和数组，react 推荐它们的使用是不可变的（immutable），要想更新，就创建一个新的</p>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p>随着时间改变的数据叫 <em>state</em>，对于对象和数组，react 推荐它们的使用是不可变的（immutable），要想更新，就创建一个新的</p>
 <h3 id="有状态和无状态组件"><a href="#有状态和无状态组件" class="headerlink" title="有状态和无状态组件"></a>有状态和无状态组件</h3><ul>
 <li><del style="color: darkred">无状态组件：函数组件；有状态组件：类组件</del> <code>React 16.8</code></li>
 <li>状态（state）负责数据</li>
@@ -388,7 +388,7 @@
 </tr>
 <tr>
 <td>替换</td>
-<td>splice, arr[i]=xx</td>
+<td>splice, arr[i]&#x3D;xx</td>
 <td>map</td>
 </tr>
 <tr>
@@ -410,9 +410,9 @@
 <p><strong>插入内容</strong>：确定要添加的位置，然后使用<code>slice</code>分割数组，将要添加的放到两个切片中间</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [artists, setArtists] = <span class="title function_">useState</span>([xxx, xx, x]);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> insertAt = <span class="number">1</span>; <span class="comment">// 任何要插入的位置</span></span><br><span class="line"><span class="keyword">const</span> nextArtists = [</span><br><span class="line">  <span class="comment">// 插入点前:</span></span><br><span class="line">  ...artists.<span class="title function_">slice</span>(<span class="number">0</span>, insertAt),</span><br><span class="line">  <span class="comment">// 要插入的:</span></span><br><span class="line">  &#123; <span class="attr">id</span>: nextId++, <span class="attr">name</span>: name &#125;,</span><br><span class="line">  <span class="comment">// 插入点后:</span></span><br><span class="line">  ...artists.<span class="title function_">slice</span>(insertAt),</span><br><span class="line">];</span><br><span class="line"><span class="title function_">setArtists</span>(nextArtists);</span><br></pre></td></tr></table></figure>
 
-<p><strong>其他操作</strong>：比如 _反转_，_排序_，js 方法会改变旧的数组，所以要先复制出一个数组然后再做出改变，如<code>nextList.sort()</code>，<code>nextList[0] = &#123;name: &quot;zs&quot;, age: 18&#125;</code></p>
+<p><strong>其他操作</strong>：比如 <em>反转</em>，<em>排序</em>，js 方法会改变旧的数组，所以要先复制出一个数组然后再做出改变，如<code>nextList.sort()</code>，<code>nextList[0] = &#123;name: &quot;zs&quot;, age: 18&#125;</code></p>
 <blockquote>
-<p>对于数组 <em>list</em> 和 _nextList_，虽然不是相同的数组，但是<code>list[0]</code>和<code>nextList[0]</code>指向的是相同的对象，所以直接<code>nextList[0].age=19</code>这样的还是不推荐的，因为这是浅拷贝，是直接改掉了对象里面的东西</p>
+<p>对于数组 <em>list</em> 和 <em>nextList</em>，虽然不是相同的数组，但是<code>list[0]</code>和<code>nextList[0]</code>指向的是相同的对象，所以直接<code>nextList[0].age=19</code>这样的还是不推荐的，因为这是浅拷贝，是直接改掉了对象里面的东西</p>
 </blockquote>
 <p><strong>👉 更新数组里面的对象</strong></p>
 <p>对象其实并不是再数组里面的，只是在代码这里看起来是在里面；但事实上当使用数组时（虽然已经使用拓展运算符复制出不同的数组），尝试改变其中数组内元素的值，另外的引用也会跟着改变，因为数组它内容本身还是和旧数组一样，只是在新的数组里面呆着罢了</p>
@@ -677,7 +677,7 @@
 <tr>
 <td>render</td>
 <td>每次组件渲染都会触发</td>
-<td>渲染界面（**不能调用<code>setState()</code>**）</td>
+<td>渲染界面（<strong>不能调用<code>setState()</code></strong>）</td>
 </tr>
 <tr>
 <td>componentDidMount</td>
@@ -883,7 +883,7 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>默认路由<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Link</span> <span class="attr">to</span>=<span class="string">&quot;/login&quot;</span>&gt;</span>登录页面<span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Home&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/login&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Login&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>不管<code>&lt;Link&gt;</code>中的 to 里面的内容是什么（to=”/a”，to=”/abc”），<code>&lt;Route path=&quot;/&quot;&gt;</code>都会被匹配到</li>
+<li>不管<code>&lt;Link&gt;</code>中的 to 里面的内容是什么（to&#x3D;”&#x2F;a”，to&#x3D;”&#x2F;abc”），<code>&lt;Route path=&quot;/&quot;&gt;</code>都会被匹配到</li>
 <li>同样，<code>to=&quot;/login/a/b&quot;</code>也能匹配到<code>path=&quot;/first&quot;</code></li>
 </ul>
 <h3 id="精确模式"><a href="#精确模式" class="headerlink" title="精确模式"></a>精确模式</h3><ul>

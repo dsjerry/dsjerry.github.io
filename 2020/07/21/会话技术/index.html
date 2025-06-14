@@ -120,7 +120,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">session_start</span>();</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>] = <span class="string">&#x27;Tome&#x27;</span>;</span><br><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;id&#x27;</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;test&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$test</span> = <span class="variable">$_SESSION</span>[<span class="string">&#x27;test&#x27;</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$_SESSION</span>[<span class="string">&#x27;username&#x27;</span>]);	<span class="comment">// 删除单个数据</span></span><br><span class="line"><span class="variable">$_SESSION</span> = [];		<span class="comment">// 删除所有数据</span></span><br><span class="line"><span class="title function_ invoke__">session_destroy</span>();	<span class="comment">// 结束当前会话</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>$_SESSION = []，可以删除 Session 中的所有数据，但是 _Session 文件还是存在的_，它是一个空文件</li>
+<li>$_SESSION &#x3D; []，可以删除 Session 中的所有数据，但是 <em>Session 文件还是存在的</em>，它是一个空文件</li>
 <li>如果要删除这个空文件，使用<code>session_destroy()</code></li>
 </ul>
 <p>③ Session 的配置</p>
@@ -149,7 +149,7 @@
 </tr>
 <tr>
 <td align="center">session.cookie_path</td>
-<td align="center">设定会话 Cookie 的路径，默认为 /</td>
+<td align="center">设定会话 Cookie 的路径，默认为 &#x2F;</td>
 </tr>
 <tr>
 <td align="center">session.cookie.domain</td>
@@ -272,7 +272,7 @@
 <h2 id="Cookie-的一些关系"><a href="#Cookie-的一些关系" class="headerlink" title="Cookie 的一些关系"></a>Cookie 的一些关系</h2><ul>
 <li>Cookie ：是一个<u>请求头</u>，其中含有先前由服务器通过<code>Set-Cookie</code><u>响应头</u>投放并存储到客户端的 <code>HTTP cookies</code></li>
 <li>Set-Cookie ：<u>响应头</u>，用来由服务器端向客户端发送 <code>cookies</code></li>
-<li>HTTP Cookie ：也叫 <em>Web Cookie</em> 或者 _浏览器 Cookie_。是由服务器发送到用户浏览器并保存在本地的一小块数据（上面介绍的 Cookie 是这个）</li>
+<li>HTTP Cookie ：也叫 <em>Web Cookie</em> 或者 <em>浏览器 Cookie</em>。是由服务器发送到用户浏览器并保存在本地的一小块数据（上面介绍的 Cookie 是这个）</li>
 </ul>
 <p>MDN 中是这样写的，在 MDN 中它们的目录关系是：</p>
 <ul>

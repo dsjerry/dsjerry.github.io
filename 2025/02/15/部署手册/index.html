@@ -103,13 +103,13 @@
 <li><code>/api/</code>：匹配当前规则之后的所有路径</li>
 <li><code>/api</code>：匹配以这个开头的所有路径</li>
 </ul>
-<p><code>proxy_pass</code>同样需要以/结尾，二者区别：</p>
+<p><code>proxy_pass</code>同样需要以&#x2F;结尾，二者区别：</p>
 <ul>
-<li>有<code>/</code>结尾：请求中的/api 将会被去掉，其余部分拼接上去<ul>
+<li>有<code>/</code>结尾：请求中的&#x2F;api 将会被去掉，其余部分拼接上去<ul>
 <li>如：<code>http://api.example.com/login</code></li>
 </ul>
 </li>
-<li>无<code>/</code>结尾：/api 会继续拼接到请求的接口中<ul>
+<li>无<code>/</code>结尾：&#x2F;api 会继续拼接到请求的接口中<ul>
 <li>如：<code>http://api.example.com/api/login</code></li>
 </ul>
 </li>

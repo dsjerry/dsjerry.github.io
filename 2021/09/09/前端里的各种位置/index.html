@@ -60,7 +60,7 @@
 <p><strong>clientHeight</strong>：<code>只读</code>，<span style="color: orange;">clientHeight 可以通过 CSS height + CSS padding - 水平滚动条高度 (如果存在)来计算</span></p>
 <p><strong>clientLeft</strong>：<code>只读</code>，一个元素的左边框的宽度。如果元素的文本方向是从右到左，并且由于内容溢出导致左边出现了一个垂直滚动条，则该属性包括滚动条的宽度。<code>clientLeft</code> 不包括左外边距和左内边距。<code>display: inline;</code>时，这个值为 0。</p>
 <p><strong>clientTop</strong>：<code>只读</code>，顶部边框宽度，同上。</p>
-<p>**getBoundingClientRect()**：方法返回元素的大小及其相对于视口的位置。如果是标准盒子，元素的尺寸等于<code>width/height</code> + <code>padding</code> + <code>border-width</code>的总和。如果<code>box-sizing: border-box</code>，元素的的尺寸等于 <code>width/height</code>。</p>
+<p><strong>getBoundingClientRect()</strong>：方法返回元素的大小及其相对于视口的位置。如果是标准盒子，元素的尺寸等于<code>width/height</code> + <code>padding</code> + <code>border-width</code>的总和。如果<code>box-sizing: border-box</code>，元素的的尺寸等于 <code>width/height</code>。</p>
 <h2 id="Element-getBoundingClientRect"><a href="#Element-getBoundingClientRect" class="headerlink" title="Element.getBoundingClientRect()"></a>Element.getBoundingClientRect()</h2><ul>
 <li>返回一个 <code>DOMRect</code> 对象，提供了元素的大小，及其相对于视口的位置。</li>
 </ul>
