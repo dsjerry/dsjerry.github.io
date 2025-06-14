@@ -49,6 +49,22 @@ window.toggleTheme = toggleTheme;
 // Apply theme on page load
 applyTheme();
 
+// 添加事件监听器处理主题切换按钮的点击事件
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggleButton = document.getElementById('theme-toggle-button');
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', function() {
+            toggleTheme();
+        });
+    }
+    
+    // 初始化图标状态
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    if (themeToggleIcon) {
+        themeToggleIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+    }
+});
+
 // 初始化播放器
 (async function initAplayer() {
     try {
