@@ -1,8 +1,53 @@
-DarkReader.auto({
+// Theme toggle functionality
+const THEME_KEY = 'icarus-theme-preference';
+let isDarkMode = localStorage.getItem(THEME_KEY) === 'dark';
+
+// Theme settings
+const darkReaderOptions = {
     brightness: 100,
     contrast: 90,
-    sepia: 10
-});
+    sepia: 10,
+    // 添加以下配置解决跨域问题
+    fetchMethod: 'none', // 禁止DarkReader获取跨域资源
+    ignoreImageAnalysis: true, // 忽略图片分析
+    enableForPDF: false // 禁用PDF支持
+};
+
+// Initialize theme based on saved preference
+function applyTheme() {
+    try {
+        if (isDarkMode) {
+            DarkReader.enable(darkReaderOptions);
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            DarkReader.disable();
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    } catch (error) {
+        console.error('DarkReader error:', error);
+        // 如果DarkReader出错，仍然设置data-theme属性
+        document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    }
+}
+
+// Toggle theme function to be called from the navbar
+function toggleTheme() {
+    isDarkMode = !isDarkMode;
+    localStorage.setItem(THEME_KEY, isDarkMode ? 'dark' : 'light');
+    applyTheme();
+    
+    // Update button icon if it exists
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    if (themeToggleIcon) {
+        themeToggleIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+// Make the toggle function globally available
+window.toggleTheme = toggleTheme;
+
+// Apply theme on page load
+applyTheme();
 
 // 初始化播放器
 (async function initAplayer() {
