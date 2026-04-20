@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 200 200" fill="none" role="img" aria-label="smalljerry favicon">
+  <defs>
+    <radialGradient id="bodyGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffe3b8"/>
+      <stop offset="100%" stop-color="#f5b97a"/>
+    </radialGradient>
+    <radialGradient id="bellyGrad" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#fff7ea"/>
+      <stop offset="100%" stop-color="#ffe6c7"/>
+    </radialGradient>
+    <linearGradient id="cheeseGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe082"/>
+      <stop offset="100%" stop-color="#ffc658"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 柔和底盘 -->
+  <circle cx="100" cy="110" r="82" fill="#eef1ff" fill-opacity="0.55"/>
+
+  <!-- 尾巴 -->
+  <path d="M150 150 Q178 140 170 110 Q162 88 140 92" stroke="#f5b97a" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- 身体 -->
+  <ellipse cx="100" cy="132" rx="56" ry="46" fill="url(#bodyGrad)"/>
+  <!-- 肚皮 -->
+  <ellipse cx="100" cy="142" rx="34" ry="28" fill="url(#bellyGrad)"/>
+
+  <!-- 脚 -->
+  <ellipse cx="80" cy="174" rx="12" ry="7" fill="#f0a866"/>
+  <ellipse cx="120" cy="174" rx="12" ry="7" fill="#f0a866"/>
+
+  <!-- 手 -->
+  <ellipse cx="70" cy="138" rx="10" ry="8" fill="#f5b97a"/>
+  <ellipse cx="130" cy="138" rx="10" ry="8" fill="#f5b97a"/>
+
+  <!-- 奶酪 -->
+  <g transform="translate(86,118)">
+    <polygon points="0,24 28,24 14,0" fill="url(#cheeseGrad)" stroke="#e3a93c" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="10" cy="18" r="2" fill="#e3a93c"/>
+    <circle cx="18" cy="14" r="1.6" fill="#e3a93c"/>
+    <circle cx="14" cy="8" r="1.2" fill="#e3a93c"/>
+  </g>
+
+  <!-- 头 -->
+  <circle cx="100" cy="78" r="42" fill="url(#bodyGrad)"/>
+  <!-- 耳朵 -->
+  <circle cx="70" cy="48" r="14" fill="#f5b97a"/>
+  <circle cx="70" cy="48" r="8" fill="#ffc2d1"/>
+  <circle cx="130" cy="48" r="14" fill="#f5b97a"/>
+  <circle cx="130" cy="48" r="8" fill="#ffc2d1"/>
+
+  <!-- 脸颊腮红 -->
+  <circle cx="74" cy="90" r="6" fill="#ffb4c2" fill-opacity="0.7"/>
+  <circle cx="126" cy="90" r="6" fill="#ffb4c2" fill-opacity="0.7"/>
+
+  <!-- 眼睛 -->
+  <ellipse cx="86" cy="76" rx="5.5" ry="7" fill="#2d3142"/>
+  <circle cx="87.5" cy="74" r="1.8" fill="#ffffff"/>
+  <ellipse cx="114" cy="76" rx="5.5" ry="7" fill="#2d3142"/>
+  <circle cx="115.5" cy="74" r="1.8" fill="#ffffff"/>
+
+  <!-- 鼻子 -->
+  <ellipse cx="100" cy="90" rx="4" ry="3" fill="#2d3142"/>
+  <!-- 嘴 -->
+  <path d="M96 96 Q100 100 104 96" stroke="#2d3142" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- 胡须 -->
+  <g stroke="#8a8fa3" stroke-width="1.2" stroke-linecap="round">
+    <line x1="70" y1="92" x2="84" y2="94"/>
+    <line x1="70" y1="98" x2="84" y2="97"/>
+    <line x1="130" y1="92" x2="116" y2="94"/>
+    <line x1="130" y1="98" x2="116" y2="97"/>
+  </g>
+
+  <!-- 科技装饰：括号与斜线 -->
+  <g fill="none" stroke="#7c9cff" stroke-width="2.4" stroke-linecap="round" opacity="0.85">
+    <path d="M26 66 Q18 82 26 98"/>
+    <path d="M174 66 Q182 82 174 98"/>
+  </g>
+  <g stroke="#a8e6cf" stroke-width="2" stroke-linecap="round" opacity="0.8">
+    <line x1="30" y1="30" x2="42" y2="30"/>
+    <line x1="30" y1="36" x2="38" y2="36"/>
+    <line x1="158" y1="164" x2="170" y2="164"/>
+    <line x1="162" y1="170" x2="170" y2="170"/>
+  </g>
+  <g fill="#ffb4c2">
+    <circle cx="42" cy="150" r="2.2"/>
+    <circle cx="48" cy="158" r="1.6"/>
+    <circle cx="158" cy="40" r="2"/>
+  </g>
+</svg>

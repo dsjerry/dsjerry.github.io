@@ -76,11 +76,12 @@ html[data-theme='light'] .navbar::before {
 
 /* 深色模式样式 - 基于data-theme属性 */
 html[data-theme='dark'] .navbar-item.navbar-logo img {
-    content: url("/meta-img/logo-dark.svg");
+    /* content: url("/meta-img/logo-dark.svg"); */
+    content: url("/images/smalljerry-logo.svg");
 }
 
 html[data-theme='dark'] .footer-logo img {
-    content: url("/meta-img/logo-dark.svg");
+    content: url("/images/smalljerry-logo.svg");
 }
 
 html[data-theme='dark'] .card {
