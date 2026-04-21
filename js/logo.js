@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             name: 'Yesterday',
                             artist: 'Aventure',
                             url: 'https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/yesterday-9w19QW4cwQc4R2h1WOzEkvbYmsydrv.mp3',
-                            cover: 'https://cdn.bensound.com/image/cover/aventure-longnight-X2.webp'
+                            cover: 'https://s41.ax1x.com/2026/04/21/peg2P9f.webp'
                         },
                         {
                             name: 'Wedding Bell',
