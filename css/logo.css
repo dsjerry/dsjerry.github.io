@@ -1,5 +1,5 @@
 /* 浅色模式样式 - 玻璃效果增强版 */
-html:not([data-theme='dark']) .card,
+/* html:not([data-theme='dark']) .card,
 html[data-theme='light'] .card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 100%) !important;
     backdrop-filter: blur(12px) !important;
@@ -12,10 +12,10 @@ html[data-theme='light'] .card {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-}
+} */
 
 /* 添加光的反射效果 */
-html:not([data-theme='dark']) .card::before,
+/* html:not([data-theme='dark']) .card::before,
 html[data-theme='light'] .card::before {
     content: '';
     position: absolute;
@@ -32,7 +32,7 @@ html[data-theme='light'] .card::before {
     transform: rotate(45deg);
     pointer-events: none;
     z-index: 1;
-}
+} */
 
 html:not([data-theme='dark']) .card:hover,
 html[data-theme='light'] .card:hover {
