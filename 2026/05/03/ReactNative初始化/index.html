@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>ReactNative初始化 - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="/images/smalljerry-favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="主流初始化方式有两种：官方脚手架（React Native CLI）和 Expo。"><meta property="og:type" content="blog"><meta property="og:title" content="ReactNative初始化"><meta property="og:url" content="https://smalljerry.cn/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="主流初始化方式有两种：官方脚手架（React Native CLI）和 Expo。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://s41.ax1x.com/2026/05/03/pe7yJdf.png"><meta property="article:published_time" content="2026-05-03T02:54:24.000Z"><meta property="article:modified_time" content="2026-05-03T07:08:01.154Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="react-native"><meta property="article:tag" content="react"><meta property="article:tag" content="移动端"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://s41.ax1x.com/2026/05/03/pe7yJdf.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"},"headline":"ReactNative初始化","image":["https://s41.ax1x.com/2026/05/03/pe7yJdf.png"],"datePublished":"2026-05-03T02:54:24.000Z","dateModified":"2026-05-03T07:08:01.154Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":"https://smalljerry.cn/images/smalljerry-logo.svg"}},"description":"主流初始化方式有两种：官方脚手架（React Native CLI）和 Expo。"}</script><link rel="canonical" href="https://smalljerry.cn/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"><link rel="icon" href="/images/smalljerry-favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/darkreader/4.9.58/darkreader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<link rel="stylesheet" href="/css/aplayer.css">
+
+<link rel="stylesheet" href="/css/logo.css">
+
+<link rel="stylesheet" href="/css/theme-toggle.css">
+
+<link rel="stylesheet" href="/css/custom-shadow.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/smalljerry-logo.svg" alt="smalljerry aka dsjerry" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a><a class="navbar-item" href="/ademo">示例</a></div><div class="navbar-end"><a class="navbar-item" title="切换主题" href="javascript:;" id="theme-toggle-button"><i class="fas fa-moon" id="theme-toggle-icon"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://s41.ax1x.com/2026/05/03/pe7yJdf.png" alt="ReactNative初始化"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-05-03T02:54:24.000Z" title="2026/5/3 10:54:24">2026-05-03</time>发表</span><span class="level-item"><time dateTime="2026-05-03T07:08:01.154Z" title="2026/5/3 15:08:01">2026-05-03</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">14 分钟读完 (大约2098个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">ReactNative初始化</h1><div class="content"><p>主流初始化方式有两种：官方脚手架（React Native CLI）和 Expo。</p>
+<span id="more"></span>
+
+<h1 id="方式一：官方脚手架（React-Native-CLI）"><a href="#方式一：官方脚手架（React-Native-CLI）" class="headerlink" title="方式一：官方脚手架（React Native CLI）"></a>方式一：官方脚手架（React Native CLI）</h1><p>适合需要高度定制、直接调用原生模块或对 React Native 版本有精确控制需求的场景。</p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>环境配置和开发机器的系统、目标平台都有关。选对应章节看即可。</p>
+<blockquote>
+<p>如果用 Expo，跳过这里，直接看 Expo 章节。</p>
+</blockquote>
+<h3 id="macOS（iOS-Android）"><a href="#macOS（iOS-Android）" class="headerlink" title="macOS（iOS &amp; Android）"></a>macOS（iOS &amp; Android）</h3><p><strong>安装依赖</strong></p>
+<p>Node 和 Watchman 用 Homebrew 装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Node &gt;&#x3D; 22.11.0。Watchman 是 Facebook 开发的文件系统监控工具，能提升文件监听性能，建议装。</p>
+</blockquote>
+<p>JDK 推荐 Zulu OpenJDK 17：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install --cask zulu@17</span><br></pre></td></tr></table></figure>
+
+<p>找到 JDK 路径（通常是 <code>/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home</code>），在 <code>~/.zshrc</code> 添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home</span><br></pre></td></tr></table></figure>
+
+<p><strong>Android 开发环境</strong></p>
+<p>所有平台装 Android Studio 都是一样的流程：下载安装，SDK Manager 里补装 Android 15（VanillaIceCream）SDK。</p>
+<p>安装向导中勾选 Android SDK、Android SDK Platform、Android Virtual Device。Windows 额外勾选 Hyper-V 或 Intel HAXM。</p>
+<p>SDK 配置：</p>
+<ol>
+<li>打开 SDK Manager（macOS&#x2F;Linux：Android Studio → Settings → Languages &amp; Frameworks → Android SDK；Windows：More Actions → SDK Manager）</li>
+<li>SDK Platforms → 勾选 Show Package Details → 展开 Android 15 (VanillaIceCream) → 确认勾选 Android SDK Platform 35 和对应 System Image（M1 Mac 选 ARM 64 v8a）</li>
+<li>SDK Tools → 勾选 Show Package Details → 展开 Android SDK Build-Tools → 确认勾选 36.0.0 和 Android SDK Command-line Tools (latest)</li>
+<li>Apply 下载安装。</li>
+</ol>
+<p>环境变量：</p>
+<ul>
+<li>macOS — <code>~/.zshrc</code>：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Linux — <code>~/.bashrc</code>：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Android/Sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Windows — 控制面板 → 用户账户 → 更改环境变量 → 新建用户变量 <code>ANDROID_HOME</code>，值为 <code>%LOCALAPPDATA%\Android\Sdk</code>，并将 <code>%LOCALAPPDATA%\Android\Sdk\platform-tools</code> 加入 Path。</li>
+</ul>
+<p>Linux 用户还需要单独装 Watchman（参考官方指南），macOS 的 Watchman 已经在前面装好了。</p>
+<p><strong>iOS 开发环境</strong></p>
+<ol>
+<li>Mac App Store 装 Xcode（最新版本），iOS Simulator 会一并装好</li>
+<li>Xcode → Settings → Locations → Command Line Tools 选择最新版本</li>
+<li>Xcode 14+ 还需要 Settings → Platforms → + 安装 iOS 版本</li>
+<li>装 CocoaPods：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> gem install cocoapods</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用 NVM + zsh 的话，把 NVM 初始化代码从 <code>~/.zshrc</code> 移到 <code>~/.zshenv</code>，否则 Xcode 可能找不到 Node。</p>
+</blockquote>
+<p><strong>准备 Android 设备</strong></p>
+<ul>
+<li>真机：USB 连电脑后启用调试模式（设置 → 关于手机 → 点击构建号七次 → 开发者选项 → 开启 USB 调试）</li>
+<li>模拟器：Android Studio → AVD Manager → Create Virtual Device → Phone → VanillaIceCream API Level 35 镜像 → 创建后点击绿色三角</li>
+</ul>
+<h3 id="Windows-Linux（仅-Android）"><a href="#Windows-Linux（仅-Android）" class="headerlink" title="Windows &#x2F; Linux（仅 Android）"></a>Windows &#x2F; Linux（仅 Android）</h3><p>Node、JDK、Android Studio 装法见上方，各平台差异：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>Node 安装</th>
+<th>JDK 安装</th>
+<th>Android Studio 额外勾选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows</td>
+<td><code>choco install -y nodejs-lts</code></td>
+<td><code>choco install -y microsoft-openjdk17</code></td>
+<td>Hyper-V 或 Intel HAXM</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td>各发行版包管理器装 Node &gt;&#x3D; 22</td>
+<td><code>sudo apt install openjdk-17-jdk</code></td>
+<td>无</td>
+</tr>
+</tbody></table>
+<p>Windows 记得把 <code>%LOCALAPPDATA%\Android\Sdk\platform-tools</code> 加入 Path。</p>
+<hr>
+<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npx react-native@latest init MyApp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定版本</span></span><br><span class="line">npx react-native@0.76.9 init MyApp --version 0.76.9</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>项目名不能有大写字母和特殊字符。</p>
+</blockquote>
+<h2 id="运行应用"><a href="#运行应用" class="headerlink" title="运行应用"></a>运行应用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> MyApp</span><br></pre></td></tr></table></figure>
+
+<p>iOS（macOS）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ios &amp;&amp; pod install &amp;&amp; <span class="built_in">cd</span> ..</span><br><span class="line">npx react-native start</span><br><span class="line"><span class="comment"># 新开终端窗口</span></span><br><span class="line">npx react-native run-ios</span><br></pre></td></tr></table></figure>
+
+<p>Android：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npx react-native start</span><br><span class="line"><span class="comment"># 新开终端窗口</span></span><br><span class="line">npx react-native run-android</span><br></pre></td></tr></table></figure>
+
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MyApp/</span><br><span class="line">├── android/          # Android 原生工程</span><br><span class="line">├── ios/              # iOS 原生工程（仅 macOS）</span><br><span class="line">├── App.tsx           # 应用入口组件</span><br><span class="line">├── index.js          # React Native 入口</span><br><span class="line">├── package.json</span><br><span class="line">└── babel.config.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>需要特定版本 React Native 或最新特性</li>
+<li>需要深度集成原生模块</li>
+<li>需要精细控制原生工程</li>
+<li>企业级大型项目</li>
+</ul>
+<h1 id="方式二：Expo"><a href="#方式二：Expo" class="headerlink" title="方式二：Expo"></a>方式二：Expo</h1><p>Expo 是 React Native 官方推荐的框架，提供了文件路由和原生模块标准库等工具链，EAS 服务覆盖从开发到发布的全流程。</p>
+<h2 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h2><ul>
+<li>Node.js LTS 版</li>
+<li>macOS、Windows（WSL 2）、Linux 都支持</li>
+</ul>
+<h2 id="初始化项目-1"><a href="#初始化项目-1" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-expo-app@latest --template default@sdk-55</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当前是 SDK 55 过渡期，不带 <code>--template</code> 默认建 SDK 54 项目。计划用 Expo Go 的话就 SDK 54，否则用 <code>--template default@sdk-55</code> 建 SDK 55。</p>
+</blockquote>
+<h2 id="开发方式选择"><a href="#开发方式选择" class="headerlink" title="开发方式选择"></a>开发方式选择</h2><ul>
+<li><strong>Expo Go</strong>：学习和尝试用，扫码即用</li>
+<li><strong>Development Build</strong>：将应用打包成带 Expo 开发工具的独立 App，适合正式开发</li>
+</ul>
+<h2 id="Android-真机预览"><a href="#Android-真机预览" class="headerlink" title="Android 真机预览"></a>Android 真机预览</h2><h3 id="方式一：Expo-Go（即装即用）"><a href="#方式一：Expo-Go（即装即用）" class="headerlink" title="方式一：Expo Go（即装即用）"></a>方式一：Expo Go（即装即用）</h3><p>Google Play 装 Expo Go，创建项目后 <code>npx expo start</code>，用 Expo Go 扫码预览。</p>
+<h3 id="方式二：Development-Build（EAS-云构建）"><a href="#方式二：Development-Build（EAS-云构建）" class="headerlink" title="方式二：Development Build（EAS 云构建）"></a>方式二：Development Build（EAS 云构建）</h3><p>需要配置 EAS：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g eas-cli</span><br><span class="line">eas login</span><br><span class="line">eas build:configure</span><br><span class="line">eas build --platform android --profile development</span><br></pre></td></tr></table></figure>
+
+<p>完成后扫描二维码点 Install，然后点 Open。</p>
+<h3 id="方式三：Development-Build（本地构建）"><a href="#方式三：Development-Build（本地构建）" class="headerlink" title="方式三：Development Build（本地构建）"></a>方式三：Development Build（本地构建）</h3><p>各平台先装依赖：</p>
+<ul>
+<li>macOS：<code>brew install watchman</code> + <code>brew install --cask zulu@17</code> + <code>~/.zshrc</code> 配置 <code>JAVA_HOME</code></li>
+<li>Windows：<code>choco install -y microsoft-openjdk17</code></li>
+<li>Linux：装 Watchman + OpenJDK 17</li>
+</ul>
+<p>所有平台都要装 Android Studio 并配置 Android 15 SDK，步骤见上方 CLI 环境配置部分。</p>
+<p>环境变量（macOS）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> ANDROID_HOME=<span class="variable">$HOME</span>/Library/Android/sdk</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$ANDROID_HOME</span>/emulator:<span class="variable">$ANDROID_HOME</span>/platform-tools</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果 Android Studio 识别不了 Homebrew 装的 JDK，建 <code>~/.gradle/gradle.properties</code> 加上 <code>java.home=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home</code>，然后删掉项目里的 <code>.gradle</code> 目录重新打开。</p>
+</blockquote>
+<p>装好之后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx expo install expo-dev-client</span><br><span class="line">npx expo run:android</span><br></pre></td></tr></table></figure>
+
+<h2 id="iOS-真机预览（macOS-only）"><a href="#iOS-真机预览（macOS-only）" class="headerlink" title="iOS 真机预览（macOS only）"></a>iOS 真机预览（macOS only）</h2><p>iOS 真机不支持 Expo Go，走 Development Build 方式。</p>
+<p><strong>EAS 云构建</strong>（需要 Apple Developer Program 账号）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g eas-cli</span><br><span class="line">eas login</span><br><span class="line">eas build:configure</span><br><span class="line">eas device:create</span><br><span class="line">eas build --platform ios --profile development</span><br></pre></td></tr></table></figure>
+
+<p>完成后扫码安装，然后在设备上开 Developer Mode（设置 → 隐私与安全 → 开发者模式 → 开启）。</p>
+<p><strong>本地构建</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># App Store 装 Xcode → Settings → Locations → Command Line Tools</span></span><br><span class="line">brew update &amp;&amp; brew install watchman</span><br><span class="line">npx expo install expo-dev-client</span><br><span class="line"><span class="comment"># app.json 里 ios.bundleIdentifier 设为唯一值</span></span><br><span class="line">npx expo run:ios --device</span><br></pre></td></tr></table></figure>
+
+<h2 id="iOS-模拟器预览（macOS-only）"><a href="#iOS-模拟器预览（macOS-only）" class="headerlink" title="iOS 模拟器预览（macOS only）"></a>iOS 模拟器预览（macOS only）</h2><p><strong>Expo Go</strong>：装 Xcode 后 <code>npx expo start</code> 按 <code>i</code>，Expo CLI 自动装 Expo Go 到模拟器。</p>
+<p><strong>Development Build（本地）</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx expo install expo-dev-client</span><br><span class="line">npx expo run:ios</span><br></pre></td></tr></table></figure>
+
+<p><strong>EAS 构建</strong>：eas.json 里加 <code>&quot;ios&quot;: &#123; &quot;simulator&quot;: true &#125;</code>，然后 <code>eas build --platform ios --profile development</code>，CLI 会提示直接安装到模拟器。</p>
+<h2 id="常用-Expo-命令"><a href="#常用-Expo-命令" class="headerlink" title="常用 Expo 命令"></a>常用 Expo 命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>npx expo start</code></td>
+<td>启动开发服务器，终端显示二维码</td>
+</tr>
+<tr>
+<td><code>npx expo run:android</code></td>
+<td>构建并运行 Android（自动启动 Metro）</td>
+</tr>
+<tr>
+<td><code>npx expo run:ios</code></td>
+<td>构建并运行 iOS（自动启动 Metro）</td>
+</tr>
+<tr>
+<td><code>npx expo prebuild</code></td>
+<td>生成 android&#x2F; 和 ios&#x2F; 原生工程（需要原生代码时）</td>
+</tr>
+<tr>
+<td><code>npx expo install &lt;package&gt;</code></td>
+<td>安装 Expo 兼容的包（自动匹配合适版本）</td>
+</tr>
+<tr>
+<td><code>eas build:configure</code></td>
+<td>配置 EAS 构建</td>
+</tr>
+<tr>
+<td><code>eas build --platform android --profile development</code></td>
+<td>创建 Android 开发构建</td>
+</tr>
+<tr>
+<td><code>eas build --platform ios --profile development</code></td>
+<td>创建 iOS 开发构建</td>
+</tr>
+</tbody></table>
+<h2 id="适用场景-1"><a href="#适用场景-1" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>快速原型和小程序</li>
+<li>团队不含 macOS&#x2F;Xcode 环境</li>
+<li>不需要深度原生集成（Expo SDK 能覆盖大部分需求）</li>
+<li>想要更好的开发体验（热重载、Expo Go 即时预览）</li>
+</ul>
+<h1 id="两种方式对比"><a href="#两种方式对比" class="headerlink" title="两种方式对比"></a>两种方式对比</h1><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>React Native CLI</th>
+<th>Expo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始化速度</td>
+<td>较慢</td>
+<td>快，聚焦 JS 层</td>
+</tr>
+<tr>
+<td>环境配置</td>
+<td>需手动配置 Android Studio &#x2F; Xcode</td>
+<td>Expo Go 扫码即用</td>
+</tr>
+<tr>
+<td>原生模块</td>
+<td>完全自由</td>
+<td>Expo SDK 封装，大多数场景够用</td>
+</tr>
+<tr>
+<td>热更新&#x2F;预览</td>
+<td>需手动配置</td>
+<td>Expo Go 扫码即用</td>
+</tr>
+<tr>
+<td>项目体积</td>
+<td>较大</td>
+<td>较小</td>
+</tr>
+<tr>
+<td>版本控制</td>
+<td>可精确指定任意 RN 版本</td>
+<td>跟随 Expo SDK 版本</td>
+</tr>
+<tr>
+<td>自定义原生代码</td>
+<td>支持</td>
+<td>受限，需 <code>expo prebuild</code></td>
+</tr>
+</tbody></table>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><p><strong>Q：初始化报 <code>jest-haste-map</code> 或 <code>watchman</code> 错误？</strong></p>
+<p>A：Linux &#x2F; Windows 用户可忽略 iOS 相关的 watchman 警告。Windows 建议用 WSL2 开发。</p>
+<p><strong>Q：Android 模拟器启动不了？</strong></p>
+<p>A：检查 <code>ANDROID_HOME</code> 是否指向正确目录（macOS: <code>~/Library/Android/sdk</code>，Windows: <code>%LOCALAPPDATA%\Android\Sdk</code>，Linux: <code>~/Android/Sdk</code>）。</p>
+<p><strong>Q：高版本 JDK 导致构建失败？</strong></p>
+<p>A：React Native 推荐 JDK 17。不兼容的话，改 <code>android/gradle/wrapper/gradle-wrapper.properties</code> 里的 <code>distributionUrl</code> 升 Gradle 版本，或者降 JDK。</p>
+<p><strong>Q：Expo 项目想获得原生能力怎么办？</strong></p>
+<p>A：执行 <code>npx expo prebuild</code> 生成原生工程，代码不用动，但原生配置要手动维护。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>ReactNative初始化</p><p><a href="https://smalljerry.cn/2026/05/03/ReactNative初始化/">https://smalljerry.cn/2026/05/03/ReactNative初始化/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-05-03</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-05-03</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/react-native/">react-native</a><a class="link-muted mr-2" rel="tag" href="/tags/react/">react</a><a class="link-muted mr-2" rel="tag" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/">移动端</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2026/04/25/MQTT%E7%89%A9%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1/"><span class="level-item">MQTT物联网通信</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://giscus.app/client.js" repo="dsjerry/dsjerry.github.io" data-repo="dsjerry/dsjerry.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNDUzMzc4MDU=" data-category-id="DIC_kwDODp-Ozc4C7R_B" data-category="Announcements" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">32</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label"><i class="fas fa-music"></i> 听听音乐</h3><div class="aplayer-widget" id="aplayer-widget"></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://gowherer.smalljerry.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">gowherer</span></span><span class="level-right"><span class="level-item tag">gowherer.smalljerry.cn</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/85892062" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://www.douyin.com/user/MS4wLjABAAAAk81CD3MQxJmSkUKmeATakVo8e-bc3NYFBcHLT3dGv24" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">douyin</span></span><span class="level-right"><span class="level-item tag">www.douyin.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">By feedburner</p></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"><img src="https://s41.ax1x.com/2026/05/03/pe7yYo8.png" alt="ReactNative初始化"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-05-03T02:54:24.000Z">2026-05-03</time></p><p class="title"><a href="/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/">ReactNative初始化</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/04/25/MQTT%E7%89%A9%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1/"><img src="https://s41.ax1x.com/2026/04/25/pefYDfJ.png" alt="MQTT物联网通信"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-04-25T01:51:15.000Z">2026-04-25</time></p><p class="title"><a href="/2026/04/25/MQTT%E7%89%A9%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1/">MQTT物联网通信</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/04/18/LLM-%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/Snipaste_2026-04-21_00-13-34.png" alt="LLM 模型接入"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-04-18T06:43:02.000Z">2026-04-18</time></p><p class="title"><a href="/2026/04/18/LLM-%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5/">LLM 模型接入</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/03/21/LLM%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/llm.png" alt="LLM文本模型微调"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-03-21T13:49:30.000Z">2026-03-21</time></p><p class="title"><a href="/2026/03/21/LLM%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/">LLM文本模型微调</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/02/14/filed-base%E8%B7%AF%E7%94%B1%E5%AF%B9%E6%AF%94/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/file-based-v6.png" alt="file-based路由对比"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-02-14T14:18:05.000Z">2026-02-14</time></p><p class="title"><a href="/2026/02/14/filed-base%E8%B7%AF%E7%94%B1%E5%AF%B9%E6%AF%94/">file-based路由对比</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/API/"><span class="tag">API</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IoT/"><span class="tag">IoT</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ai/"><span class="tag">ai</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/expo/"><span class="tag">expo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm/"><span class="tag">llm</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openclaw/"><span class="tag">openclaw</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react-native/"><span class="tag">react-native</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"><span class="tag">开发规范</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A5%E5%8F%A3/"><span class="tag">接口</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%84%E4%BB%B6/"><span class="tag">组件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">62</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">34</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#方式一：官方脚手架（React-Native-CLI）"><span class="level-left"><span class="level-item">1</span><span class="level-item">方式一：官方脚手架（React Native CLI）</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#环境配置"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">环境配置</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#macOS（iOS-Android）"><span class="level-left"><span class="level-item">1.1.1</span><span class="level-item">macOS（iOS &amp; Android）</span></span></a></li><li><a class="level is-mobile" href="#Windows-Linux（仅-Android）"><span class="level-left"><span class="level-item">1.1.2</span><span class="level-item">Windows / Linux（仅 Android）</span></span></a></li></ul></li><li><a class="level is-mobile" href="#初始化项目"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">初始化项目</span></span></a></li><li><a class="level is-mobile" href="#运行应用"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">运行应用</span></span></a></li><li><a class="level is-mobile" href="#目录结构"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">目录结构</span></span></a></li><li><a class="level is-mobile" href="#适用场景"><span class="level-left"><span class="level-item">1.5</span><span class="level-item">适用场景</span></span></a></li></ul></li><li><a class="level is-mobile" href="#方式二：Expo"><span class="level-left"><span class="level-item">2</span><span class="level-item">方式二：Expo</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#系统要求"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">系统要求</span></span></a></li><li><a class="level is-mobile" href="#初始化项目-1"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">初始化项目</span></span></a></li><li><a class="level is-mobile" href="#开发方式选择"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">开发方式选择</span></span></a></li><li><a class="level is-mobile" href="#Android-真机预览"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">Android 真机预览</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#方式一：Expo-Go（即装即用）"><span class="level-left"><span class="level-item">2.4.1</span><span class="level-item">方式一：Expo Go（即装即用）</span></span></a></li><li><a class="level is-mobile" href="#方式二：Development-Build（EAS-云构建）"><span class="level-left"><span class="level-item">2.4.2</span><span class="level-item">方式二：Development Build（EAS 云构建）</span></span></a></li><li><a class="level is-mobile" href="#方式三：Development-Build（本地构建）"><span class="level-left"><span class="level-item">2.4.3</span><span class="level-item">方式三：Development Build（本地构建）</span></span></a></li></ul></li><li><a class="level is-mobile" href="#iOS-真机预览（macOS-only）"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">iOS 真机预览（macOS only）</span></span></a></li><li><a class="level is-mobile" href="#iOS-模拟器预览（macOS-only）"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">iOS 模拟器预览（macOS only）</span></span></a></li><li><a class="level is-mobile" href="#常用-Expo-命令"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">常用 Expo 命令</span></span></a></li><li><a class="level is-mobile" href="#适用场景-1"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">适用场景</span></span></a></li></ul></li><li><a class="level is-mobile" href="#两种方式对比"><span class="level-left"><span class="level-item">3</span><span class="level-item">两种方式对比</span></span></a></li><li><a class="level is-mobile" href="#常见问题"><span class="level-left"><span class="level-item">4</span><span class="level-item">常见问题</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/smalljerry-logo.svg" alt="smalljerry aka dsjerry" height="28"></a><p class="is-size-7"><span>&copy; 2026 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span><br><br><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn">粤ICP备20067843号</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+<script src="/js/logo.js"></script>
+<!-- hexo injector body_end end --></body></html>
