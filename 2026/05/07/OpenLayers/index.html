@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>OpenLayers - smalljerry aka dsjerry</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="dsjerry&#039;s blog"><meta name="msapplication-TileImage" content="/images/smalljerry-favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="dsjerry&#039;s blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="JavaScript 地图引擎，能在网页上加载、显示和交互各种来源的地图数据与空间信息服务"><meta property="og:type" content="blog"><meta property="og:title" content="OpenLayers"><meta property="og:url" content="https://smalljerry.cn/2026/05/07/OpenLayers/"><meta property="og:site_name" content="smalljerry aka dsjerry"><meta property="og:description" content="JavaScript 地图引擎，能在网页上加载、显示和交互各种来源的地图数据与空间信息服务"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2015_22_43.png"><meta property="article:published_time" content="2026-05-07T09:29:26.000Z"><meta property="article:modified_time" content="2026-05-09T07:27:34.090Z"><meta property="article:author" content="dsjerry"><meta property="article:tag" content="webgis"><meta property="article:tag" content="openlayers"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2015_22_43.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://smalljerry.cn/2026/05/07/OpenLayers/"},"headline":"OpenLayers","image":["https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2015_22_43.png"],"datePublished":"2026-05-07T09:29:26.000Z","dateModified":"2026-05-09T07:27:34.090Z","author":{"@type":"Person","name":"dsjerry"},"publisher":{"@type":"Organization","name":"smalljerry aka dsjerry","logo":{"@type":"ImageObject","url":"https://smalljerry.cn/images/smalljerry-logo.svg"}},"description":"JavaScript 地图引擎，能在网页上加载、显示和交互各种来源的地图数据与空间信息服务"}</script><link rel="canonical" href="https://smalljerry.cn/2026/05/07/OpenLayers/"><link rel="icon" href="/images/smalljerry-favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?4b1b8ea31347bc0c974b11aca38a6236";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script data-ad-client="ca-pub-5233359657851046" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><!-- hexo injector head_end start -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/darkreader/4.9.58/darkreader.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+
+<link rel="stylesheet" href="/css/aplayer.css">
+
+<link rel="stylesheet" href="/css/logo.css">
+
+<link rel="stylesheet" href="/css/theme-toggle.css">
+
+<link rel="stylesheet" href="/css/custom-shadow.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="smalljerry aka dsjerry" type="application/atom+xml">
+</head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/images/smalljerry-logo.svg" alt="smalljerry aka dsjerry" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a><a class="navbar-item" href="/ademo">示例</a></div><div class="navbar-end"><a class="navbar-item" title="切换主题" href="javascript:;" id="theme-toggle-button"><i class="fas fa-moon" id="theme-toggle-icon"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="https://github.com/dsjerry"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2015_22_43.png" alt="OpenLayers"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-05-07T09:29:26.000Z" title="2026/5/7 17:29:26">2026-05-07</time>发表</span><span class="level-item"><time dateTime="2026-05-09T07:27:34.090Z" title="2026/5/9 15:27:34">2026-05-09</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></span><span class="level-item">28 分钟读完 (大约4249个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">OpenLayers</h1><div class="content"><p>JavaScript 地图引擎，能在网页上加载、显示和交互各种来源的地图数据与空间信息服务</p>
+<span id="more"></span>
+
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p>与 OpenLayers 类似的库还有 Leaflet、MapLibre GL JS 和 Cesium，相比于 OpenLayers 的全面，这三者在各自的垂直领域有所优势：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>OpenLayers</th>
+<th>Leaflet</th>
+<th>MapLibre GL JS</th>
+<th>Cesium</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>定位</strong></td>
+<td>全功能 GIS 引擎</td>
+<td>轻量交互地图</td>
+<td>高性能矢量瓦片</td>
+<td>3D 地球与时空</td>
+</tr>
+<tr>
+<td><strong>渲染</strong></td>
+<td>Canvas &#x2F; WebGL</td>
+<td>SVG &#x2F; Canvas</td>
+<td>WebGL</td>
+<td>WebGL</td>
+</tr>
+<tr>
+<td><strong>2D &#x2F; 3D</strong></td>
+<td>2D 为主</td>
+<td>2D</td>
+<td>2D &#x2F; 2.5D</td>
+<td>3D 为主</td>
+</tr>
+<tr>
+<td><strong>包体积</strong></td>
+<td>较大（~500KB+）</td>
+<td>小（~40KB）</td>
+<td>中等（~200KB）</td>
+<td>大（~1MB+）</td>
+</tr>
+<tr>
+<td><strong>学习曲线</strong></td>
+<td>陡峭</td>
+<td>平缓</td>
+<td>中等</td>
+<td>陡峭</td>
+</tr>
+<tr>
+<td><strong>矢量瓦片</strong></td>
+<td>支持</td>
+<td>需插件</td>
+<td>原生核心能力</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>插件生态</strong></td>
+<td>丰富</td>
+<td>极丰富</td>
+<td>发展中</td>
+<td>较少</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>复杂 GIS、OGC 服务</td>
+<td>简单展示、标注</td>
+<td>自定义底图、大数据量</td>
+<td>数字孪生、卫星轨迹</td>
+</tr>
+</tbody></table>
+<h2 id="地图-Map"><a href="#地图-Map" class="headerlink" title="地图 Map"></a>地图 Map</h2><p>OpenLayers 中的核心组件，从<code>ol/Map</code>模块中导入，通过指定一个渲染容器（dom 选择器）来渲染。所有的地图配置可在初始化的时候指定，也可以后续通过<em>setter</em>方法来指定（比如<code>setTarget()</code>）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;map&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%; height: 400px&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Map</span> <span class="keyword">from</span> <span class="string">&#x27;ol/Map&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>(&#123;<span class="attr">target</span>: <span class="string">&#x27;map&#x27;</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="视图-View"><a href="#视图-View" class="headerlink" title="视图 View"></a>视图 View</h2><p>地图不负责指定地图的中心点、缩放等级和投影，所以需要使用<code>ol/View</code>的实例属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">View</span> <span class="keyword">from</span> <span class="string">&#x27;ol/View&#x27;</span>;</span><br><span class="line"></span><br><span class="line">map.<span class="title function_">setView</span>(<span class="keyword">new</span> <span class="title class_">View</span>(&#123;</span><br><span class="line">  <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  <span class="attr">zoom</span>: <span class="number">2</span>,</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>知识点：</p>
+<ol>
+<li><code>projection</code>（投影）决定了：</li>
+</ol>
+<ul>
+<li>地图中心点的坐标系</li>
+<li>地图分辨率计算单位（米&#x2F;度等）</li>
+</ul>
+<p>默认值：如果不手动指定投影，默认使用<em>墨卡托投影（EPSG:3857）</em>（Mercator），地图单位<strong>米</strong>。绝大多数情况下不需要配置投影。</p>
+<ol start="2">
+<li><code>zoom</code>（缩放级别）核心机制，是<strong>快速指定地图分辨率</strong>的简便方式，缩放层级计算由3个参数决定：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>默认值</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>maxZoom</td>
+<td>28</td>
+<td>最大支持的缩放级别</td>
+</tr>
+<tr>
+<td>zoomFactor</td>
+<td>2</td>
+<td>缩放因子（分辨率缩放倍数）</td>
+</tr>
+<tr>
+<td>maxResolution</td>
+<td>自动计算</td>
+<td>让投影的有效范围刚好适配 256×256 像素瓦片</td>
+</tr>
+</tbody></table>
+<p>分辨率计算规则：</p>
+<ul>
+<li>缩放级别 0（最小）：<code>分辨率=maxResolution</code>（单位&#x2F;像素）</li>
+<li>后续级别每增加 1 级缩放：<code>分辨率=上一级分辨率÷zoomFactor</code></li>
+<li>直到上限（maxZoom）为止</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>缩放级别越大，地图放得越大，分辨率越高（1 像素代表的实际距离越小）</li>
+<li>缩放级别越小，地图缩得越小，分辨率越低（1 像素代表的实际距离越大）</li>
+<li>每放大一级，地图细节翻倍（因为除以 2）</li>
+</ul>
+<h2 id="数据源-Source"><a href="#数据源-Source" class="headerlink" title="数据源 Source"></a>数据源 Source</h2><p>是获取地图数据的核心类，在开发时先建<code>source</code>，放进<code>layer</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="variable constant_">OSM</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/OSM&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 创建数据源（OSM 在线地图）</span></span><br><span class="line"><span class="keyword">const</span> source = <span class="keyword">new</span> <span class="title function_">OSM</span>(); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建图层，把数据“装进去”</span></span><br><span class="line"><span class="keyword">const</span> layer = <span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123;</span><br><span class="line">  <span class="attr">source</span>: source  <span class="comment">// 图层用这个数据源</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 加到地图</span></span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>(&#123;</span><br><span class="line">  <span class="attr">layers</span>: [layer],</span><br><span class="line">  <span class="attr">view</span>: <span class="keyword">new</span> <span class="title class_">View</span>(&#123;</span><br><span class="line">    <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    <span class="attr">zoom</span>: <span class="number">2</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>给一个图层（layer）提供远程数据的时候，使用<code>ol/source/Source</code>子类，这些子类支持：</p>
+<ul>
+<li>免费&#x2F;商用地图瓦片服务（如 OpenStreetMap、高德地图）</li>
+<li>OGC 标准服务（如 WMS、WMTS）</li>
+<li>矢量数据格式（如 GeoJSON、KML）</li>
+</ul>
+<blockquote>
+<p>OGC（Open Geospatial Consortium），开放地理空间信息联盟，相当于是地图的国际标准。只要遵循这个标准，任何地图软件（OpenLayers、高德等）都能互相调数据、兼容。📑详见下方参考篇章。</p>
+</blockquote>
+<h3 id="数据源类型"><a href="#数据源类型" class="headerlink" title="数据源类型"></a>数据源类型</h3><p>在 OpenLayers 中，图层（layer）为显示容器，数据源（source）理解为地图内容从哪来</p>
+<p>数据源支持以下类型：</p>
+<ol>
+<li>瓦片地图</li>
+</ol>
+<p>💡 瓦片地图最为常见</p>
+<p>谷歌地图、高德、百度、OpenStreetMap 都是这种</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ol/source/OSM        // OpenStreetMap</span><br><span class="line">ol/source/BingMaps   // 必应地图</span><br><span class="line">ol/source/XYZ        // 通用瓦片（高德、谷歌等）</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>标准地图服务</li>
+</ol>
+<p>💡 企业&#x2F;政府常用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ol/source/TileWMS    // WMS 瓦片服务</span><br><span class="line">ol/source/WMTS       // WMTS 标准服务</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>矢量数据</li>
+</ol>
+<p>💡 点、线、面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ol/source/GeoJSON    // 最常用矢量格式</span><br><span class="line">ol/source/KML        // Google 地球格式</span><br><span class="line">ol/source/GPX        // 轨迹数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="图层-Layer"><a href="#图层-Layer" class="headerlink" title="图层 Layer"></a>图层 Layer</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">TileLayer</span> <span class="keyword">from</span> <span class="string">&#x27;ol/layer/Tile&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">const</span> layer = <span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123;<span class="attr">source</span>: source&#125;);</span><br><span class="line">map.<span class="title function_">addLayer</span>(layer);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>图层 &#x3D; 把数据源“画”在屏幕上的方式</strong>，不同图层对应不同数据类型，不能混用。查看下面类型</p>
+<table>
+<thead>
+<tr>
+<th>图层类型</th>
+<th>数据样子</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tile</td>
+<td>小方块图片</td>
+<td>底图（OSM &#x2F; 高德）</td>
+</tr>
+<tr>
+<td>Image</td>
+<td>一整张图</td>
+<td>WMS 动态图</td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>点、线、面</td>
+<td>标记、轨迹、区划</td>
+</tr>
+<tr>
+<td>VectorTile</td>
+<td>矢量小方块</td>
+<td>高性能矢量底图</td>
+</tr>
+</tbody></table>
+<h3 id="ol-layer-Tile（瓦片图层）"><a href="#ol-layer-Tile（瓦片图层）" class="headerlink" title="ol&#x2F;layer&#x2F;Tile（瓦片图层）"></a>ol&#x2F;layer&#x2F;Tile（瓦片图层）</h3><p>💡 最常用，互联网底图基本都用这个，看到的高德地图、OpenStreetMap 底图</p>
+<p>作用：显示切成小方块的地图图片（<strong>瓦片</strong>）</p>
+<p>数据源：OSM、高德、谷WMTS、TileWMS</p>
+<p>特点：</p>
+<ul>
+<li>一张地图切成 256x256 小图片</li>
+<li>缩放级别固定，加载快、不卡顿</li>
+</ul>
+<h3 id="ol-layer-Image（图片图层）"><a href="#ol-layer-Image（图片图层）" class="headerlink" title="ol&#x2F;layer&#x2F;Image（图片图层）"></a>ol&#x2F;layer&#x2F;Image（图片图层）</h3><p>💡 动态生成的气象图、专题图、非瓦片的 WMS 服务</p>
+<p>作用：显示<strong>一整张地图图片</strong>，不是小方块</p>
+<p>数据源：ImageWMS（项服务器请求一整张地图图片）</p>
+<p>特点：</p>
+<ul>
+<li>服务器直接返回一张完整图片</li>
+<li>缩放时会重新请求整张图</li>
+<li>加载比瓦片慢，但是<strong>支持任意比例尺&#x2F;范围</strong></li>
+</ul>
+<blockquote>
+<p>使用ImageWMS的情况：</p>
+<ol>
+<li>后端是 WMS 标准地图服务（政府 &#x2F; 企业 GIS 系统）</li>
+<li>需要动态计算的地图（气象、实时监控、实时统计）</li>
+<li>地图不需要切成瓦片</li>
+</ol>
+</blockquote>
+<p>和瓦片对比，<code>Tile（瓦片）= 拼图（一块一块加载）</code>; <code>ImageWMS = 一张完整的照片（每次都发整张）</code></p>
+<h3 id="ol-layer-Vector（矢量图层）"><a href="#ol-layer-Vector（矢量图层）" class="headerlink" title="ol&#x2F;layer&#x2F;Vector（矢量图层）"></a>ol&#x2F;layer&#x2F;Vector（矢量图层）</h3><p>💡 业务点位、轨迹、区划边界 都用这个</p>
+<p>作用：显示点、线、面、坐标数据</p>
+<p>数据源：GeoJSON、KML、WFS</p>
+<p>特点：</p>
+<ul>
+<li>前端渲染，可交互、可点击、可修改样式</li>
+<li>数据量大了会<strong>卡顿</strong></li>
+</ul>
+<h3 id="ol-layer-VectorTile（矢量瓦片图层）"><a href="#ol-layer-VectorTile（矢量瓦片图层）" class="headerlink" title="ol&#x2F;layer&#x2F;VectorTile（矢量瓦片图层）"></a>ol&#x2F;layer&#x2F;VectorTile（矢量瓦片图层）</h3><p>💡 更高级些，现在大厂地图底图都用这个，比如：Mapbox、高德新版矢量底图</p>
+<p>作用：显示切成瓦片的矢量数据</p>
+<p>数据源：VectorTile</p>
+<p>特点：</p>
+<ul>
+<li>结合了瓦片的速度 + 矢量的灵活</li>
+<li>海量数据不卡顿</li>
+<li>样式前端自定义</li>
+</ul>
+<h2 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 引入需要的模块</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Map</span> <span class="keyword">from</span> <span class="string">&#x27;ol/Map&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">View</span> <span class="keyword">from</span> <span class="string">&#x27;ol/View&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TileLayer</span> <span class="keyword">from</span> <span class="string">&#x27;ol/layer/Tile&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">OSM</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/OSM&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 整合所有部分：创建地图</span></span><br><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>(&#123;</span><br><span class="line">  <span class="comment">// 挂载到页面的 div 容器</span></span><br><span class="line">  <span class="attr">target</span>: <span class="string">&#x27;map&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 图层：瓦片图层 + OSM 数据源</span></span><br><span class="line">  <span class="attr">layers</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123;</span><br><span class="line">      <span class="attr">source</span>: <span class="keyword">new</span> <span class="title function_">OSM</span>() <span class="comment">// 远程数据源：OpenStreetMap</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 视图：投影、中心点、缩放级别</span></span><br><span class="line">  <span class="attr">view</span>: <span class="keyword">new</span> <span class="title class_">View</span>(&#123;</span><br><span class="line">    <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],    <span class="comment">// 地图中心点坐标</span></span><br><span class="line">    <span class="attr">zoom</span>: <span class="number">2</span>            <span class="comment">// 缩放级别（简易比例尺）</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install ol</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Map</span> <span class="keyword">from</span> <span class="string">&#x27;ol/Map&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">View</span> <span class="keyword">from</span> <span class="string">&#x27;ol/View&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TileLayer</span> <span class="keyword">from</span> <span class="string">&#x27;ol/layer/Tile&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">XYZ</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/XYZ&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Map</span>(&#123;</span><br><span class="line">  <span class="attr">target</span>: <span class="string">&#x27;map&#x27;</span>, <span class="comment">// id 选择器，不需要加 # 号（仅支持id选择器）</span></span><br><span class="line">  <span class="attr">layers</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123;</span><br><span class="line">      <span class="attr">source</span>: <span class="keyword">new</span> <span class="title function_">XYZ</span>(&#123;</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;https://tile.openstreetmap.org/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png&#x27;</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">view</span>: <span class="keyword">new</span> <span class="title class_">View</span>(&#123;</span><br><span class="line">    <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">    <span class="attr">zoom</span>: <span class="number">2</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>target 目标容器：<code>string | HTMLElement | HTMLCanvasElement | OffscreenCanvas | undefined</code></li>
+</ul>
+<h2 id="用作组件"><a href="#用作组件" class="headerlink" title="用作组件"></a>用作组件</h2><p><code>types.d.ts</code> 类型文件</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">Example</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">phase</span>: <span class="built_in">number</span></span><br><span class="line">  <span class="attr">phaseTitle</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">module</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">title</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">titleEn</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">description</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">descriptionEn</span>: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">tags</span>: <span class="built_in">string</span>[]</span><br><span class="line">  <span class="attr">mapType</span>: <span class="string">&#x27;leaflet&#x27;</span> | <span class="string">&#x27;openlayers&#x27;</span> | <span class="string">&#x27;maplibre&#x27;</span> | <span class="string">&#x27;none&#x27;</span> | <span class="string">&#x27;turf&#x27;</span> | <span class="string">&#x27;postgis&#x27;</span> | <span class="string">&#x27;nestjs&#x27;</span> | <span class="string">&#x27;pgrouting&#x27;</span> | <span class="string">&#x27;docker&#x27;</span></span><br><span class="line">  <span class="attr">files</span>: <span class="title class_">ExampleFile</span>[]</span><br><span class="line">  <span class="attr">mapCenter</span>?: [<span class="built_in">number</span>, <span class="built_in">number</span>]</span><br><span class="line">  <span class="attr">mapZoom</span>?: <span class="built_in">number</span></span><br><span class="line">  <span class="attr">backendEndpoint</span>?: <span class="built_in">string</span></span><br><span class="line">  <span class="attr">height</span>?: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">import &#123; ref, onMounted, onUnmounted, watch &#125; from &#x27;vue&#x27;</span><br><span class="line">import Map from &#x27;ol/Map&#x27;</span><br><span class="line">import View from &#x27;ol/View&#x27;</span><br><span class="line">import TileLayer from &#x27;ol/layer/Tile&#x27;</span><br><span class="line">import OSM from &#x27;ol/source/OSM&#x27;</span><br><span class="line">import &#123; fromLonLat &#125; from &#x27;ol/proj&#x27;</span><br><span class="line">import &#x27;ol/ol.css&#x27;</span><br><span class="line"></span><br><span class="line">import type &#123; Example &#125; from &#x27;./types&#x27;</span><br><span class="line"></span><br><span class="line">const props = defineProps&lt;&#123; example: Example &#125;&gt;()</span><br><span class="line"></span><br><span class="line">const mapContainer = ref&lt;HTMLDivElement&gt;()</span><br><span class="line">let mapInstance: Map | null = null</span><br><span class="line"></span><br><span class="line">function initMap() &#123;</span><br><span class="line">  if (!mapContainer.value || mapInstance) return</span><br><span class="line"></span><br><span class="line">  const center = props.example.mapCenter || [116.4074, 39.9042] // 北京 (lon/lat for OL)</span><br><span class="line">  const zoom = props.example.mapZoom || 10</span><br><span class="line"></span><br><span class="line">  mapInstance = new Map(&#123;</span><br><span class="line">    target: mapContainer.value,</span><br><span class="line">    layers: [</span><br><span class="line">      new TileLayer(&#123;</span><br><span class="line">        source: new OSM(),</span><br><span class="line">      &#125;),</span><br><span class="line">    ],</span><br><span class="line">    view: new View(&#123;</span><br><span class="line">      center: fromLonLat(center),</span><br><span class="line">      zoom,</span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  const ro = new ResizeObserver(() =&gt; &#123;</span><br><span class="line">    mapInstance?.updateSize()</span><br><span class="line">  &#125;)</span><br><span class="line">  ro.observe(mapContainer.value)</span><br><span class="line"></span><br><span class="line">  onUnmounted(() =&gt; &#123;</span><br><span class="line">    ro.disconnect()</span><br><span class="line">    mapInstance?.setTarget(undefined)</span><br><span class="line">    mapInstance = null</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">onMounted(() =&gt; &#123;</span><br><span class="line">  initMap()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">watch(() =&gt; props.example.id, () =&gt; &#123;</span><br><span class="line">  if (mapInstance) &#123;</span><br><span class="line">    mapInstance.setTarget(undefined)</span><br><span class="line">    mapInstance = null</span><br><span class="line">  &#125;</span><br><span class="line">  initMap()</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div ref=&quot;mapContainer&quot; class=&quot;w-full h-full&quot; /&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useEffect, useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Map</span> <span class="keyword">from</span> <span class="string">&#x27;ol/Map&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">View</span> <span class="keyword">from</span> <span class="string">&#x27;ol/View&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">TileLayer</span> <span class="keyword">from</span> <span class="string">&#x27;ol/layer/Tile&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">OSM</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/OSM&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; fromLonLat &#125; <span class="keyword">from</span> <span class="string">&#x27;ol/proj&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;ol/ol.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; <span class="title class_">Example</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./types&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Props</span> &#123;</span><br><span class="line">  <span class="attr">example</span>: <span class="title class_">Example</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">OpenLayersMap</span>(<span class="params">&#123; example &#125;: <span class="title class_">Props</span></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> mapRef = useRef&lt;<span class="title class_">HTMLDivElement</span>&gt;(<span class="literal">null</span>)</span><br><span class="line">  <span class="keyword">const</span> mapInstance = useRef&lt;<span class="title class_">Map</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!mapRef.<span class="property">current</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    mapInstance.<span class="property">current</span> = <span class="keyword">new</span> <span class="title class_">Map</span>(&#123;</span><br><span class="line">      <span class="attr">target</span>: mapRef.<span class="property">current</span>,</span><br><span class="line">      <span class="attr">layers</span>: [</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123;</span><br><span class="line">          <span class="attr">source</span>: <span class="keyword">new</span> <span class="title function_">OSM</span>(),</span><br><span class="line">        &#125;),</span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">view</span>: <span class="keyword">new</span> <span class="title class_">View</span>(&#123;</span><br><span class="line">        <span class="attr">center</span>: <span class="title function_">fromLonLat</span>(example.<span class="property">mapCenter</span> || [<span class="number">116.4074</span>, <span class="number">39.9042</span>]),</span><br><span class="line">        <span class="attr">zoom</span>: example.<span class="property">mapZoom</span> || <span class="number">10</span>,</span><br><span class="line">      &#125;),</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      mapInstance.<span class="property">current</span>?.<span class="title function_">setTarget</span>(<span class="literal">undefined</span>)</span><br><span class="line">      mapInstance.<span class="property">current</span> = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, [example.<span class="property">id</span>])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;mapRef&#125;</span> <span class="attr">className</span>=<span class="string">&quot;w-full h-full&quot;</span> /&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">OpenLayersMap</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="交互功能"><a href="#交互功能" class="headerlink" title="交互功能"></a>交互功能</h2><p>💡 地图需要和用户互动，点击、悬停、绘制是常见需求</p>
+<p>OpenLayers 提供 <code>ol/interaction</code> 来处理各类交互：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Click</span>, <span class="title class_">Hover</span>, <span class="title class_">Draw</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;ol/interaction&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="点击选取"><a href="#点击选取" class="headerlink" title="点击选取"></a>点击选取</h3><p>💡 业务中最常用，点击获取要素信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">map.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> feature = map.<span class="title function_">forEachFeatureAtPixel</span>(e.<span class="property">pixel</span>, <span class="function"><span class="params">f</span> =&gt;</span> f)</span><br><span class="line">  <span class="keyword">if</span> (feature) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(feature.<span class="title function_">get</span>(<span class="string">&#x27;name&#x27;</span>)) <span class="comment">// 获取要素属性</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hover-高亮"><a href="#Hover-高亮" class="headerlink" title="Hover 高亮"></a>Hover 高亮</h3><p>💡 鼠标悬停时给要素加高亮效果</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> highlightStyle = <span class="keyword">new</span> <span class="title class_">Style</span>(&#123;</span><br><span class="line">  <span class="attr">stroke</span>: <span class="keyword">new</span> <span class="title class_">Stroke</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;#ffcc33&#x27;</span>, <span class="attr">width</span>: <span class="number">3</span> &#125;),</span><br><span class="line">  <span class="attr">fill</span>: <span class="keyword">new</span> <span class="title class_">Fill</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 204, 51, 0.3)&#x27;</span> &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">map.<span class="title function_">on</span>(<span class="string">&#x27;pointermove&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  map.<span class="title function_">getTargetElement</span>().<span class="property">style</span>.<span class="property">cursor</span> =</span><br><span class="line">    map.<span class="title function_">forEachFeatureAtPixel</span>(e.<span class="property">pixel</span>, <span class="function">() =&gt;</span> <span class="string">&#x27;pointer&#x27;</span>) ? <span class="string">&#x27;pointer&#x27;</span> : <span class="string">&#x27;&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="绘制要素"><a href="#绘制要素" class="headerlink" title="绘制要素"></a>绘制要素</h3><p>💡 用户在地图上画点、线、面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Draw</span> <span class="keyword">from</span> <span class="string">&#x27;ol/interaction/Draw&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> draw = <span class="keyword">new</span> <span class="title class_">Draw</span>(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;Polygon&#x27;</span>, <span class="comment">// &#x27;Point&#x27; | &#x27;LineString&#x27; | &#x27;Polygon&#x27;</span></span><br><span class="line">  <span class="attr">source</span>: vectorSource <span class="comment">// 绑定的矢量数据源</span></span><br><span class="line">&#125;)</span><br><span class="line">map.<span class="title function_">addInteraction</span>(draw)</span><br><span class="line"></span><br><span class="line">draw.<span class="title function_">on</span>(<span class="string">&#x27;drawend&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;绘制的要素:&#x27;</span>, e.<span class="property">feature</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="控件"><a href="#控件" class="headerlink" title="控件"></a>控件</h2><p>💡 地图右上角那些放大缩小按钮、比例尺之类的</p>
+<p>OpenLayers 内置多种控件：</p>
+<table>
+<thead>
+<tr>
+<th>控件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ol/control/Zoom</code></td>
+<td>放大缩小按钮</td>
+</tr>
+<tr>
+<td><code>ol/control/ScaleLine</code></td>
+<td>比例尺</td>
+</tr>
+<tr>
+<td><code>ol/control/Rotate</code></td>
+<td>旋转指北针</td>
+</tr>
+<tr>
+<td><code>ol/control/FullScreen</code></td>
+<td>全屏切换</td>
+</tr>
+<tr>
+<td><code>ol/control/MousePosition</code></td>
+<td>显示鼠标坐标</td>
+</tr>
+<tr>
+<td><code>ol/control/Attribution</code></td>
+<td>底图来源版权</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Zoom</span> <span class="keyword">from</span> <span class="string">&#x27;ol/control/Zoom&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ScaleLine</span> <span class="keyword">from</span> <span class="string">&#x27;ol/control/ScaleLine&#x27;</span></span><br><span class="line"></span><br><span class="line">map.<span class="title function_">addControls</span>([</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Zoom</span>(),</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">ScaleLine</span>()</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>自定义控件位置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">Zoom</span>(&#123; <span class="attr">target</span>: <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;controls&#x27;</span>) &#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><p>💡 地图本身和图层都能绑定事件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 地图级别事件</span></span><br><span class="line">map.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, handleClick)</span><br><span class="line">map.<span class="title function_">on</span>(<span class="string">&#x27;pointermove&#x27;</span>, handleMove)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 图层事件（监听数据加载）</span></span><br><span class="line">vectorLayer.<span class="title function_">on</span>(<span class="string">&#x27;change&#x27;</span>, <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;数据更新&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>常用事件列表：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>触发时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>click</code></td>
+<td>左键点击</td>
+</tr>
+<tr>
+<td><code>dblclick</code></td>
+<td>双击</td>
+</tr>
+<tr>
+<td><code>pointermove</code></td>
+<td>鼠标移动</td>
+</tr>
+<tr>
+<td><code>moveend</code></td>
+<td>地图移动结束</td>
+</tr>
+<tr>
+<td><code>zoomend</code></td>
+<td>缩放结束</td>
+</tr>
+<tr>
+<td><code>postrender</code></td>
+<td>每帧渲染完成后</td>
+</tr>
+</tbody></table>
+<h2 id="矢量数据加载"><a href="#矢量数据加载" class="headerlink" title="矢量数据加载"></a>矢量数据加载</h2><p>💡 GeoJSON 最常用，KML&#x2F;GPX 也常见</p>
+<h3 id="GeoJSON"><a href="#GeoJSON" class="headerlink" title="GeoJSON"></a>GeoJSON</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">VectorLayer</span> <span class="keyword">from</span> <span class="string">&#x27;ol/layer/Vector&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VectorSource</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/Vector&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">GeoJSON</span> <span class="keyword">from</span> <span class="string">&#x27;ol/format/GeoJSON&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> vectorLayer = <span class="keyword">new</span> <span class="title class_">VectorLayer</span>(&#123;</span><br><span class="line">  <span class="attr">source</span>: <span class="keyword">new</span> <span class="title class_">VectorSource</span>(&#123;</span><br><span class="line">    <span class="attr">format</span>: <span class="keyword">new</span> <span class="title class_">GeoJSON</span>(),</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/data/points.geojson&#x27;</span> <span class="comment">// 远程数据</span></span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="attr">style</span>: <span class="keyword">new</span> <span class="title class_">Style</span>(&#123;</span><br><span class="line">    <span class="attr">image</span>: <span class="keyword">new</span> <span class="title class_">CircleStyle</span>(&#123;</span><br><span class="line">      <span class="attr">radius</span>: <span class="number">8</span>,</span><br><span class="line">      <span class="attr">fill</span>: <span class="keyword">new</span> <span class="title class_">Fill</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;#e74c3c&#x27;</span> &#125;),</span><br><span class="line">      <span class="attr">stroke</span>: <span class="keyword">new</span> <span class="title class_">Stroke</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;#fff&#x27;</span>, <span class="attr">width</span>: <span class="number">2</span> &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="样式配置"><a href="#样式配置" class="headerlink" title="样式配置"></a>样式配置</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> style = <span class="keyword">new</span> <span class="title class_">Style</span>(&#123;</span><br><span class="line">  <span class="attr">fill</span>: <span class="keyword">new</span> <span class="title class_">Fill</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 0, 0, 0.3)&#x27;</span> &#125;),</span><br><span class="line">  <span class="attr">stroke</span>: <span class="keyword">new</span> <span class="title class_">Stroke</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;#ff0000&#x27;</span>, <span class="attr">width</span>: <span class="number">2</span> &#125;),</span><br><span class="line">  <span class="attr">image</span>: <span class="keyword">new</span> <span class="title class_">CircleStyle</span>(&#123; <span class="attr">radius</span>: <span class="number">6</span>, <span class="attr">fill</span>: <span class="keyword">new</span> <span class="title class_">Fill</span>(&#123; <span class="attr">color</span>: <span class="string">&#x27;blue&#x27;</span> &#125;) &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 动态样式（根据属性）</span></span><br><span class="line">vectorLayer.<span class="title function_">setStyle</span>(<span class="function">(<span class="params">feature</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> feature.<span class="title function_">get</span>(<span class="string">&#x27;type&#x27;</span>) === <span class="string">&#x27;hospital&#x27;</span></span><br><span class="line">    ? hospitalStyle</span><br><span class="line">    : defaultStyle</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="KML-GPX"><a href="#KML-GPX" class="headerlink" title="KML &#x2F; GPX"></a>KML &#x2F; GPX</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="variable constant_">KML</span> <span class="keyword">from</span> <span class="string">&#x27;ol/format/KML&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">GPX</span> <span class="keyword">from</span> <span class="string">&#x27;ol/format/GPX&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">VectorSource</span>(&#123;</span><br><span class="line">  <span class="attr">format</span>: <span class="keyword">new</span> <span class="title function_">KML</span>(),</span><br><span class="line">  <span class="attr">url</span>: <span class="string">&#x27;/data/route.kml&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="国内常用底图"><a href="#国内常用底图" class="headerlink" title="国内常用底图"></a>国内常用底图</h2><p>💡 高德、天地图是最常见的国内图源</p>
+<h3 id="高德瓦片"><a href="#高德瓦片" class="headerlink" title="高德瓦片"></a>高德瓦片</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="variable constant_">XYZ</span> <span class="keyword">from</span> <span class="string">&#x27;ol/source/XYZ&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title function_">XYZ</span>(&#123;</span><br><span class="line">  <span class="attr">url</span>: <span class="string">&#x27;https://webst0&#123;s&#125;.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;scale=1&amp;style=8&amp;x=&#123;x&#125;&amp;y=&#123;y&#125;&amp;z=&#123;z&#125;&#x27;</span>,</span><br><span class="line">  <span class="attr">wrapX</span>: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="天地图"><a href="#天地图" class="headerlink" title="天地图"></a>天地图</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 影像底图</span></span><br><span class="line"><span class="keyword">new</span> <span class="title function_">XYZ</span>(&#123;</span><br><span class="line">  <span class="attr">url</span>: <span class="string">&#x27;https://t&#123;s&#125;.tianditu.gov.cn/DataServer?T=img_w&amp;x=&#123;x&#125;&amp;y=&#123;y&#125;&amp;l=&#123;z&#125;&amp;tk=你的token&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标注（中文路名等）</span></span><br><span class="line"><span class="keyword">new</span> <span class="title function_">XYZ</span>(&#123;</span><br><span class="line">  <span class="attr">url</span>: <span class="string">&#x27;https://t&#123;s&#125;.tianditu.gov.cn/DataServer?T=cia_w&amp;x=&#123;x&#125;&amp;y=&#123;y&#125;&amp;l=&#123;z&#125;&amp;tk=你的token&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>天地图需要申请 token：<a target="_blank" rel="noopener" href="https://console.tianditu.gov.cn/">https://console.tianditu.gov.cn</a></p>
+</blockquote>
+<h2 id="坐标系转换"><a href="#坐标系转换" class="headerlink" title="坐标系转换"></a>坐标系转换</h2><p>💡 国内常用 GCJ-02（火星坐标系）和 WGS-84</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromLonLat, toLonLat &#125; <span class="keyword">from</span> <span class="string">&#x27;ol/proj&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; transform &#125; <span class="keyword">from</span> <span class="string">&#x27;ol/proj&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 经纬度坐标转 Web 墨卡托（EPSG:3857）</span></span><br><span class="line"><span class="title function_">fromLonLat</span>([<span class="number">116.4</span>, <span class="number">39.9</span>]) <span class="comment">// [12959375.4, 4845357.8]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 墨卡托转经纬度</span></span><br><span class="line"><span class="title function_">toLonLat</span>([<span class="number">12959375.4</span>, <span class="number">4845357.8</span>]) <span class="comment">// [116.4, 39.9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 任意坐标系转换</span></span><br><span class="line"><span class="title function_">transform</span>([<span class="number">116.4</span>, <span class="number">39.9</span>], <span class="string">&#x27;EPSG:4326&#x27;</span>, <span class="string">&#x27;EPSG:3857&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>EPSG 常用编码：</p>
+<table>
+<thead>
+<tr>
+<th>编码</th>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPSG:4326</td>
+<td>WGS-84</td>
+<td>GPS原始坐标，国际标准</td>
+</tr>
+<tr>
+<td>EPSG:3857</td>
+<td>Web 墨卡托</td>
+<td>Web地图通用</td>
+</tr>
+<tr>
+<td>EPSG:4490</td>
+<td>CGCS-2000</td>
+<td>中国国标坐标</td>
+</tr>
+</tbody></table>
+<h2 id="Popup-弹窗"><a href="#Popup-弹窗" class="headerlink" title="Popup 弹窗"></a>Popup 弹窗</h2><p>💡 点击要素显示信息框</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Overlay</span> <span class="keyword">from</span> <span class="string">&#x27;ol/Overlay&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> popup = <span class="keyword">new</span> <span class="title class_">Overlay</span>(&#123;</span><br><span class="line">  <span class="attr">element</span>: <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;popup&#x27;</span>),</span><br><span class="line">  <span class="attr">positioning</span>: <span class="string">&#x27;bottom-center&#x27;</span>,</span><br><span class="line">  <span class="attr">offset</span>: [<span class="number">0</span>, -<span class="number">10</span>]</span><br><span class="line">&#125;)</span><br><span class="line">map.<span class="title function_">addOverlay</span>(popup)</span><br><span class="line"></span><br><span class="line">map.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> feature = map.<span class="title function_">forEachFeatureAtPixel</span>(e.<span class="property">pixel</span>, <span class="function"><span class="params">f</span> =&gt;</span> f)</span><br><span class="line">  <span class="keyword">if</span> (feature) &#123;</span><br><span class="line">    <span class="keyword">const</span> coordinate = e.<span class="property">coordinate</span></span><br><span class="line">    <span class="keyword">const</span> name = feature.<span class="title function_">get</span>(<span class="string">&#x27;name&#x27;</span>) || <span class="string">&#x27;未知&#x27;</span></span><br><span class="line">    popup.<span class="title function_">setPosition</span>(coordinate)</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;popup-content&#x27;</span>).<span class="property">innerHTML</span> = <span class="string">`&lt;p&gt;<span class="subst">$&#123;name&#125;</span>&lt;/p&gt;`</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    popup.<span class="title function_">setPosition</span>(<span class="literal">undefined</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><p>💡 大数据量时防止卡顿</p>
+<table>
+<thead>
+<tr>
+<th>优化手段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>renderBuffer</code></td>
+<td>图层渲染缓冲范围，默认 100px，适当增大可减少重绘</td>
+</tr>
+<tr>
+<td><code>declutter</code></td>
+<td>矢量要素避让，避免重叠压盖</td>
+</tr>
+<tr>
+<td><code>set preload</code></td>
+<td>预加载低级瓦片，提升平移体验</td>
+</tr>
+<tr>
+<td>懒加载</td>
+<td>数据按区域分片，用户访问时再加载</td>
+</tr>
+<tr>
+<td>Canvas 缓存</td>
+<td><code>renderMode: &#39;image&#39;</code> 让矢量图层渲染为单张图片</td>
+</tr>
+</tbody></table>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Tile 预加载</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">TileLayer</span>(&#123; <span class="attr">preload</span>: <span class="number">2</span> &#125;) <span class="comment">// 预加载低两级瓦片</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Vector 渲染为图片（高频更新时性能更好）</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">VectorLayer</span>(&#123; <span class="attr">renderMode</span>: <span class="string">&#x27;image&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适当增大缓冲</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">VectorLayer</span>(&#123; <span class="attr">renderBuffer</span>: <span class="number">200</span> &#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="OGC"><a href="#OGC" class="headerlink" title="OGC"></a>OGC</h2><p>OGC &#x3D; Open Geospatial Consortium，开放地理空间信息联盟。是全球地理地图行业统一制定通用接口标准的组织，相当于地图界的国标 &#x2F; 国际标准。</p>
+<p>只要遵守 OGC 标准，任何地图软件（OpenLayers、ArcGIS、高德、自研平台）都能互相调数据、互相兼容。</p>
+<blockquote>
+<p>OpenLayers 里 TileWMS、WMTS 这些数据源，就是专门用来接入这类标准服务的</p>
+</blockquote>
+<h3 id="常见的OGC服务"><a href="#常见的OGC服务" class="headerlink" title="常见的OGC服务"></a>常见的OGC服务</h3><ol>
+<li>WMS（Web Map Service）</li>
+</ol>
+<p>网络地图服务</p>
+<ul>
+<li>返回：静态图片瓦片&#x2F;整张地图图片</li>
+<li>用图：看底图、专题图</li>
+<li>特点：发请求，服务器画好一张图片返回给前端</li>
+</ul>
+<ol start="2">
+<li>WMTS（Web Map Tile Service）</li>
+</ol>
+<p>网络底图瓦片服务</p>
+<ul>
+<li>是<code>WMS</code>的升级版，按<strong>固定瓦片、固定图层切好</strong></li>
+<li>速度快、性能更高，现在主流项目优先推荐使用</li>
+</ul>
+<ol start="3">
+<li>WFS（Web Feature Service）</li>
+</ol>
+<p>网络要素服务</p>
+<ul>
+<li>返回：矢量原始数据（点、线、面坐标、属性字段）</li>
+<li>可以前端高亮、查询、编辑、弹窗，不是图片</li>
+</ul>
+<ol start="4">
+<li>WCS（Web Coverage Service）</li>
+</ol>
+<p>网络栅格覆盖服务</p>
+<ul>
+<li>多用于气象、遥感、高程影像这类栅格数据</li>
+</ul>
+<h3 id="与普通瓦片（XYZ）的区别"><a href="#与普通瓦片（XYZ）的区别" class="headerlink" title="与普通瓦片（XYZ）的区别"></a>与普通瓦片（XYZ）的区别</h3><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>XYZ &#x2F; 高德 &#x2F; 谷歌瓦片</td>
+<td>厂商自定义规则，不是标准，换平台可能不能直接用</td>
+<td>商业地图、快速加载</td>
+</tr>
+<tr>
+<td>OGC WMS&#x2F;WMTS&#x2F;WFS</td>
+<td>国际通用标准，所有 GIS 框架通用</td>
+<td>政务、国企、国土项目</td>
+</tr>
+</tbody></table>
+<h2 id="GeoJSON-1"><a href="#GeoJSON-1" class="headerlink" title="GeoJSON"></a>GeoJSON</h2><p>是专门用来存<strong>地理空间数据</strong>的JSON<strong>数据格式</strong>，存<code>点、线、面、行政区、轨迹、点位</code>等地理要素</p>
+<p>后缀一般为：<code>.geojson</code>，所有地图框架都原生支持。能描述的地理图形：</p>
+<ol>
+<li>Point 点，标记、门店、摄像头、兴趣点</li>
+<li>LineString 线，道路、轨迹、航线、河流</li>
+<li>Polygon 面，城市边界、小区范围、行政区域、地块</li>
+</ol>
+<h3 id="结构规则"><a href="#结构规则" class="headerlink" title="结构规则"></a>结构规则</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>类型（FeatureCollection &#x2F; Feature &#x2F; Point &#x2F; LineString &#x2F; Polygon…）</td>
+</tr>
+<tr>
+<td>coordinates</td>
+<td>坐标，格式因 type 而异</td>
+</tr>
+<tr>
+<td>properties</td>
+<td>自定义属性（名称、地址、人口、类型等）</td>
+</tr>
+<tr>
+<td>geometry</td>
+<td>几何体，必填，可为 null</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>经纬度格式强制 [经度，纬度]（lng, lat），用 WGS84 坐标系Turf.js</p>
+</blockquote>
+<hr>
+<p><strong>示例</strong></p>
+<ol>
+<li>一个点位（Point）</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Feature&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;geometry&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Point&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;coordinates&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">113.27</span><span class="punctuation">,</span> <span class="number">23.13</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;广州市&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;level&quot;</span><span class="punctuation">:</span> <span class="string">&quot;省会&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>面（Polygon，一块区域）</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Feature&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;geometry&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Polygon&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;coordinates&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">[</span><span class="number">113.0</span><span class="punctuation">,</span> <span class="number">23.0</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">[</span><span class="number">113.1</span><span class="punctuation">,</span> <span class="number">23.0</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">[</span><span class="number">113.1</span><span class="punctuation">,</span> <span class="number">23.1</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">[</span><span class="number">113.0</span><span class="punctuation">,</span> <span class="number">23.1</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">[</span><span class="number">113.0</span><span class="punctuation">,</span> <span class="number">23.0</span><span class="punctuation">]</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;areaName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;某片区&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>多种内容组成的合集</li>
+</ol>
+<blockquote>
+<p>基本上都是用这个，一次性存很多点&#x2F;线&#x2F;面</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;FeatureCollection&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;features&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="comment">// 这里放多个 Point、LineString、Polygon 对象</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Turf"><a href="#Turf" class="headerlink" title="Turf"></a>Turf</h2><p><strong>Turf 是专门操作 GeoJSON 的空间分析能力</strong>，输入输出全是 GeoJSON（负责算数据）</p>
+<p>在 OpenLayers 扮演角色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[GeoJSON 数据] --&gt; B[Turf.js 前端分析] --&gt; C[OpenLayers 地图渲染]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><a target="_blank" rel="noopener" href="https://turfjs.org/">Turf.js</a>是 Turf 空间分析功能的 JavaScript 库实现，支持浏览器、NodeJS</p>
+<p>NPM安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全量包</span></span><br><span class="line">npm install @turf/turf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者独立包</span></span><br><span class="line">npm install @turf/helpers</span><br><span class="line">npm install @turf/buffer</span><br></pre></td></tr></table></figure>
+
+<p>或者通过 cdn 引用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="与GeoJSON"><a href="#与GeoJSON" class="headerlink" title="与GeoJSON"></a>与GeoJSON</h3><p>Turf 的所有函数（距离、面积、缓冲、相交、合并等）都要求传入标准 GeoJSON 对象。计算结果（如缓冲区、交点、合并面）一律返回 GeoJSON，可直接喂给 OpenLayers&#x2F;Leaflet&#x2F;Mapbox 渲染</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Turf 创建 GeoJSON（等价于手写）</span></span><br><span class="line"><span class="keyword">import</span> &#123; point &#125; <span class="keyword">from</span> <span class="string">&#x27;@turf/helpers&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> p = <span class="title function_">point</span>([<span class="number">113.27</span>, <span class="number">23.13</span>], &#123; <span class="attr">name</span>: <span class="string">&#x27;广州&#x27;</span> &#125;); </span><br><span class="line"><span class="comment">// 返回标准 GeoJSON Feature</span></span><br></pre></td></tr></table></figure>
+
+<p>示例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; point, buffer, distance &#125; <span class="keyword">from</span> <span class="string">&#x27;@turf/turf&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 用 Turf 创建 GeoJSON 点（数据）</span></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="title function_">point</span>([<span class="number">113.27</span>, <span class="number">23.13</span>]);</span><br><span class="line"><span class="keyword">const</span> p2 = <span class="title function_">point</span>([<span class="number">113.28</span>, <span class="number">23.14</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Turf 分析：计算距离（处理数据）</span></span><br><span class="line"><span class="keyword">const</span> dist = <span class="title function_">distance</span>(p1, p2); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. Turf 分析：生成 1km 缓冲区（输出新 GeoJSON）</span></span><br><span class="line"><span class="keyword">const</span> buf = <span class="title function_">buffer</span>(p1, <span class="number">1</span>, &#123; <span class="attr">units</span>: <span class="string">&#x27;kilometers&#x27;</span> &#125;); </span><br><span class="line"></span><br><span class="line"><span class="comment">// buf 是 GeoJSON Polygon，可直接在 OpenLayers 渲染</span></span><br></pre></td></tr></table></figure>
+
+</div><div class="article-licensing box"><div class="licensing-title"><p>OpenLayers</p><p><a href="https://smalljerry.cn/2026/05/07/OpenLayers/">https://smalljerry.cn/2026/05/07/OpenLayers/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>dsjerry</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-05-07</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-05-09</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/webgis/">webgis</a><a class="link-muted mr-2" rel="tag" href="/tags/openlayers/">openlayers</a></div><div class="sharethis-inline-share-buttons"></div><script src="https://platform-api.sharethis.com/js/sharethis.js#property=600a73038bb33e00116e6fcd&amp;product=inline-share-buttons" defer></script></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"><span class="level-item">ReactNative初始化</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">评论</h3><script src="https://giscus.app/client.js" repo="dsjerry/dsjerry.github.io" data-repo="dsjerry/dsjerry.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkyNDUzMzc4MDU=" data-category-id="DIC_kwDODp-Ozc4C7R_B" data-category="Announcements" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"><span class="level-start"><span class="level-item">人工智能</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">33</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">后端学习</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/"><span class="level-start"><span class="level-item">软件配置</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%83%A8%E7%BD%B2%E8%BF%90%E7%BB%B4/"><span class="level-start"><span class="level-item">部署运维</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label"><i class="fas fa-music"></i> 听听音乐</h3><div class="aplayer-widget" id="aplayer-widget"></div></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://dsjerry.lofter.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">lofter</span></span><span class="level-right"><span class="level-item tag">dsjerry.lofter.com</span></span></a></li><li><a class="level is-mobile" href="https://gowherer.smalljerry.cn/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">gowherer</span></span><span class="level-right"><span class="level-item tag">gowherer.smalljerry.cn</span></span></a></li><li><a class="level is-mobile" href="https://space.bilibili.com/85892062" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">bilibili</span></span><span class="level-right"><span class="level-item tag">space.bilibili.com</span></span></a></li><li><a class="level is-mobile" href="https://www.douyin.com/user/MS4wLjABAAAAk81CD3MQxJmSkUKmeATakVo8e-bc3NYFBcHLT3dGv24" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">douyin</span></span><span class="level-right"><span class="level-item tag">www.douyin.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=smalljerry/fBtC&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="smalljerry/fBtC" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div><p class="help">By feedburner</p></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2026/05/07/OpenLayers/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2015_22_52.png" alt="OpenLayers"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-05-07T09:29:26.000Z">2026-05-07</time></p><p class="title"><a href="/2026/05/07/OpenLayers/">OpenLayers</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/"><img src="https://s41.ax1x.com/2026/05/03/pe7yYo8.png" alt="ReactNative初始化"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-05-03T02:54:24.000Z">2026-05-03</time></p><p class="title"><a href="/2026/05/03/ReactNative%E5%88%9D%E5%A7%8B%E5%8C%96/">ReactNative初始化</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/04/25/MQTT%E7%89%A9%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1/"><img src="https://s41.ax1x.com/2026/04/25/pefYDfJ.png" alt="MQTT物联网通信"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-04-25T01:51:15.000Z">2026-04-25</time></p><p class="title"><a href="/2026/04/25/MQTT%E7%89%A9%E8%81%94%E7%BD%91%E9%80%9A%E4%BF%A1/">MQTT物联网通信</a></p><p class="categories"><a href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/04/18/LLM-%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/Snipaste_2026-04-21_00-13-34.png" alt="LLM 模型接入"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-04-18T06:43:02.000Z">2026-04-18</time></p><p class="title"><a href="/2026/04/18/LLM-%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5/">LLM 模型接入</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2026/03/21/LLM%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/"><img src="https://6nbrs4hklgyntol2.public.blob.vercel-storage.com/llm.png" alt="LLM文本模型微调"></a></figure><div class="media-content"><p class="date"><time dateTime="2026-03-21T13:49:30.000Z">2026-03-21</time></p><p class="title"><a href="/2026/03/21/LLM%E6%A8%A1%E5%9E%8B%E5%BE%AE%E8%B0%83/">LLM文本模型微调</a></p><p class="categories"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></p></div></article></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/API/"><span class="tag">API</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/IoT/"><span class="tag">IoT</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ai/"><span class="tag">ai</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/apache/"><span class="tag">apache</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/css/"><span class="tag">css</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/expo/"><span class="tag">expo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ftp/"><span class="tag">ftp</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/github/"><span class="tag">github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/js/"><span class="tag">js</span><span class="tag">11</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/llm/"><span class="tag">llm</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/node/"><span class="tag">node</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openclaw/"><span class="tag">openclaw</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openlayers/"><span class="tag">openlayers</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react/"><span class="tag">react</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/react-native/"><span class="tag">react-native</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ts/"><span class="tag">ts</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vscode/"><span class="tag">vscode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/vue/"><span class="tag">vue</span><span class="tag">10</span></a></div><div class="control"><a class="tags has-addons" href="/tags/webgis/"><span class="tag">webgis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"><span class="tag">开发规范</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%89%93%E5%8C%85/"><span class="tag">打包</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8E%A5%E5%8F%A3/"><span class="tag">接口</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B5%8B%E8%AF%95/"><span class="tag">测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/"><span class="tag">状态管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"><span class="tag">移动端</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BB%84%E4%BB%B6/"><span class="tag">组件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">广告</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5233359657851046" data-ad-slot="1034023065" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="https://avatars.githubusercontent.com/u/53891546?v=4" alt="life is fantastic!🎆"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">life is fantastic!🎆</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">63</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">36</p></a></div></div></nav></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#基础概念"><span class="level-left"><span class="level-item">1</span><span class="level-item">基础概念</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#地图-Map"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">地图 Map</span></span></a></li><li><a class="level is-mobile" href="#视图-View"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">视图 View</span></span></a></li><li><a class="level is-mobile" href="#数据源-Source"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">数据源 Source</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#数据源类型"><span class="level-left"><span class="level-item">1.3.1</span><span class="level-item">数据源类型</span></span></a></li></ul></li><li><a class="level is-mobile" href="#图层-Layer"><span class="level-left"><span class="level-item">1.4</span><span class="level-item">图层 Layer</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#ol-layer-Tile（瓦片图层）"><span class="level-left"><span class="level-item">1.4.1</span><span class="level-item">ol/layer/Tile（瓦片图层）</span></span></a></li><li><a class="level is-mobile" href="#ol-layer-Image（图片图层）"><span class="level-left"><span class="level-item">1.4.2</span><span class="level-item">ol/layer/Image（图片图层）</span></span></a></li><li><a class="level is-mobile" href="#ol-layer-Vector（矢量图层）"><span class="level-left"><span class="level-item">1.4.3</span><span class="level-item">ol/layer/Vector（矢量图层）</span></span></a></li><li><a class="level is-mobile" href="#ol-layer-VectorTile（矢量瓦片图层）"><span class="level-left"><span class="level-item">1.4.4</span><span class="level-item">ol/layer/VectorTile（矢量瓦片图层）</span></span></a></li></ul></li><li><a class="level is-mobile" href="#汇总"><span class="level-left"><span class="level-item">1.5</span><span class="level-item">汇总</span></span></a></li></ul></li><li><a class="level is-mobile" href="#快速开始"><span class="level-left"><span class="level-item">2</span><span class="level-item">快速开始</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#安装"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">安装</span></span></a></li><li><a class="level is-mobile" href="#用作组件"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">用作组件</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#Vue"><span class="level-left"><span class="level-item">2.2.1</span><span class="level-item">Vue</span></span></a></li><li><a class="level is-mobile" href="#React"><span class="level-left"><span class="level-item">2.2.2</span><span class="level-item">React</span></span></a></li></ul></li><li><a class="level is-mobile" href="#交互功能"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">交互功能</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#点击选取"><span class="level-left"><span class="level-item">2.3.1</span><span class="level-item">点击选取</span></span></a></li><li><a class="level is-mobile" href="#Hover-高亮"><span class="level-left"><span class="level-item">2.3.2</span><span class="level-item">Hover 高亮</span></span></a></li><li><a class="level is-mobile" href="#绘制要素"><span class="level-left"><span class="level-item">2.3.3</span><span class="level-item">绘制要素</span></span></a></li></ul></li><li><a class="level is-mobile" href="#控件"><span class="level-left"><span class="level-item">2.4</span><span class="level-item">控件</span></span></a></li><li><a class="level is-mobile" href="#事件处理"><span class="level-left"><span class="level-item">2.5</span><span class="level-item">事件处理</span></span></a></li><li><a class="level is-mobile" href="#矢量数据加载"><span class="level-left"><span class="level-item">2.6</span><span class="level-item">矢量数据加载</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#GeoJSON"><span class="level-left"><span class="level-item">2.6.1</span><span class="level-item">GeoJSON</span></span></a></li><li><a class="level is-mobile" href="#样式配置"><span class="level-left"><span class="level-item">2.6.2</span><span class="level-item">样式配置</span></span></a></li><li><a class="level is-mobile" href="#KML-GPX"><span class="level-left"><span class="level-item">2.6.3</span><span class="level-item">KML / GPX</span></span></a></li></ul></li><li><a class="level is-mobile" href="#国内常用底图"><span class="level-left"><span class="level-item">2.7</span><span class="level-item">国内常用底图</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#高德瓦片"><span class="level-left"><span class="level-item">2.7.1</span><span class="level-item">高德瓦片</span></span></a></li><li><a class="level is-mobile" href="#天地图"><span class="level-left"><span class="level-item">2.7.2</span><span class="level-item">天地图</span></span></a></li></ul></li><li><a class="level is-mobile" href="#坐标系转换"><span class="level-left"><span class="level-item">2.8</span><span class="level-item">坐标系转换</span></span></a></li><li><a class="level is-mobile" href="#Popup-弹窗"><span class="level-left"><span class="level-item">2.9</span><span class="level-item">Popup 弹窗</span></span></a></li><li><a class="level is-mobile" href="#性能优化"><span class="level-left"><span class="level-item">2.10</span><span class="level-item">性能优化</span></span></a></li></ul></li><li><a class="level is-mobile" href="#参考"><span class="level-left"><span class="level-item">3</span><span class="level-item">参考</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#OGC"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">OGC</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#常见的OGC服务"><span class="level-left"><span class="level-item">3.1.1</span><span class="level-item">常见的OGC服务</span></span></a></li><li><a class="level is-mobile" href="#与普通瓦片（XYZ）的区别"><span class="level-left"><span class="level-item">3.1.2</span><span class="level-item">与普通瓦片（XYZ）的区别</span></span></a></li></ul></li><li><a class="level is-mobile" href="#GeoJSON-1"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">GeoJSON</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#结构规则"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">结构规则</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Turf"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">Turf</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#与GeoJSON"><span class="level-left"><span class="level-item">3.3.1</span><span class="level-item">与GeoJSON</span></span></a></li></ul></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/images/smalljerry-logo.svg" alt="smalljerry aka dsjerry" height="28"></a><p class="is-size-7"><span>&copy; 2026 dsjerry</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span><br><br><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn">粤ICP备20067843号</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start -->
+<script src="/js/logo.js"></script>
+<!-- hexo injector body_end end --></body></html>
