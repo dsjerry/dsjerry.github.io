@@ -136,4 +136,26 @@
         $mask.on('click', toggleToc);
         $('.navbar-main .catalogue').on('click', toggleToc);
     }
+    // Tabs tag plugin - click to switch
+    $('.tabs ul li a').on('click', function(e) {
+        e.preventDefault();
+        var $li = $(this).closest('li');
+        var $ul = $li.parent();
+        var href = $(this).attr('href');
+        var targetId = href.substring(1);
+
+        $ul.children().removeClass('is-active');
+        $li.addClass('is-active');
+
+        $ul.find('a').each(function() {
+            var id = $(this).attr('href').substring(1);
+            $('#' + id).addClass('is-hidden');
+        });
+        $('#' + targetId).removeClass('is-hidden');
+
+        if (history.replaceState) {
+            history.replaceState(null, null, href);
+        }
+    });
+
 }(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings));
